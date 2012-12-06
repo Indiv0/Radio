@@ -19,6 +19,7 @@ import org.github.indiv0.radio.commands.CommandRadio;
 import org.github.indiv0.radio.commands.radio.CommandTune;
 import org.github.indiv0.radio.events.RadioBlockListener;
 import org.github.indiv0.radio.events.RadioPlayerListener;
+import org.github.indiv0.radio.storage.InfoManager;
 
 import ashulman.mbapi.plugin.MbapiPlugin;
 import ashulman.mbapi.util.ConfigurationContext;
@@ -33,6 +34,7 @@ public class RadioPlugin extends MbapiPlugin {
     private HashMap<Location, String> radios;
 
     private ConfigurationContext configurationContext;
+    private InfoManager infoManager;
 
     public static final double OFF = 0.0;
     public static final double SCANNING = -1.0;
@@ -41,6 +43,8 @@ public class RadioPlugin extends MbapiPlugin {
     public void onEnable() {
         // Initializes the configurationContext.
         configurationContext = new ConfigurationContext(this);
+        // Initializes the infoManager.
+        infoManager = new InfoManager(configurationContext);
 
         // Loads the configuration file.
         if (!loadConfig()) {
@@ -216,11 +220,7 @@ public class RadioPlugin extends MbapiPlugin {
     }
 
     public void addFrequency(Player player, String frequency) {
-        // Gets the YamlConfiguration containing the frequencies.
-        YamlConfiguration frequencyYaml = getFrequencyYaml();
-
-        // Adds the frequency to the configuration.
-        frequencyYaml.set(player.getName(), frequency);
+        infoManager.
 
         // Attempts to save the configuration to "frequency.yml"
         try {

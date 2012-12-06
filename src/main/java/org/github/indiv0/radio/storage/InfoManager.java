@@ -27,7 +27,7 @@ public class InfoManager {
         }.getType());
 
         // Registers an event handler for "frequencies".
-        configurationContext.plugin.registerEventHandler(new OnlinePlayerTracker((TypeSafeStorageMap<Double>) frequencies));
+        configurationContext.plugin.registerEventHandler(new FrequencyLoader((TypeSafeStorageMap<Double>) frequencies));
     }
 
     public Double getPlayerFrequency(String playerName) {
@@ -38,16 +38,33 @@ public class InfoManager {
         return frequencies.keySet();
     }
 
-    private static class OnlinePlayerTracker implements Listener {
-        private final TypeSafeStorageMap<Double> map;
+    public void setFrequency(String playerName, Double frequency) {
+        ((TypeSafeStorageMap<Double>) frequencies).put(playerName, frequency);
+    }
 
-        public OnlinePlayerTracker(TypeSafeStorageMap<Double> map) {
+    public void saveAll() {
+        for (String playerName : frequencies.keySet()) {
+            ((TypeSafeStorageMap<Double>) frequencies).save(playerName);
+        }
+    }
+
+    public void unloadAll() {
+        for (String playerName : frequencies.keySet()) {
+            ((TypeSafeStorageMap<Double>) frequencies).unload(playerName);
+        }
+    }
+
+    private static class FrequencyLoader implements Listener {
+        private final TypeSafeStorageMap<Double> map;
+        public static final DoubleConstructorFactory FACTORY = new DoubleConstructorFactory();
+
+        public FrequencyLoader(TypeSafeStorageMap<Double> map) {
             this.map = map;
         }
 
         @EventHandler (priority = EventPriority.LOWEST, ignoreCancelled = true)
         public void onPlayerLogin(PlayerLoginEvent event) {
-            map.load(event.getPlayer().getName(), new DoubleConstructorFactory());
+            map.load(event.getPlayer().getName(), FACTORY);
         }
 
         @EventHandler (priority = EventPriority.LOWEST, ignoreCancelled = true)
