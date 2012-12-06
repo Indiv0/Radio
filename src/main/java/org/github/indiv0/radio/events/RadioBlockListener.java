@@ -8,7 +8,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-import org.github.indiv0.radio.main.Radio;
 import org.github.indiv0.radio.main.RadioBroadcast;
 import org.github.indiv0.radio.main.RadioPlugin;
 
@@ -50,7 +49,7 @@ public class RadioBlockListener implements Listener {
         Location location = radioBlock.getLocation();
 
         // Adds the radio to the radios list.
-        plugin.addRadio(location, Radio.getFrequencyFromLocation(location));
+        plugin.addRadio(location);
 
         RadioBroadcast.attemptBroadcast(location);
     }

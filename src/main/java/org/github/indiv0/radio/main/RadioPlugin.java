@@ -93,6 +93,7 @@ public class RadioPlugin extends MbapiPlugin {
     }
 
     public YamlConfiguration loadConfigurationFromFile(String fileName) {
+        getConfig();
         // Creates the data directory if it does not exist.
         getDataFolder().mkdirs();
 
@@ -157,6 +158,10 @@ public class RadioPlugin extends MbapiPlugin {
         } catch (IOException e) {
             getLogger().log(Level.SEVERE, "Failed to save radios to radios.yml");
         }
+    }
+
+    public void addRadio(Location location) {
+        addRadio(location, Radio.getFrequencyFromLocation(location));
     }
 
     public void addRadio(Location location, String frequency) {
