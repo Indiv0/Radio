@@ -6,7 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.github.indiv0.radio.main.DoubleConstructorFactory;
-import org.github.indiv0.radio.serialization.Double;
 
 import ashulman.mbapi.storage.StorageManager;
 import ashulman.mbapi.storage.TypeSafeStorageMap;
