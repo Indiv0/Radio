@@ -16,6 +16,7 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.github.indiv0.radio.commands.CommandRadio;
+import org.github.indiv0.radio.commands.CommandRadioTune;
 import org.github.indiv0.radio.events.RadioBlockListener;
 import org.github.indiv0.radio.events.RadioPlayerListener;
 
@@ -47,6 +48,7 @@ public class RadioPlugin extends MbapiPlugin {
         registerEventHandler(new RadioPlayerListener(this));
         registerEventHandler(new RadioBlockListener(this));
         registerCommandExecutor("radio", new CommandRadio(configurationContext));
+        registerCommandExecutor("tune", new CommandRadioTune(configurationContext));
 
         // Attempts to load the radios from the radio file.
         radios = retrieveRadios();
