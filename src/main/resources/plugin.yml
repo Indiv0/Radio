@@ -1,0 +1,28 @@
+name: Radio
+main: org.github.indiv0.radio.blah.RadioPlugin
+version: 1.0.0
+load: POSTWORLD
+author: Indiv0
+description: A plugin for simulating radio functionality as initially implemented in CMA.
+dev-url: http://github.com/Indiv0/Radio/
+
+depend: [PermissionsEx]
+
+commands:
+  radio:
+    description: Controls all functions of the Radio plugin.
+    usage: |
+      /<command> [scan|frequency]
+      Example: /<command> scan - Scans all broadcasts.
+      Example: /<command> [frequency] - Sets scan frequency.
+    permission: radio.use
+    permission-message: Sorry, you don't have permission to use Radio
+
+permissions:
+  radio.*:
+    description: Controls all Radio permissions
+    children:
+      radio.use: true
+  radio.use:
+    description: Controls whether or not the user can use the Radio frequency functionality
+    default: true

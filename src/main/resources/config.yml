@@ -1,0 +1,39 @@
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+#  Configuration file for "Radio".      #
+#  @author Nikita Pekin (Indivisible0)  #
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+
+
+#======== World List ==========#
+
+## Store all of the worlds in which Radio is enabled.
+# (Note: removing a world may have unintended consequences.)
+# If set to true, will broadcast radio messages in that world, and vice versa.
+worlds:
+  world: true
+  world_nether: true
+  world_the_end: true
+  
+  
+#======== Settings ==========#
+
+## The ID of the item to be used as a "pipboy", i.e. the radio reciever.
+# (Note: please set a legitimate item in order to avoid errors.)
+# Default: 345
+pipboyID: 345
+
+## The percentage chance of player on the "scan" frequency to recieve a broadcast.
+# (Note: must be set to a value from 0.00 to 1.00)
+# Default: 0.01
+scanChance: 0.01
+
+## How many blocks are added to the total radio range, per IRON_FENCE block.
+# Default: 30
+ironBarExtension: 30
+
+
+###############################################
+##   Internal Settings (Read: DO NOT EDIT)   ##
+###############################################
+
+permissionsPrefix: radio.
