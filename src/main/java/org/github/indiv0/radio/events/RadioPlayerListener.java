@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.github.indiv0.radio.blah.RadioPlugin;
+import org.github.indiv0.radio.main.RadioPlugin;
 
 public class RadioPlayerListener implements Listener {
     RadioPlugin plugin;

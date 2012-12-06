@@ -8,9 +8,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-import org.github.indiv0.radio.blah.Radio;
-import org.github.indiv0.radio.blah.RadioBroadcast;
-import org.github.indiv0.radio.blah.RadioPlugin;
+import org.github.indiv0.radio.main.Radio;
+import org.github.indiv0.radio.main.RadioBroadcast;
+import org.github.indiv0.radio.main.RadioPlugin;
 
 public class RadioBlockListener implements Listener {
     RadioPlugin plugin;
