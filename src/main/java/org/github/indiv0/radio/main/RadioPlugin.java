@@ -34,6 +34,9 @@ public class RadioPlugin extends MbapiPlugin {
 
     private ConfigurationContext configurationContext;
 
+    public static final double OFF = 0.0;
+    public static final double SCANNING = -1.0;
+
     @Override
     public void onEnable() {
         // Initializes the configurationContext.
