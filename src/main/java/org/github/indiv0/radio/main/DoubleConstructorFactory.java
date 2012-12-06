@@ -5,6 +5,6 @@ import ashulman.mbapi.util.ConstructorFactory;
 public class DoubleConstructorFactory extends ConstructorFactory<Double> {
     @Override
     public Double get() {
-        return 0.0;
+        return RadioPlugin.OFF;
     }
 }
