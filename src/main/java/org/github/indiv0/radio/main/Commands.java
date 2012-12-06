@@ -1,4 +1,4 @@
-package org.github.indiv0.radio.blah;
+package org.github.indiv0.radio.main;
 
 import ashulman.mbapi.util.PermissionsEnum;
 

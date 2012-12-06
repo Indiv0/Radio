@@ -1,4 +1,4 @@
-package org.github.indiv0.radio.blah;
+package org.github.indiv0.radio.main;
 
 import java.util.HashMap;
 import java.util.List;
@@ -196,5 +196,16 @@ public class RadioBroadcast implements Runnable {
         String radioFreq = Radio.convertFrequencyToIntegerNotation(frequency);
 
         return playerFreq.equals(radioFreq);
+    }
+
+    public static boolean isPlayerHoldingPipboy(Player player) {
+        // Makes sure that the currently held item is the "Pipboy" (by default
+        // the compass).
+        if (player.getItemInHand().getTypeId() != plugin.getPipboyID()) {
+            player.sendMessage("You must be holding a compass to work the radio.");
+            return false;
+        }
+
+        return true;
     }
 }

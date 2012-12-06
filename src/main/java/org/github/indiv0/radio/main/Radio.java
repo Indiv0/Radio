@@ -1,4 +1,4 @@
-package org.github.indiv0.radio.blah;
+package org.github.indiv0.radio.main;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -9,7 +9,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
-public class Radio {
+public final class Radio {
+    private Radio() {
+    }
+
     public static boolean registerFrequencyToSign(Location location, BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         if (!isSignExistant(location, face)) return false;

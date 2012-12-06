@@ -1,4 +1,4 @@
-package org.github.indiv0.radio.blah;
+package org.github.indiv0.radio.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.github.indiv0.radio.commands.CommandRadio;
-import org.github.indiv0.radio.commands.CommandRadioTune;
+import org.github.indiv0.radio.commands.radio.CommandTune;
 import org.github.indiv0.radio.events.RadioBlockListener;
 import org.github.indiv0.radio.events.RadioPlayerListener;
 
@@ -36,19 +36,19 @@ public class RadioPlugin extends MbapiPlugin {
 
     @Override
     public void onEnable() {
-        // Registers the "radio" command.
+        // Initializes the configurationContext.
         configurationContext = new ConfigurationContext(this);
 
         // Loads the configuration file.
         if (!loadConfig()) {
-            System.out.println(this + " has encountered an error while reading the configuration file, continuing with defaults.");
+            getLogger().log(Level.WARNING, this + " has encountered an error while reading the configuration file, continuing with defaults.");
         }
 
         // Registers the two event handlers and the command executor.
         registerEventHandler(new RadioPlayerListener(this));
         registerEventHandler(new RadioBlockListener(this));
         registerCommandExecutor("radio", new CommandRadio(configurationContext));
-        registerCommandExecutor("tune", new CommandRadioTune(configurationContext));
+        registerCommandExecutor("tune", new CommandTune(configurationContext));
 
         // Attempts to load the radios from the radio file.
         radios = retrieveRadios();
