@@ -1,16 +1,16 @@
-package org.github.indiv0.radio.main;
+package org.github.indiv0.radio.util;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.math.BigDecimal;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.github.indiv0.radio.main.RadioBroadcast;
 
-public final class Radio {
-    private Radio() {
+public final class RadioUtil {
+    private RadioUtil() {
     }
 
     public static boolean registerFrequencyToSign(Location location, BlockFace face) {
@@ -23,8 +23,8 @@ public final class Radio {
         // Checks to make sure there is a sign on that face of the radio.
         if (sign == null) return false;
 
-        String signFreq = convertFrequencyToIntegerNotation(sign.getLine(0));
-        String locationFreq = getFrequencyFromLocation(location);
+        BigDecimal signFreq = parseSignStringToFrequency(sign.getLine(0));
+        BigDecimal locationFreq = getFrequencyFromLocation(location);
         String radioFreq = RadioBroadcast.plugin.getRadios().get(location);
 
         // If the sign frequency does not contain a valid value, sets it
@@ -32,29 +32,51 @@ public final class Radio {
         sign.setLine(0, radioFreq);
 
         // If there is a defined frequency for this radio, uses it.
-        if (signFreq != null && signFreq != "")
+        if (signFreq != null)
             // If the sign frequency contains a valid value, and if the
             // radio frequency is based on the location, sets the radio
             // frequency to it.
-            if (radioFreq.equals(locationFreq)) RadioBroadcast.plugin.addRadio(location, signFreq);
+            if (radioFreq.equals(locationFreq)) RadioBroadcast.plugin.addRadio(location, signFreq.toString());
 
         sign.update(true);
 
         return true;
     }
 
-    public static String convertFrequencyToIntegerNotation(String frequency) {
-        // Reverts the frequency from scientific to integer notation.
-        double doubleFrequency;
+    public static boolean isStringValidFrequency(String stringFrequency) {
+        if (parseStringToFrequency(stringFrequency) == null)
+            return false;
+
+        return true;
+    }
+
+    public static boolean isSignStringValidFrequency(String stringFrequency) {
+        if (parseSignStringToFrequency(stringFrequency) == null)
+            return false;
+
+        return true;
+    }
+
+    public static BigDecimal parseSignStringToFrequency(String stringFrequency) {
+        if (stringFrequency.substring(0, 0) != "[" ||
+                stringFrequency.substring(stringFrequency.length()) != "]")
+            return null;
+
+        return parseStringToFrequency(stringFrequency);
+    }
+
+    public static BigDecimal parseStringToFrequency(String stringFrequency) {
+        String isolatedString = String.copyValueOf(stringFrequency.toCharArray(), 1, stringFrequency.length() - 2);
+
+        BigDecimal frequency;
+
         try {
-            doubleFrequency = Double.parseDouble(frequency);
+            frequency = BigDecimal.valueOf(Double.parseDouble(isolatedString));
         } catch (NumberFormatException e) {
             return null;
         }
 
-        NumberFormat formatter = new DecimalFormat("#########");
-
-        return formatter.format(doubleFrequency);
+        return frequency;
     }
 
     private static boolean isSignExistant(Location location, BlockFace face) {
@@ -63,11 +85,11 @@ public final class Radio {
     }
 
     // Getter and Setter Methods
-    public static String getFrequencyFromLocation(Location location) {
+    public static BigDecimal getFrequencyFromLocation(Location location) {
         // Reverts the frequency from scientific to integer notation.
         String frequency = String.valueOf(location.hashCode());
 
-        return convertFrequencyToIntegerNotation(frequency);
+        return parseSignStringToFrequency(frequency);
     }
 
     public static String getMessage(Location location, BlockFace face) {

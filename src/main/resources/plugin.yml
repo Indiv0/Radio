@@ -1,5 +1,5 @@
 name: Radio
-main: org.github.indiv0.radio.blah.RadioPlugin
+main: org.github.indiv0.radio.main.RadioPlugin
 version: 1.0.0
 load: POSTWORLD
 author: Indiv0

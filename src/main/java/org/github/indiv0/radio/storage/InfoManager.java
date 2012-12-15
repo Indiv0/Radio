@@ -5,19 +5,19 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.github.indiv0.radio.main.DoubleConstructorFactory;
+import org.github.indiv0.radio.main.FrequencyConstructorFactory;
+import org.github.indiv0.serialization.Frequency;
 
 import ashulman.mbapi.storage.StorageManager;
 import ashulman.mbapi.storage.TypeSafeStorageMap;
 import ashulman.mbapi.util.ConfigurationContext;
-import ashulman.typesafety.TypeSafeMap;
 import ashulman.typesafety.TypeSafeSet;
 
 import com.google.gson.reflect.TypeToken;
 
 public class InfoManager {
     private final StorageManager storageManager;
-    private final TypeSafeMap<String, Double> frequencies;
+    private final TypeSafeStorageMap<Frequency> frequencies;
 
     public InfoManager(ConfigurationContext configurationContext) {
         // Define the storage manager which will handle the storage.
@@ -27,10 +27,10 @@ public class InfoManager {
         }.getType());
 
         // Registers an event handler for "frequencies".
-        configurationContext.plugin.registerEventHandler(new FrequencyLoader((TypeSafeStorageMap<Double>) frequencies));
+        configurationContext.plugin.registerEventHandler(new FrequencyLoader(frequencies));
     }
 
-    public Double getPlayerFrequency(String playerName) {
+    public Frequency getFrequency(String playerName) {
         return frequencies.get(playerName);
     }
 
@@ -38,27 +38,27 @@ public class InfoManager {
         return frequencies.keySet();
     }
 
-    public void setFrequency(String playerName, Double frequency) {
-        ((TypeSafeStorageMap<Double>) frequencies).put(playerName, frequency);
+    public void setFrequency(String playerName, Frequency frequency) {
+        frequencies.put(playerName, frequency);
     }
 
     public void saveAll() {
         for (String playerName : frequencies.keySet()) {
-            ((TypeSafeStorageMap<Double>) frequencies).save(playerName);
+            frequencies.save(playerName);
         }
     }
 
     public void unloadAll() {
         for (String playerName : frequencies.keySet()) {
-            ((TypeSafeStorageMap<Double>) frequencies).unload(playerName);
+            frequencies.unload(playerName);
         }
     }
 
     private static class FrequencyLoader implements Listener {
-        private final TypeSafeStorageMap<Double> map;
-        public static final DoubleConstructorFactory FACTORY = new DoubleConstructorFactory();
+        private final TypeSafeStorageMap<Frequency> map;
+        public static final FrequencyConstructorFactory FACTORY = new FrequencyConstructorFactory();
 
-        public FrequencyLoader(TypeSafeStorageMap<Double> map) {
+        public FrequencyLoader(TypeSafeStorageMap<Frequency> map) {
             this.map = map;
         }
 

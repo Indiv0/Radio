@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.github.indiv0.radio.util.RadioUtil;
+import org.github.indiv0.serialization.Frequency;
 
 public class RadioBroadcast implements Runnable {
     public static RadioPlugin plugin;
@@ -35,6 +37,11 @@ public class RadioBroadcast implements Runnable {
     public static void attemptBroadcast(Location location) {
         // Retrieves the block which represents the radio.
         Block radioBlock = location.getBlock();
+
+        if (radioBlock.getState().getType() != Material.JUKEBOX) {
+            plugin.removeRadio(location);
+            return;
+        }
 
         // Moves on to the next radio if the current one is not powered.
         if (!radioBlock.isBlockIndirectlyPowered()) return;
@@ -127,13 +134,13 @@ public class RadioBroadcast implements Runnable {
 
     public static void broadcast(BlockFace face, Location location, double percent, boolean isGarbled, Player player) {
         // Corrects the frequency on the sign, if need be.
-        Radio.registerFrequencyToSign(location, face);
+        RadioUtil.registerFrequencyToSign(location, face);
 
         // Fails to broadcast if the frequency of the player's radio and the
         // radio that is broadcasting don't match up.
         if (!checkIfPlayerFrequencyMatches(player, plugin.getRadios().get(location))) return;
 
-        String message = Radio.getMessage(location, face);
+        String message = RadioUtil.getMessage(location, face);
 
         // Cancels the broadcast if there is no message provided.
         if (message == null) return;
@@ -141,7 +148,7 @@ public class RadioBroadcast implements Runnable {
         // Garbles the message if the player is past the garbleDistance;
         if (isGarbled) message = garbleMessage(message, percent);
 
-        player.sendMessage(ChatColor.RED + "[Radio " + Radio.convertFrequencyToIntegerNotation(plugin.getRadios().get(location)) + "] " + message);
+        player.sendMessage(ChatColor.RED + "[Radio " + RadioUtil.parseSignStringToFrequency(plugin.getRadios().get(location)) + "] " + message);
     }
 
     public static String garbleMessage(String message, double percent) {
@@ -171,31 +178,30 @@ public class RadioBroadcast implements Runnable {
         return ironBarCount;
     }
 
-    private static boolean checkIfPlayerFrequencyMatches(Player player, String frequency) {
+    private static boolean checkIfPlayerFrequencyMatches(Player player, String locationFrequency) {
         // Checks to make sure the player is holding a compass.
         if (!player.getInventory().contains(RadioBroadcast.plugin.getPipboyID())) return false;
 
         // Retrieves the frequency the player is currently listening on.
-        String playerFrequency = RadioBroadcast.plugin.getFrequency(player.getName());
+        Frequency playerFreq = RadioBroadcast.plugin.getFrequency(player.getName());
 
         // If the player does not have a frequency, the frequencies do not match
         // up.
-        if (playerFrequency == null) return false;
+        if (playerFreq.isOff()) return false;
 
         // If the player's frequency is currently set to "scan", returns a
         // randomized chance that the frequencies match, based on the scanChance
         // value.
-        if (playerFrequency.equals("scan")) {
+        if (playerFreq.isScanning()) {
             double random = Math.random();
             return random <= RadioBroadcast.plugin.getScanChance();
         }
 
         // Returns whether or not the player's and the radio's frequencies match
         // up.
-        String playerFreq = Radio.convertFrequencyToIntegerNotation(playerFrequency);
-        String radioFreq = Radio.convertFrequencyToIntegerNotation(frequency);
+        Frequency radioFreq = new Frequency(RadioUtil.parseStringToFrequency(locationFrequency));
 
-        return playerFreq.equals(radioFreq);
+        return playerFreq == radioFreq;
     }
 
     public static boolean isPlayerHoldingPipboy(Player player) {

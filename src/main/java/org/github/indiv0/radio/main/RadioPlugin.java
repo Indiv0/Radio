@@ -2,24 +2,26 @@ package org.github.indiv0.radio.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.github.indiv0.radio.commands.CommandRadio;
-import org.github.indiv0.radio.commands.radio.CommandTune;
 import org.github.indiv0.radio.events.RadioBlockListener;
 import org.github.indiv0.radio.events.RadioPlayerListener;
 import org.github.indiv0.radio.storage.InfoManager;
+import org.github.indiv0.radio.util.RadioUtil;
+import org.github.indiv0.serialization.Frequency;
+import org.github.indiv0.serialization.Radio;
 
 import ashulman.mbapi.plugin.MbapiPlugin;
 import ashulman.mbapi.util.ConfigurationContext;
@@ -31,13 +33,10 @@ public class RadioPlugin extends MbapiPlugin {
     private int pipboyID = 345;
     private double scanChance = 0.01;
     private int ironBarExtension = 30;
-    private HashMap<Location, String> radios;
+    private Set<Radio> radios;
 
     private ConfigurationContext configurationContext;
     private InfoManager infoManager;
-
-    public static final double OFF = 0.0;
-    public static final double SCANNING = -1.0;
 
     @Override
     public void onEnable() {
@@ -55,7 +54,6 @@ public class RadioPlugin extends MbapiPlugin {
         registerEventHandler(new RadioPlayerListener(this));
         registerEventHandler(new RadioBlockListener(this));
         registerCommandExecutor("radio", new CommandRadio(configurationContext));
-        registerCommandExecutor("tune", new CommandTune(configurationContext));
 
         // Attempts to load the radios from the radio file.
         radios = retrieveRadios();
@@ -156,7 +154,7 @@ public class RadioPlugin extends MbapiPlugin {
 
             // Writes the data to a new section in the Yaml, accessed as the
             // hashcode of the location.
-            currentWorld.createSection(Radio.getFrequencyFromLocation(radio.getKey()), dataMap);
+            currentWorld.createSection(RadioUtil.getFrequencyFromLocation(radio.getKey()).toString(), dataMap);
         }
 
         // Attempts to save the radios to "radios.yml"
@@ -168,7 +166,7 @@ public class RadioPlugin extends MbapiPlugin {
     }
 
     public void addRadio(Location location) {
-        addRadio(location, Radio.getFrequencyFromLocation(location));
+        addRadio(location, RadioUtil.getFrequencyFromLocation(location).toString());
     }
 
     public void addRadio(Location location, String frequency) {
@@ -210,26 +208,16 @@ public class RadioPlugin extends MbapiPlugin {
         return loadConfigurationFromFile("radios.yml");
     }
 
-    private YamlConfiguration getFrequencyYaml() {
-        // Loads the "frequency.yml" configuration.
-        return loadConfigurationFromFile("frequency.yml");
+    public Frequency getFrequency(String name) {
+        return infoManager.getFrequency(name);
     }
 
-    public String getFrequency(String name) {
-        return getFrequencyYaml().getString(name);
+    public void setFrequency(String playerName, String stringFrequency) {
+        infoManager.setFrequency(playerName, new Frequency(RadioUtil.parseStringToFrequency(stringFrequency)));
     }
 
-    public void addFrequency(Player player, String frequency) {
-        infoManager.
-
-        // Attempts to save the configuration to "frequency.yml"
-        try {
-            frequencyYaml.save(new File(getDataFolder(), "frequency.yml"));
-        } catch (IOException e) {
-            getLogger().log(Level.SEVERE, "Failed to save frequency.");
-        } finally {
-            player.sendMessage("Successfully set your frequency to " + ChatColor.YELLOW + frequency);
-        }
+    public void setFrequency(String playerName, BigDecimal frequency) {
+        infoManager.setFrequency(playerName, new Frequency(frequency));
     }
 
     // Configuration variable getter methods
