@@ -4,7 +4,7 @@
 
 	<groupId>org.github.indiv0</groupId>
 	<artifactId>radio</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Radio</name>
 	<description>Radio plugin for MinerApocalypse server.</description>
 
