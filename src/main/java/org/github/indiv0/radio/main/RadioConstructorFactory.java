@@ -1,6 +1,6 @@
 package org.github.indiv0.radio.main;
 
-import org.github.indiv0.serialization.Frequency;
+import org.github.indiv0.radio.serialization.Frequency;
 
 import ashulman.mbapi.util.ConstructorFactory;
 
