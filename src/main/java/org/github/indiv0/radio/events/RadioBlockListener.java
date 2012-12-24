@@ -64,13 +64,13 @@ public class RadioBlockListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(final BlockBreakEvent event) {
-        Block block = event.getBlock();
+        final Block block = event.getBlock();
 
         // Checks to see if the block being broken is a JUKEBOX.
         if (block.getType() != Material.JUKEBOX)
             return;
 
-        Location location = block.getLocation();
+        final Location location = block.getLocation();
 
         // Checks if the JUKEBOX is a radio.
         if (plugin.getRadioByLocation(location) == null)
