@@ -68,14 +68,14 @@ public class Radio implements Comparable<Radio> {
     }
 
     @Override
-    public int compareTo(Radio radio) {
-        int c = freq.compareTo(radio.freq);
+    public int compareTo(Radio obj) {
+        int c = freq.compareTo(obj.freq);
 
         if (c == 0) {
-            if (location.getX() == radio.location.getX())
-                if (location.getY() == radio.location.getY())
-                    if (location.getZ() == radio.location.getZ())
-                        if (location.getWorld().getEnvironment().compareTo(radio.location.getWorld().getEnvironment()) == 0)
+            if (location.getX() == obj.location.getX())
+                if (location.getY() == obj.location.getY())
+                    if (location.getZ() == obj.location.getZ())
+                        if (location.getWorld().getEnvironment().compareTo(obj.location.getWorld().getEnvironment()) == 0)
                             return c;
         }
 
