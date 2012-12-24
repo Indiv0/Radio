@@ -93,7 +93,7 @@ public final class RadioUtil {
         // Reverts the frequency from scientific to integer notation.
         final String frequency = String.valueOf(location.hashCode());
 
-        return RadioUtil.parseSignStringToFrequency(frequency);
+        return RadioUtil.parseStringToFrequency(frequency);
     }
 
     public static String getMessage(final Radio radio, final BlockFace face) {
