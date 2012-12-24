@@ -18,7 +18,7 @@ import ashulman.typesafety.impl.TypeSafeListImpl;
 public class CommandRadio extends DelegatingCommand {
 
     public CommandRadio(final ConfigurationContext configurationContext) {
-        super(configurationContext, Commands.RADIO, 1, 1);
+        super(configurationContext, Commands.RADIO, 1, 2);
         registerSubcommand(new CommandTune(configurationContext));
         registerSubcommand(new CommandScan(configurationContext));
     }
