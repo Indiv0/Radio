@@ -3,7 +3,7 @@ package org.github.indiv0.radio.serialization;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 
-public class Radio {
+public class Radio implements Comparable<Radio> {
     Location location;
     Frequency freq;
 
@@ -26,5 +26,59 @@ public class Radio {
 
     public String getFrequencyAsString() {
         return String.valueOf(freq.freq);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((freq == null) ? 0 : freq.hashCode());
+        result = prime * result
+                + ((location == null) ? 0 : location.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Radio)) {
+            return false;
+        }
+        Radio other = (Radio) obj;
+        if (freq == null) {
+            if (other.freq != null) {
+                return false;
+            }
+        } else if (!freq.equals(other.freq)) {
+            return false;
+        }
+        if (location == null) {
+            if (other.location != null) {
+                return false;
+            }
+        } else if (!location.equals(other.location)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int compareTo(Radio radio) {
+        int c = freq.compareTo(radio.freq);
+
+        if (c == 0) {
+            if (location.getX() == radio.location.getX())
+                if (location.getY() == radio.location.getY())
+                    if (location.getZ() == radio.location.getZ())
+                        if (location.getWorld().getEnvironment().compareTo(radio.location.getWorld().getEnvironment()) == 0)
+                            return c;
+        }
+
+        return -1;
     }
 }
