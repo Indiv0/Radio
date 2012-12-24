@@ -113,8 +113,9 @@ public class RadioPlugin extends MbapiPlugin {
     }
 
     public void addRadio(final Radio radio) {
-        if (getRadioByLocation(radio.getLocation()) != null)
+        if (getRadioByLocation(radio.getLocation()) != null) {
             removeRadio(getRadioByLocation(radio.getLocation()));
+        }
 
         getRadios().add(radio);
     }
