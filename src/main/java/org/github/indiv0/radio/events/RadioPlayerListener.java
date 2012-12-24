@@ -48,8 +48,7 @@ public class RadioPlayerListener implements Listener {
         // current.
         if (!(block.getBlockPower(BlockFace.NORTH) > 0
                 || block.getBlockPower(BlockFace.SOUTH) > 0
-                || block.getBlockPower(BlockFace.EAST) > 0 || block
-                .getBlockPower(BlockFace.WEST) > 0))
+                || block.getBlockPower(BlockFace.EAST) > 0 || block.getBlockPower(BlockFace.WEST) > 0))
             return;
 
         // Sets the target of the player's compass to the radio.

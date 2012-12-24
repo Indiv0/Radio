@@ -24,13 +24,11 @@ public class CommandRadio extends DelegatingCommand {
     }
 
     @Override
-    public TypeSafeList<String> onTabComplete(final CommandSender sender,
-            final TypeSafeList<String> args) {
+    public TypeSafeList<String> onTabComplete(final CommandSender sender, final TypeSafeList<String> args) {
         if (args.size() != 1)
             return TypeSafeCollections.emptyList();
 
-        final TypeSafeList<String> completions = new TypeSafeListImpl<String>(
-                new ArrayList<String>(), CoreTypes.STRING);
+        final TypeSafeList<String> completions = new TypeSafeListImpl<String>(new ArrayList<String>(), CoreTypes.STRING);
 
         if (StringUtil.startsWithIgnoreCase("scan", args.get(0))) {
             completions.add("scan");

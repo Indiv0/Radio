@@ -19,8 +19,7 @@ public class CommandScan extends PlayerOnlyCommand {
     }
 
     @Override
-    protected boolean execute(final CommandSender sender,
-            final TypeSafeList<String> args) {
+    protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
         if (!RadioBroadcast.isPlayerHoldingPipboy(player))
             return true;
@@ -31,8 +30,7 @@ public class CommandScan extends PlayerOnlyCommand {
     }
 
     @Override
-    public TypeSafeList<String> onTabComplete(final CommandSender sender,
-            final TypeSafeList<String> args) {
+    public TypeSafeList<String> onTabComplete(final CommandSender sender, final TypeSafeList<String> args) {
         // TODO Auto-generated method stub
         return null;
     }
