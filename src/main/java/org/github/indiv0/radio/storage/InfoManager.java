@@ -1,5 +1,7 @@
 package org.github.indiv0.radio.storage;
 
+import java.math.BigDecimal;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -49,8 +51,8 @@ public class InfoManager {
         radios.add(radio);
     }
 
-    public void setFrequency(final String playerName, final Frequency frequency) {
-        frequencies.put(playerName, frequency);
+    public void setFrequency(final String playerName, final BigDecimal frequency) {
+        frequencies.get(playerName).setFrequency(frequency);
     }
 
     public void saveAll() {
