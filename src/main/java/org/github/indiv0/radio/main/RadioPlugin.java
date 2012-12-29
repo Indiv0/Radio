@@ -157,14 +157,8 @@ public class RadioPlugin extends MbapiPlugin {
         return infoManager.getFrequency(name);
     }
 
-    // public void setFrequency(final String playerName, final String
-    // stringFrequency) {
-    // infoManager.setFrequency(playerName, new
-    // Frequency(RadioUtil.parseStringToFrequency(stringFrequency)));
-    // }
-
     public void setFrequency(final String playerName, final BigDecimal frequency) {
-        infoManager.setFrequency(playerName, new Frequency(frequency));
+        infoManager.setFrequency(playerName, frequency);
     }
 
     // Configuration variable getter methods
