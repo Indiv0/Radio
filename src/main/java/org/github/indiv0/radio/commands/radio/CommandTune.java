@@ -1,5 +1,7 @@
 package org.github.indiv0.radio.commands.radio;
 
+import java.math.BigDecimal;
+
 import org.bukkit.command.CommandSender;
 import org.github.indiv0.radio.main.Commands;
 import org.github.indiv0.radio.main.RadioBroadcast;
@@ -32,10 +34,18 @@ public class CommandTune extends PlayerOnlyCommand {
             return true;
         }
 
-        if (!RadioUtil.isStringValidFrequency(frequencyArg))
+        if (RadioUtil.parseStringToFrequency(frequencyArg) == null)
             return false;
 
-        plugin.setFrequency(sender.getName(), RadioUtil.parseStringToFrequency(frequencyArg));
+        BigDecimal frequency;
+
+        try {
+            frequency = BigDecimal.valueOf(Double.valueOf(frequencyArg));
+        } catch (Exception e) {
+            return false;
+        }
+
+        plugin.setFrequency(sender.getName(), frequency);
 
         return true;
     }
