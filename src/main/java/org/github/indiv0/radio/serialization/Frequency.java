@@ -24,6 +24,14 @@ public class Frequency implements Comparable<Frequency> {
         return Frequency.SCANNING.equals(freq);
     }
 
+    public BigDecimal getFrequency() {
+        return freq;
+    }
+
+    public void setFrequency(BigDecimal frequency) {
+        freq = frequency;
+    }
+
     @Override
     public int compareTo(final Frequency obj) {
         return freq.compareTo(obj.freq);
