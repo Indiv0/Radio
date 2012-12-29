@@ -27,7 +27,7 @@ public final class RadioUtil {
 
         final BigDecimal signFreq = RadioUtil.parseSignStringToFrequency(sign.getLine(0));
         final BigDecimal locationFreq = RadioUtil.getFrequencyFromLocation(radio.getLocation());
-        final String radioFreq = radio.getFrequencyAsString();
+        final String radioFreq = "[" + radio.getFrequencyAsString() + "]";
 
         // If the sign frequency does not contain a valid value, sets it
         // to the radio frequency.
@@ -47,45 +47,24 @@ public final class RadioUtil {
         return true;
     }
 
-    public static boolean isStringValidFrequency(final String stringFrequency) {
-        if (RadioUtil.parseStringToFrequency(stringFrequency) == null)
-            return false;
-
-        return true;
-    }
-
-    public static boolean isSignStringValidFrequency(final String stringFrequency) {
-        if (RadioUtil.parseSignStringToFrequency(stringFrequency) == null)
-            return false;
-
-        return true;
-    }
-
     public static BigDecimal parseSignStringToFrequency(final String stringFrequency) {
-        if (stringFrequency.substring(0, 0) != "["
-                || stringFrequency.substring(stringFrequency.length()) != "]")
+        if (!stringFrequency.substring(0, 1).equals("[")
+                || !stringFrequency.substring(stringFrequency.length() - 1).equals("]"))
             return null;
 
         return RadioUtil.parseStringToFrequency(stringFrequency);
     }
 
     public static BigDecimal parseStringToFrequency(final String stringFrequency) {
-        final String isolatedString = String.copyValueOf(stringFrequency.toCharArray(), 1, stringFrequency.length() - 2);
-
         BigDecimal frequency;
 
         try {
-            frequency = BigDecimal.valueOf(Double.parseDouble(isolatedString));
+            frequency = BigDecimal.valueOf(Double.parseDouble(stringFrequency));
         } catch (final NumberFormatException e) {
             return null;
         }
 
         return frequency;
-    }
-
-    private static boolean isSignExistant(final Radio radio, final BlockFace face) {
-        // Confirms that the requested side of the radio has a sign.
-        return radio.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
 
     // Getter and Setter Methods
@@ -94,6 +73,11 @@ public final class RadioUtil {
         final String frequency = String.valueOf(location.hashCode());
 
         return RadioUtil.parseStringToFrequency(frequency);
+    }
+
+    private static boolean isSignExistant(final Radio radio, final BlockFace face) {
+        // Confirms that the requested side of the radio has a sign.
+        return radio.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
 
     public static String getMessage(final Radio radio, final BlockFace face) {
