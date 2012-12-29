@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
+import org.github.indiv0.radio.commands.radio.CommandOff;
 import org.github.indiv0.radio.commands.radio.CommandScan;
 import org.github.indiv0.radio.commands.radio.CommandTune;
 import org.github.indiv0.radio.main.Commands;
@@ -21,6 +22,7 @@ public class CommandRadio extends DelegatingCommand {
         super(configurationContext, Commands.RADIO, 1, 2);
         registerSubcommand(new CommandTune(configurationContext));
         registerSubcommand(new CommandScan(configurationContext));
+        registerSubcommand(new CommandOff(configurationContext));
     }
 
     @Override
