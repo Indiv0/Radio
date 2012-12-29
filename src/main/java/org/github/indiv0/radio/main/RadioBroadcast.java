@@ -156,7 +156,7 @@ public class RadioBroadcast implements Runnable {
 
         // Fails to broadcast if the frequency of the player's radio and the
         // radio that is broadcasting don't match up.
-        if (!RadioBroadcast.checkIfPlayerFrequencyMatches(player, radio))
+        if (!checkIfPlayerFrequencyMatches(player, radio))
             return;
 
         String message = RadioUtil.getMessage(radio, face);
@@ -170,10 +170,8 @@ public class RadioBroadcast implements Runnable {
             message = RadioBroadcast.garbleMessage(message, percent);
         }
 
-        player.sendMessage(ChatColor.RED
-                + "[Radio "
-                + RadioUtil.parseSignStringToFrequency(radio.getFrequencyAsString())
-                + "] " + message);
+        player.sendMessage(ChatColor.RED + "[Radio "
+                + radio.getFrequencyAsString() + "] " + message);
     }
 
     public static String garbleMessage(final String message, final double percent) {
@@ -228,7 +226,7 @@ public class RadioBroadcast implements Runnable {
 
         // Returns whether or not the player's and the radio's frequencies match
         // up.
-        return playerFreq == radio.getFrequency();
+        return playerFreq.equals(radio.getFrequency());
     }
 
     public static boolean isPlayerHoldingPipboy(final Player player) {
