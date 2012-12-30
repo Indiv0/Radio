@@ -52,6 +52,9 @@ public class InfoManager {
     }
 
     public void setFrequency(final String playerName, final BigDecimal frequency) {
+        if (frequencies.get(playerName) == null)
+            frequencies.load(playerName, FrequencyLoader.FACTORY);
+
         frequencies.get(playerName).setFrequency(frequency);
     }
 
