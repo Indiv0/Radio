@@ -1,7 +1,10 @@
 package org.github.indiv0.radio.serialization;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
 
 public class Radio implements Comparable<Radio> {
     Location location;
@@ -24,6 +27,28 @@ public class Radio implements Comparable<Radio> {
         return freq;
     }
 
+    public boolean signExists(final BlockFace face) {
+        // Confirms that the requested side of the radio has a sign.
+        return getBlock().getRelative(face).getType() == Material.WALL_SIGN;
+    }
+
+    public String getMessage(final BlockFace face) {
+        Sign sign = getSign(face);
+
+        // Confirms that the requested side of the radio has a sign.
+        // Formulates a message based on the text on the sign.
+        return signExists(face) ? sign.getLine(1) + " " + sign.getLine(2) + " "
+                + sign.getLine(3) : null;
+    }
+
+    public Sign getSign(final BlockFace face) {
+        // Confirms that the requested side of the radio has a sign.
+        // Retrieves the sign block at the requested radio face.
+        return signExists(face) ? (Sign) getBlock().getRelative(face).getState()
+                : null;
+    }
+
+    // Comparable methods
     @Override
     public int hashCode() {
         final int prime = 31;

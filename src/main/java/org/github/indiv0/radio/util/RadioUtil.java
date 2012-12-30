@@ -3,7 +3,6 @@ package org.github.indiv0.radio.util;
 import java.math.BigDecimal;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.github.indiv0.radio.serialization.Radio;
@@ -14,11 +13,11 @@ public final class RadioUtil {
 
     public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!signExists(radio, face))
+        if (!radio.signExists(face))
             return false;
 
         // Gets the sign itself.
-        final Sign sign = getSign(radio, face);
+        final Sign sign = radio.getSign(face);
 
         // Checks to make sure there is a sign on that face of the radio.
         if (sign == null)
@@ -63,12 +62,6 @@ public final class RadioUtil {
         return "[" + frequency + "]";
     }
 
-    // Extraneous boolean checks
-    private static boolean signExists(final Radio radio, final BlockFace face) {
-        // Confirms that the requested side of the radio has a sign.
-        return radio.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
-    }
-
     // Getter and Setter Methods
 
     public static BigDecimal getFrequencyFromString(final String stringFrequency) {
@@ -92,21 +85,5 @@ public final class RadioUtil {
     public static BigDecimal getFrequencyFromLocation(final Location location) {
         // Reverts the frequency from scientific to integer notation.
         return getFrequencyFromString(String.valueOf(location.hashCode()));
-    }
-
-    public static String getMessage(final Radio radio, final BlockFace face) {
-        Sign sign = getSign(radio, face);
-
-        // Confirms that the requested side of the radio has a sign.
-        // Formulates a message based on the text on the sign.
-        return signExists(radio, face) ? sign.getLine(1) + " "
-                + sign.getLine(2) + " " + sign.getLine(3) : null;
-    }
-
-    private static Sign getSign(final Radio radio, final BlockFace face) {
-        // Confirms that the requested side of the radio has a sign.
-        // Retrieves the sign block at the requested radio face.
-        return signExists(radio, face) ? (Sign) radio.getBlock().getRelative(face).getState()
-                : null;
     }
 }

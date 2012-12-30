@@ -159,7 +159,7 @@ public class RadioBroadcast implements Runnable {
         if (!checkIfPlayerFrequencyMatches(player, radio))
             return;
 
-        String message = RadioUtil.getMessage(radio, face);
+        String message = radio.getMessage(face);
 
         // Cancels the broadcast if there is no message provided.
         if (message == null)
