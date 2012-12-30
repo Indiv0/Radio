@@ -171,7 +171,7 @@ public class RadioBroadcast implements Runnable {
         }
 
         player.sendMessage(ChatColor.RED + "[Radio "
-                + radio.getFrequencyAsString() + "] " + message);
+                + radio.getFrequency().getFrequency() + "] " + message);
     }
 
     public static String garbleMessage(final String message, final double percent) {
