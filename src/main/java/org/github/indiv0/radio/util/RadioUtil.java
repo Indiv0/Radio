@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
+import org.github.indiv0.radio.main.RadioBroadcast;
 import org.github.indiv0.radio.serialization.Radio;
 
 public final class RadioUtil {
@@ -60,6 +62,17 @@ public final class RadioUtil {
 
     private static String addTags(Object frequency) {
         return "[" + frequency + "]";
+    }
+
+    public static boolean playerIsHoldingPipboy(final Player player) {
+        // Makes sure that the currently held item is the "Pipboy" (by default
+        // the compass).
+        if (player.getItemInHand().getTypeId() != RadioBroadcast.plugin.getPipboyID()) {
+            player.sendMessage("You must be holding a compass to work the radio.");
+            return false;
+        }
+
+        return true;
     }
 
     // Getter and Setter Methods

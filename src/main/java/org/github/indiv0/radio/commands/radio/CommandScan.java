@@ -2,9 +2,9 @@ package org.github.indiv0.radio.commands.radio;
 
 import org.bukkit.command.CommandSender;
 import org.github.indiv0.radio.main.Commands;
-import org.github.indiv0.radio.main.RadioBroadcast;
 import org.github.indiv0.radio.main.RadioPlugin;
 import org.github.indiv0.radio.serialization.Frequency;
+import org.github.indiv0.radio.util.RadioUtil;
 
 import ashulman.mbapi.commands.PlayerOnlyCommand;
 import ashulman.mbapi.util.ConfigurationContext;
@@ -21,7 +21,7 @@ public class CommandScan extends PlayerOnlyCommand {
     @Override
     protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
-        if (!RadioBroadcast.isPlayerHoldingPipboy(player))
+        if (!RadioUtil.playerIsHoldingPipboy(player))
             return true;
 
         plugin.setFrequency(sender.getName(), Frequency.SCANNING);
