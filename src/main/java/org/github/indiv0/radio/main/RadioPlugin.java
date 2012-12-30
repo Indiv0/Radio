@@ -1,6 +1,5 @@
 package org.github.indiv0.radio.main;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,15 +62,8 @@ public class RadioPlugin extends MbapiPlugin {
     }
 
     private boolean loadConfig() {
-        // Initializes a YamlConfiguration to represent the data stored in
-        // "config.yml"
-        YamlConfiguration configYaml = new YamlConfiguration();
-
-        // Makes sure the data folder exists.
-        getDataFolder().mkdirs();
-
         // Tries to load the configuration from the file into configYaml.
-        configYaml = loadConfigurationFromFile("config.yml");
+        YamlConfiguration configYaml = (YamlConfiguration) getConfig();
 
         // Retrieves the worlds in which frequency scanning is enabled.
         for (final World world : getServer().getWorlds()) {
@@ -88,28 +80,6 @@ public class RadioPlugin extends MbapiPlugin {
         ironBarExtension = configYaml.getInt("ironBarExtension", getIronBarExtension());
 
         return true;
-    }
-
-    public YamlConfiguration loadConfigurationFromFile(final String fileName) {
-        getConfig();
-        // Creates the data directory if it does not exist.
-        getDataFolder().mkdirs();
-
-        // Initializes the "radios.yml" file.
-        final File file = new File(getDataFolder(), fileName);
-
-        if (file.exists())
-            // Loads the YAML configuration from the file.
-            return YamlConfiguration.loadConfiguration(file);
-
-        // Populates it with default configuration values, if the file is
-        // "config.yml"
-        if (fileName.equals("config.yml")) {
-            saveDefaultConfig();
-        }
-
-        // Loads the YAML configuration from the file.
-        return YamlConfiguration.loadConfiguration(file);
     }
 
     public void addRadio(final Radio radio) {
