@@ -2,17 +2,14 @@ package org.github.indiv0.radio.util;
 
 import java.math.BigDecimal;
 
-import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.github.indiv0.radio.main.RadioBroadcast;
+import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
 
 public final class RadioUtil {
-    private RadioUtil() {
-    }
-
     public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         if (!radio.signExists(face))
@@ -26,8 +23,7 @@ public final class RadioUtil {
             return false;
 
         final BigDecimal signFreq = getFrequencyFromStringWithoutTags(sign.getLine(0));
-        final BigDecimal locationFreq = getFrequencyFromLocation(radio.getLocation());
-        final BigDecimal radioFreq = radio.getFrequency().getFrequency();
+        final Frequency radioFreq = radio.getFrequency();
 
         // If the sign frequency does not contain a valid value, sets it
         // to the radio frequency.
@@ -38,7 +34,7 @@ public final class RadioUtil {
             // If the sign frequency contains a valid value, and if the
             // radio frequency is based on the location, sets the radio
             // frequency to it.
-            if (radioFreq.equals(locationFreq)) {
+            if (radioFreq == null) {
                 radio.getFrequency().setFrequency(signFreq);
                 sign.setLine(0, addTags(signFreq));
             }
@@ -49,6 +45,7 @@ public final class RadioUtil {
     }
 
     // Tag related methods
+
     private static boolean hasTags(String frequency) {
         // Checks to make sure the frequency has the proper tags.
         return frequency.substring(0, 1).equals("[")
@@ -93,10 +90,5 @@ public final class RadioUtil {
         // Returns the frequency without the tags attached.
         return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency))
                 : null;
-    }
-
-    public static BigDecimal getFrequencyFromLocation(final Location location) {
-        // Reverts the frequency from scientific to integer notation.
-        return getFrequencyFromString(String.valueOf(location.hashCode()));
     }
 }
