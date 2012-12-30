@@ -24,10 +24,6 @@ public class Radio implements Comparable<Radio> {
         return freq;
     }
 
-    public String getFrequencyAsString() {
-        return String.valueOf(freq.freq);
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;

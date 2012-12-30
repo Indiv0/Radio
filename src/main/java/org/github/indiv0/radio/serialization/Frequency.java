@@ -32,6 +32,10 @@ public class Frequency implements Comparable<Frequency> {
         freq = frequency;
     }
 
+    public String getFrequencyAsString() {
+        return String.valueOf(freq);
+    }
+
     @Override
     public int compareTo(final Frequency obj) {
         return freq.compareTo(obj.freq);
