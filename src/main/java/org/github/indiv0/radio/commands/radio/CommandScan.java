@@ -21,10 +21,13 @@ public class CommandScan extends PlayerOnlyCommand {
     @Override
     protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
-        if (!RadioUtil.playerIsHoldingPipboy(player))
+        if (!RadioUtil.playerIsHoldingPipboy(player)) {
+            player.sendMessage("You must be holding a compass to work the radio.");
             return true;
+        }
 
         plugin.setFrequency(sender.getName(), Frequency.SCANNING);
+        player.sendMessage("Successfully set radio to scan mode.");
 
         return true;
     }
