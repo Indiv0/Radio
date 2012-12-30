@@ -34,7 +34,7 @@ public class CommandTune extends PlayerOnlyCommand {
             return true;
         }
 
-        if (RadioUtil.parseStringToFrequency(frequencyArg) == null)
+        if (RadioUtil.getFrequencyFromString(frequencyArg) == null)
             return false;
 
         BigDecimal frequency;

@@ -24,13 +24,13 @@ public final class RadioUtil {
         if (sign == null)
             return false;
 
-        final BigDecimal signFreq = parseSignStringToFrequency(sign.getLine(0));
+        final BigDecimal signFreq = getFrequencyFromStringWithoutTags(sign.getLine(0));
         final BigDecimal locationFreq = getFrequencyFromLocation(radio.getLocation());
         final BigDecimal radioFreq = radio.getFrequency().getFrequency();
 
         // If the sign frequency does not contain a valid value, sets it
         // to the radio frequency.
-        sign.setLine(0, "[" + radioFreq + "]");
+        sign.setLine(0, addTags(radioFreq));
 
         // If there is a defined frequency for this radio, uses it.
         if (signFreq != null)
@@ -39,7 +39,7 @@ public final class RadioUtil {
             // frequency to it.
             if (radioFreq.equals(locationFreq)) {
                 radio.getFrequency().setFrequency(signFreq);
-                sign.setLine(0, "[" + signFreq + "]");
+                sign.setLine(0, addTags(signFreq));
             }
 
         sign.update(true);
@@ -47,24 +47,7 @@ public final class RadioUtil {
         return true;
     }
 
-    public static BigDecimal parseSignStringToFrequency(final String stringFrequency) {
-        // Returns the frequency without the tags attached.
-        return hasTags(stringFrequency) ? null
-                : parseStringToFrequency(stripTags(stringFrequency));
-    }
-
-    public static BigDecimal parseStringToFrequency(final String stringFrequency) {
-        BigDecimal frequency;
-
-        try {
-            frequency = BigDecimal.valueOf(Double.parseDouble(stringFrequency));
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-        return frequency;
-    }
-
+    // Tag related methods
     private static boolean hasTags(String frequency) {
         // Checks to make sure the frequency has the proper tags.
         return frequency.substring(0, 1).equals("[")
@@ -76,15 +59,39 @@ public final class RadioUtil {
         return frequency.substring(1, frequency.length() - 1);
     }
 
+    private static String addTags(Object frequency) {
+        return "[" + frequency + "]";
+    }
+
+    // Extraneous boolean checks
     private static boolean signExists(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         return radio.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
 
     // Getter and Setter Methods
+
+    public static BigDecimal getFrequencyFromString(final String stringFrequency) {
+        BigDecimal frequency;
+
+        try {
+            frequency = BigDecimal.valueOf(Double.parseDouble(stringFrequency));
+        } catch (final NumberFormatException e) {
+            return null;
+        }
+
+        return frequency;
+    }
+
+    public static BigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
+        // Returns the frequency without the tags attached.
+        return hasTags(stringFrequency) ? null
+                : getFrequencyFromString(stripTags(stringFrequency));
+    }
+
     public static BigDecimal getFrequencyFromLocation(final Location location) {
         // Reverts the frequency from scientific to integer notation.
-        return parseStringToFrequency(String.valueOf(location.hashCode()));
+        return getFrequencyFromString(String.valueOf(location.hashCode()));
     }
 
     public static String getMessage(final Radio radio, final BlockFace face) {
