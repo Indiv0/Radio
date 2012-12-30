@@ -91,8 +91,8 @@ public final class RadioUtil {
 
     public static BigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
         // Returns the frequency without the tags attached.
-        return hasTags(stringFrequency) ? null
-                : getFrequencyFromString(stripTags(stringFrequency));
+        return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency))
+                : null;
     }
 
     public static BigDecimal getFrequencyFromLocation(final Location location) {
