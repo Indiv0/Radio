@@ -204,11 +204,11 @@ public class RadioBroadcast implements Runnable {
 
     private static boolean checkIfPlayerFrequencyMatches(final Player player, final Radio radio) {
         // Checks to make sure the player is holding a compass.
-        if (!player.getInventory().contains(RadioBroadcast.plugin.getPipboyID()))
+        if (!player.getInventory().contains(plugin.getPipboyID()))
             return false;
 
         // Retrieves the frequency the player is currently listening on.
-        final Frequency playerFreq = RadioBroadcast.plugin.getFrequency(player.getName());
+        final Frequency playerFreq = plugin.getFrequency(player.getName());
 
         // If the player does not have a frequency, the frequencies do not match
         // up.
@@ -220,7 +220,7 @@ public class RadioBroadcast implements Runnable {
         // value.
         if (playerFreq.isScanning()) {
             final double random = Math.random();
-            return random <= RadioBroadcast.plugin.getScanChance();
+            return random <= plugin.getScanChance();
         }
 
         // Returns whether or not the player's and the radio's frequencies match
