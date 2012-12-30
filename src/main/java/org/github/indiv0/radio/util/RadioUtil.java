@@ -79,23 +79,19 @@ public final class RadioUtil {
     }
 
     public static String getMessage(final Radio radio, final BlockFace face) {
-        // Confirms that the requested side of the radio has a sign.
-        if (!isSignExistant(radio, face))
-            return null;
-
         Sign sign = getSign(radio, face);
 
+        // Confirms that the requested side of the radio has a sign.
         // Formulates a message based on the text on the sign.
-        return sign.getLine(1) + " " + sign.getLine(2) + " " + sign.getLine(3);
+        return isSignExistant(radio, face) ? sign.getLine(1) + " "
+                + sign.getLine(2) + " " + sign.getLine(3) : null;
     }
 
     private static Sign getSign(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!isSignExistant(radio, face))
-            return null;
-
         // Retrieves the sign block at the requested radio face.
-        return (Sign) radio.getBlock().getRelative(face).getState();
+        return isSignExistant(radio, face) ? (Sign) radio.getBlock().getRelative(face).getState()
+                : null;
     }
 
     private static boolean hasTags(String frequency) {
