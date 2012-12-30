@@ -41,7 +41,7 @@ public class RadioBroadcast implements Runnable {
         Block radioBlock = radio.getBlock();
 
         if (radioBlock.getState().getType() != Material.JUKEBOX) {
-            RadioBroadcast.plugin.removeRadio(radio);
+            plugin.removeRadio(radio);
             return;
         }
 
@@ -94,8 +94,7 @@ public class RadioBroadcast implements Runnable {
         // Determines the broadcastDistance, which is a factor of the garble
         // and the IRON_FENCE count.
         final double broadcastDistance = ironBarCount
-                * RadioBroadcast.plugin.getIronBarExtension() + broadcastGarble
-                * 550;
+                * plugin.getIronBarExtension() + broadcastGarble * 550;
 
         // Retrieves the list of players who will act as recipients of the
         // message, and stores them in an array.
@@ -124,10 +123,10 @@ public class RadioBroadcast implements Runnable {
             // Gets the number of IRON_FENCE blocks surrounding the player, and
             // increases the strength of the signal accordingly.
             ironBarCount = 0;
-            ironBarCount += RadioBroadcast.calculateIronBarsSurroundingPlayer(player, 1, 0, 0);
-            ironBarCount += RadioBroadcast.calculateIronBarsSurroundingPlayer(player, 0, 0, 1);
-            ironBarCount += RadioBroadcast.calculateIronBarsSurroundingPlayer(player, -1, 0, 0);
-            ironBarCount += RadioBroadcast.calculateIronBarsSurroundingPlayer(player, 0, 0, -1);
+            ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, 0);
+            ironBarCount += calculateIronBarsSurroundingPlayer(player, 0, 0, 1);
+            ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, 0);
+            ironBarCount += calculateIronBarsSurroundingPlayer(player, 0, 0, -1);
             distance -= ironBarCount * 30;
 
             // Fails to broadcast if the player is beyond the broadcastDistance.
@@ -143,14 +142,14 @@ public class RadioBroadcast implements Runnable {
 
             // Attempts to broadcast the messages contained on the signs on each
             // side of the block.
-            RadioBroadcast.broadcast(BlockFace.NORTH, radio, percent, isGarbled, player);
-            RadioBroadcast.broadcast(BlockFace.SOUTH, radio, percent, isGarbled, player);
-            RadioBroadcast.broadcast(BlockFace.EAST, radio, percent, isGarbled, player);
-            RadioBroadcast.broadcast(BlockFace.WEST, radio, percent, isGarbled, player);
+            broadcast(BlockFace.NORTH, radio, percent, isGarbled, player);
+            broadcast(BlockFace.SOUTH, radio, percent, isGarbled, player);
+            broadcast(BlockFace.EAST, radio, percent, isGarbled, player);
+            broadcast(BlockFace.WEST, radio, percent, isGarbled, player);
         }
     }
 
-    public static void broadcast(final BlockFace face, final org.github.indiv0.radio.serialization.Radio radio, final double percent, final boolean isGarbled, final Player player) {
+    public static void broadcast(final BlockFace face, final Radio radio, final double percent, final boolean isGarbled, final Player player) {
         // Corrects the frequency on the sign, if need be.
         RadioUtil.registerFrequencyToSign(radio, face);
 
@@ -167,7 +166,7 @@ public class RadioBroadcast implements Runnable {
 
         // Garbles the message if the player is past the garbleDistance;
         if (isGarbled) {
-            message = RadioBroadcast.garbleMessage(message, percent);
+            message = garbleMessage(message, percent);
         }
 
         player.sendMessage(ChatColor.RED + "[Radio "
@@ -227,16 +226,5 @@ public class RadioBroadcast implements Runnable {
         // Returns whether or not the player's and the radio's frequencies match
         // up.
         return playerFreq.equals(radio.getFrequency());
-    }
-
-    public static boolean isPlayerHoldingPipboy(final Player player) {
-        // Makes sure that the currently held item is the "Pipboy" (by default
-        // the compass).
-        if (player.getItemInHand().getTypeId() != RadioBroadcast.plugin.getPipboyID()) {
-            player.sendMessage("You must be holding a compass to work the radio.");
-            return false;
-        }
-
-        return true;
     }
 }
