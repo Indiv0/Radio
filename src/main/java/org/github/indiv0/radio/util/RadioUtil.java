@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
 
 public final class RadioUtil {
@@ -15,23 +14,23 @@ public final class RadioUtil {
 
     public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!RadioUtil.isSignExistant(radio, face))
+        if (!isSignExistant(radio, face))
             return false;
 
         // Gets the sign itself.
-        final Sign sign = RadioUtil.getSign(radio, face);
+        final Sign sign = getSign(radio, face);
 
         // Checks to make sure there is a sign on that face of the radio.
         if (sign == null)
             return false;
 
-        final BigDecimal signFreq = RadioUtil.parseSignStringToFrequency(sign.getLine(0));
-        final BigDecimal locationFreq = RadioUtil.getFrequencyFromLocation(radio.getLocation());
-        final String radioFreq = "[" + radio.getFrequencyAsString() + "]";
+        final BigDecimal signFreq = parseSignStringToFrequency(sign.getLine(0));
+        final BigDecimal locationFreq = getFrequencyFromLocation(radio.getLocation());
+        final BigDecimal radioFreq = radio.getFrequency().getFrequency();
 
         // If the sign frequency does not contain a valid value, sets it
         // to the radio frequency.
-        sign.setLine(0, radioFreq);
+        sign.setLine(0, "[" + radioFreq + "]");
 
         // If there is a defined frequency for this radio, uses it.
         if (signFreq != null)
@@ -39,7 +38,8 @@ public final class RadioUtil {
             // radio frequency is based on the location, sets the radio
             // frequency to it.
             if (radioFreq.equals(locationFreq)) {
-                radio = new Radio(radio.getLocation(), new Frequency(signFreq));
+                radio.getFrequency().setFrequency(signFreq);
+                sign.setLine(0, "[" + signFreq + "]");
             }
 
         sign.update(true);
@@ -48,11 +48,9 @@ public final class RadioUtil {
     }
 
     public static BigDecimal parseSignStringToFrequency(final String stringFrequency) {
-        if (!stringFrequency.substring(0, 1).equals("[")
-                || !stringFrequency.substring(stringFrequency.length() - 1).equals("]"))
-            return null;
-
-        return RadioUtil.parseStringToFrequency(stringFrequency);
+        // Returns the frequency without the tags attached.
+        return hasTags(stringFrequency) ? null
+                : parseStringToFrequency(stripTags(stringFrequency));
     }
 
     public static BigDecimal parseStringToFrequency(final String stringFrequency) {
@@ -72,7 +70,7 @@ public final class RadioUtil {
         // Reverts the frequency from scientific to integer notation.
         final String frequency = String.valueOf(location.hashCode());
 
-        return RadioUtil.parseStringToFrequency(frequency);
+        return parseStringToFrequency(frequency);
     }
 
     private static boolean isSignExistant(final Radio radio, final BlockFace face) {
@@ -82,21 +80,32 @@ public final class RadioUtil {
 
     public static String getMessage(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!RadioUtil.isSignExistant(radio, face))
+        if (!isSignExistant(radio, face))
             return null;
 
+        Sign sign = getSign(radio, face);
+
         // Formulates a message based on the text on the sign.
-        return RadioUtil.getSign(radio, face).getLine(1) + " "
-                + RadioUtil.getSign(radio, face).getLine(2) + " "
-                + RadioUtil.getSign(radio, face).getLine(3);
+        return sign.getLine(1) + " " + sign.getLine(2) + " " + sign.getLine(3);
     }
 
     private static Sign getSign(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!RadioUtil.isSignExistant(radio, face))
+        if (!isSignExistant(radio, face))
             return null;
 
         // Retrieves the sign block at the requested radio face.
         return (Sign) radio.getBlock().getRelative(face).getState();
+    }
+
+    private static boolean hasTags(String frequency) {
+        // Checks to make sure the frequency has the proper tags.
+        return frequency.substring(0, 1).equals("[")
+                && frequency.substring(frequency.length() - 1).equals("]");
+    }
+
+    private static String stripTags(String frequency) {
+        // Returns the frequency without the marker tags.
+        return frequency.substring(1, frequency.length() - 1);
     }
 }
