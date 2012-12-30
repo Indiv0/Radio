@@ -12,17 +12,15 @@ commands:
   radio:
     description: Controls all functions of the Radio plugin.
     usage: |
-      /<command> [scan|frequency]
+      /<command> [tune|scan|off]
+      Example: /<command> tune [frequency] - Sets scan frequency.
       Example: /<command> scan - Scans all broadcasts.
-      Example: /<command> [frequency] - Sets scan frequency.
+      Example: /<command> off - Turns off the radio.
     permission: radio.use
-    permission-message: Sorry, you don't have permission to use Radio
+    permission-message: Sorry, you don't have permission to use Radio.
 
 permissions:
   radio.*:
     description: Controls all Radio permissions
     children:
       radio.use: true
-  radio.use:
-    description: Controls whether or not the user can use the Radio frequency functionality
-    default: true
