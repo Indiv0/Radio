@@ -44,6 +44,9 @@ public class InfoManager {
     }
 
     public Frequency getFrequency(final String playerName) {
+        if (frequencies.get(playerName) == null)
+            frequencies.load(playerName, FrequencyLoader.FACTORY);
+
         return frequencies.get(playerName);
     }
 
