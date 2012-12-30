@@ -12,7 +12,6 @@ import org.github.indiv0.radio.main.RadioBroadcast;
 import org.github.indiv0.radio.main.RadioPlugin;
 import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
-import org.github.indiv0.radio.util.RadioUtil;
 
 public class RadioBlockListener implements Listener {
     RadioPlugin plugin;
@@ -54,7 +53,7 @@ public class RadioBlockListener implements Listener {
         final Location location = radioBlock.getLocation();
 
         // Creates the radio.
-        final Radio radio = new Radio(location, new Frequency(RadioUtil.getFrequencyFromLocation(location)));
+        final Radio radio = new Radio(location, new Frequency(null));
 
         // Adds the radio to the radios list.
         plugin.addRadio(radio);
