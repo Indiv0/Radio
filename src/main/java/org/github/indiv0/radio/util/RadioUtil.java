@@ -14,7 +14,7 @@ public final class RadioUtil {
 
     public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!isSignExistant(radio, face))
+        if (!signExists(radio, face))
             return false;
 
         // Gets the sign itself.
@@ -73,7 +73,7 @@ public final class RadioUtil {
         return parseStringToFrequency(frequency);
     }
 
-    private static boolean isSignExistant(final Radio radio, final BlockFace face) {
+    private static boolean signExists(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         return radio.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
@@ -83,14 +83,14 @@ public final class RadioUtil {
 
         // Confirms that the requested side of the radio has a sign.
         // Formulates a message based on the text on the sign.
-        return isSignExistant(radio, face) ? sign.getLine(1) + " "
+        return signExists(radio, face) ? sign.getLine(1) + " "
                 + sign.getLine(2) + " " + sign.getLine(3) : null;
     }
 
     private static Sign getSign(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         // Retrieves the sign block at the requested radio face.
-        return isSignExistant(radio, face) ? (Sign) radio.getBlock().getRelative(face).getState()
+        return signExists(radio, face) ? (Sign) radio.getBlock().getRelative(face).getState()
                 : null;
     }
 
