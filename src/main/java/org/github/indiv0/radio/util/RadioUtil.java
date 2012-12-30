@@ -65,17 +65,26 @@ public final class RadioUtil {
         return frequency;
     }
 
-    // Getter and Setter Methods
-    public static BigDecimal getFrequencyFromLocation(final Location location) {
-        // Reverts the frequency from scientific to integer notation.
-        final String frequency = String.valueOf(location.hashCode());
+    private static boolean hasTags(String frequency) {
+        // Checks to make sure the frequency has the proper tags.
+        return frequency.substring(0, 1).equals("[")
+                && frequency.substring(frequency.length() - 1).equals("]");
+    }
 
-        return parseStringToFrequency(frequency);
+    private static String stripTags(String frequency) {
+        // Returns the frequency without the marker tags.
+        return frequency.substring(1, frequency.length() - 1);
     }
 
     private static boolean signExists(final Radio radio, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         return radio.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
+    }
+
+    // Getter and Setter Methods
+    public static BigDecimal getFrequencyFromLocation(final Location location) {
+        // Reverts the frequency from scientific to integer notation.
+        return parseStringToFrequency(String.valueOf(location.hashCode()));
     }
 
     public static String getMessage(final Radio radio, final BlockFace face) {
@@ -92,16 +101,5 @@ public final class RadioUtil {
         // Retrieves the sign block at the requested radio face.
         return signExists(radio, face) ? (Sign) radio.getBlock().getRelative(face).getState()
                 : null;
-    }
-
-    private static boolean hasTags(String frequency) {
-        // Checks to make sure the frequency has the proper tags.
-        return frequency.substring(0, 1).equals("[")
-                && frequency.substring(frequency.length() - 1).equals("]");
-    }
-
-    private static String stripTags(String frequency) {
-        // Returns the frequency without the marker tags.
-        return frequency.substring(1, frequency.length() - 1);
     }
 }
