@@ -147,7 +147,7 @@ public class RadioPlugin extends MbapiPlugin {
 
     public Radio getRadioByLocation(final Location location) {
         for (final Radio radio : getRadios())
-            if (radio.getLocation() == location)
+            if (radio.getLocation().equals(location))
                 return radio;
 
         return null;
