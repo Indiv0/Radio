@@ -3,15 +3,16 @@ package org.github.indiv0.radio.events;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-import org.github.indiv0.radio.main.RadioBroadcast;
 import org.github.indiv0.radio.main.RadioPlugin;
 import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
+import org.github.indiv0.radio.util.RadioUtil;
 
 public class RadioBlockListener implements Listener {
     RadioPlugin plugin;
@@ -44,6 +45,8 @@ public class RadioBlockListener implements Listener {
             radioBlock = event.getBlock().getRelative(0, 0, 1);
         } else if (event.getBlock().getRelative(0, 0, -1).getType() == Material.JUKEBOX) {
             radioBlock = event.getBlock().getRelative(0, 0, -1);
+        } else if (event.getBlock().getRelative(0, 1, 0).getType() == Material.JUKEBOX) {
+            radioBlock = event.getBlock().getRelative(0, 1, 0);
         } else if (event.getBlock().getType() == Material.WALL_SIGN)
             return;
         else
@@ -53,12 +56,14 @@ public class RadioBlockListener implements Listener {
         final Location location = radioBlock.getLocation();
 
         // Creates the radio.
-        final Radio radio = new Radio(location, new Frequency(null));
+        for (BlockFace face : BlockFace.values()) {
+            if (!RadioUtil.signHasValidFrequency(location, face))
+                continue;
 
-        // Adds the radio to the radios list.
-        plugin.addRadio(radio);
-
-        RadioBroadcast.attemptBroadcast(radio);
+            // Adds the radio to the radios list.
+            plugin.addRadio(new Radio(location, new Frequency(RadioUtil.getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0)))));
+            break;
+        }
     }
 
     @EventHandler

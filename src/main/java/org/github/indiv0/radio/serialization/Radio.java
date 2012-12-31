@@ -1,14 +1,23 @@
 package org.github.indiv0.radio.serialization;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.github.indiv0.radio.util.RadioUtil;
 
 public class Radio implements Comparable<Radio> {
     Location location;
     Frequency freq;
+
+    private static final BlockFace[] faces = { BlockFace.NORTH, BlockFace.WEST,
+            BlockFace.SOUTH, BlockFace.EAST };
 
     public Radio(final Location location, final Frequency frequency) {
         this.location = location;
@@ -27,24 +36,58 @@ public class Radio implements Comparable<Radio> {
         return freq;
     }
 
-    public boolean signExists(final BlockFace face) {
+    public static boolean signExists(final Location location, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        return getBlock().getRelative(face).getType() == Material.WALL_SIGN;
+        return location.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
 
-    public String getMessage(final BlockFace face) {
-        Sign sign = getSign(face);
+    public static List<String> getMessage(final Location location) {
+        String message = "";
+        int val = 0;
 
-        // Confirms that the requested side of the radio has a sign.
-        // Formulates a message based on the text on the sign.
-        return signExists(face) ? sign.getLine(1) + " " + sign.getLine(2) + " "
-                + sign.getLine(3) : null;
+        faces: for (val = 0; val <= faces.length; val++) {
+            if (!signExists(location, faces[val]))
+                continue;
+
+            Sign sign = getSign(location, faces[val]);
+
+            for (int j = 0; j <= 3; j++)
+                if (RadioUtil.hasTags(sign.getLine(j)))
+                    break faces;
+        }
+
+        for (int i = 0; i < faces.length; i++)
+            for (int j = 0; j <= 3; j++) {
+                if (!signExists(location, faces[(val + i) % 4]))
+                    continue;
+
+                Sign sign = getSign(location, faces[(val + i) % 4]);
+
+                if (!RadioUtil.hasTags(sign.getLine(j))) {
+                    String line = sign.getLine(j);
+                    message = message.concat(line);
+                }
+            }
+
+        if (message == "")
+            return null;
+
+        // Split the strings and add them to a list.
+        String[] strings = message.split("\\\\n");
+
+        for (int i = 1; i < strings.length; i++)
+            strings[i] = ChatColor.RED + strings[i];
+
+        List<String> messageArray = new ArrayList<String>();
+        messageArray = Arrays.asList(strings);
+
+        return messageArray;
     }
 
-    public Sign getSign(final BlockFace face) {
+    public static Sign getSign(final Location location, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         // Retrieves the sign block at the requested radio face.
-        return signExists(face) ? (Sign) getBlock().getRelative(face).getState()
+        return signExists(location, face) ? (Sign) location.getBlock().getRelative(face).getState()
                 : null;
     }
 

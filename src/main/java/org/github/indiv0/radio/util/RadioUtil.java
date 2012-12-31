@@ -2,6 +2,7 @@ package org.github.indiv0.radio.util;
 
 import java.math.BigDecimal;
 
+import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -11,15 +12,10 @@ import org.github.indiv0.radio.serialization.Radio;
 
 public final class RadioUtil {
     public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {
-        // Confirms that the requested side of the radio has a sign.
-        if (!radio.signExists(face))
-            return false;
-
         // Gets the sign itself.
-        final Sign sign = radio.getSign(face);
+        final Sign sign = Radio.getSign(radio.getLocation(), face);
 
-        // Checks to make sure there is a sign on that face of the radio.
-        if (sign == null)
+        if (!signHasValidFrequency(radio.getLocation(), face))
             return false;
 
         final BigDecimal signFreq = getFrequencyFromStringWithoutTags(sign.getLine(0));
@@ -44,9 +40,27 @@ public final class RadioUtil {
         return true;
     }
 
+    public static boolean signHasValidFrequency(final Location location, final BlockFace face) {
+        // Confirms that the requested side of the radio has a sign.
+        if (!Radio.signExists(location, face))
+            return false;
+
+        // Checks to make sure there is a sign on that face of the radio.
+        if (Radio.getSign(location, face) == null)
+            return false;
+
+        if (getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0)) == null)
+            return false;
+
+        return true;
+    }
+
     // Tag related methods
 
-    private static boolean hasTags(String frequency) {
+    public static boolean hasTags(String frequency) {
+        if (frequency.length() < 3)
+            return false;
+
         // Checks to make sure the frequency has the proper tags.
         return frequency.substring(0, 1).equals("[")
                 && frequency.substring(frequency.length() - 1).equals("]");

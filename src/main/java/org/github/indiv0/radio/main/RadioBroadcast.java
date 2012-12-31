@@ -9,7 +9,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
-import org.github.indiv0.radio.util.RadioUtil;
 
 import ashulman.mbapi.storage.TypeSafeStorageSet;
 
@@ -50,11 +49,9 @@ public class RadioBroadcast implements Runnable {
             return;
 
         // Checks to make sure the radio has signs on it.
-        if (radioBlock.getRelative(BlockFace.NORTH).getType() != Material.WALL_SIGN
-                && radioBlock.getRelative(BlockFace.EAST).getType() != Material.WALL_SIGN
-                && radioBlock.getRelative(BlockFace.SOUTH).getType() != Material.WALL_SIGN
-                && radioBlock.getRelative(BlockFace.WEST).getType() != Material.WALL_SIGN)
-            return;
+        for (BlockFace face : BlockFace.values())
+            if (radioBlock.getRelative(face).getType() == Material.WALL_SIGN)
+                break;
 
         // Checks to see if the radio has a clarity enchancing block (e.g.
         // Iron, Gold, Lapus, or Diamond).
@@ -142,48 +139,46 @@ public class RadioBroadcast implements Runnable {
 
             // Attempts to broadcast the messages contained on the signs on each
             // side of the block.
-            broadcast(BlockFace.NORTH, radio, percent, isGarbled, player);
-            broadcast(BlockFace.SOUTH, radio, percent, isGarbled, player);
-            broadcast(BlockFace.EAST, radio, percent, isGarbled, player);
-            broadcast(BlockFace.WEST, radio, percent, isGarbled, player);
+            broadcast(radio, percent, isGarbled, player);
         }
     }
 
-    public static void broadcast(final BlockFace face, final Radio radio, final double percent, final boolean isGarbled, final Player player) {
-        // Corrects the frequency on the sign, if need be.
-        RadioUtil.registerFrequencyToSign(radio, face);
-
+    public static void broadcast(final Radio radio, final double percent, final boolean isGarbled, final Player player) {
         // Fails to broadcast if the frequency of the player's radio and the
         // radio that is broadcasting don't match up.
         if (!checkIfPlayerFrequencyMatches(player, radio))
             return;
 
-        String message = radio.getMessage(face);
+        List<String> message = Radio.getMessage(radio.getLocation());
 
         // Cancels the broadcast if there is no message provided.
         if (message == null)
             return;
 
         // Garbles the message if the player is past the garbleDistance;
-        if (isGarbled) {
-            message = garbleMessage(message, percent);
-        }
+        if (isGarbled)
+            garbleMessage(message, percent);
 
-        player.sendMessage(ChatColor.RED + "[Radio "
-                + radio.getFrequency().getFrequency() + "] " + message);
+        String freqPrefix = ChatColor.RED + "[Radio "
+                + radio.getFrequency().getFrequency() + "] ";
+
+        message.set(0, freqPrefix.concat(message.get(0)));
+
+        player.sendMessage((String[]) message.toArray());
     }
 
-    public static String garbleMessage(final String message, final double percent) {
+    public static void garbleMessage(final List<String> message, final double percent) {
         // Garbles the message.
-        final int messageLength = message.length();
+        final int messageLength = message.size();
         final int amountRemoved = (int) (percent * messageLength);
-        final char[] charString = message.toCharArray();
-        for (int k = 0; k < amountRemoved; k++) {
-            final int removalPoint = (int) (Math.random() * (charString.length - 1));
-            charString[removalPoint] = ' ';
-        }
 
-        return new String(charString);
+        for (String string : message) {
+            final char[] charString = string.toCharArray();
+            for (int k = 0; k < amountRemoved; k++) {
+                final int removalPoint = (int) (Math.random() * (charString.length - 1));
+                charString[removalPoint] = ' ';
+            }
+        }
     }
 
     public static int calculateIronBarsSurroundingPlayer(final Player player, final int modX, final int modY, final int modZ) {

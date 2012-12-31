@@ -62,6 +62,8 @@ public class RadioPlugin extends MbapiPlugin {
     }
 
     private boolean loadConfig() {
+        saveDefaultConfig();
+
         // Tries to load the configuration from the file into configYaml.
         YamlConfiguration configYaml = (YamlConfiguration) getConfig();
 
