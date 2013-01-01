@@ -7,7 +7,9 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.github.indiv0.radio.commands.CommandRadio;
 import org.github.indiv0.radio.events.RadioBlockListener;
@@ -27,6 +29,10 @@ public class RadioPlugin extends MbapiPlugin {
     private int pipboyID = 345;
     private double scanChance = 0.01;
     private int ironBarExtension = 30;
+    private final HashMap<Material, Double> signalClarityBlocks = new HashMap<Material, Double>();
+    private boolean wallRadioPersist = true;
+    private boolean userRadioPersist = true;
+    private boolean transmitEmptyMessages = false;
 
     private ConfigurationContext configurationContext;
     private InfoManager infoManager;
@@ -81,6 +87,13 @@ public class RadioPlugin extends MbapiPlugin {
         // a broadcast.
         ironBarExtension = configYaml.getInt("ironBarExtension", getIronBarExtension());
 
+        ConfigurationSection configSection = configYaml.getConfigurationSection("signalClarityBlocks");
+        for (String key : configSection.getKeys(false))
+            signalClarityBlocks.put(Material.getMaterial(key), configSection.getDouble(key));
+
+        wallRadioPersist = configYaml.getBoolean("wallRadioPersist", getWallRadioPersist());
+        userRadioPersist = configYaml.getBoolean("userRadioPersist", getUserRadioPersist());
+        transmitEmptyMessages = configYaml.getBoolean("transmitEmptyMessages", getTransmitEmptyMessages());
         return true;
     }
 
@@ -144,5 +157,17 @@ public class RadioPlugin extends MbapiPlugin {
 
     public int getIronBarExtension() {
         return ironBarExtension;
+    }
+
+    private boolean getWallRadioPersist() {
+        return wallRadioPersist;
+    }
+
+    private boolean getUserRadioPersist() {
+        return userRadioPersist;
+    }
+
+    private boolean getTransmitEmptyMessages() {
+        return transmitEmptyMessages;
     }
 }
