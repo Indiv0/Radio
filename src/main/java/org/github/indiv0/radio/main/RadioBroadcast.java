@@ -1,5 +1,6 @@
 package org.github.indiv0.radio.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -149,22 +150,26 @@ public class RadioBroadcast implements Runnable {
         if (!checkIfPlayerFrequencyMatches(player, radio))
             return;
 
-        List<String> message = Radio.getMessage(radio.getLocation());
+        String freqPrefix = ChatColor.RED + "[Radio "
+                + radio.getFrequency().getFrequency() + "] ";
+
+        ArrayList<String> message = Radio.getMessage(radio.getLocation());
 
         // Cancels the broadcast if there is no message provided.
-        if (message == null)
-            return;
+        if (message.size() == 0) {
+            if (!plugin.getTransmitEmptyMessages())
+                return;
+
+            player.sendMessage(freqPrefix);
+        }
 
         // Garbles the message if the player is past the garbleDistance;
         if (isGarbled)
             garbleMessage(message, percent);
 
-        String freqPrefix = ChatColor.RED + "[Radio "
-                + radio.getFrequency().getFrequency() + "] ";
+        message.add(0, freqPrefix);
 
-        message.set(0, freqPrefix.concat(message.get(0)));
-
-        player.sendMessage((String[]) message.toArray());
+        player.sendMessage(message.toArray(new String[message.size()]));
     }
 
     public static void garbleMessage(final List<String> message, final double percent) {

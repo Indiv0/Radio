@@ -2,7 +2,6 @@ package org.github.indiv0.radio.serialization;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -41,7 +40,7 @@ public class Radio implements Comparable<Radio> {
         return location.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
 
-    public static List<String> getMessage(final Location location) {
+    public static ArrayList<String> getMessage(final Location location) {
         String message = "";
         int val = 0;
 
@@ -69,8 +68,9 @@ public class Radio implements Comparable<Radio> {
                 }
             }
 
-        if (message == "")
-            return null;
+        if (message == "") {
+            return new ArrayList<String>();
+        }
 
         // Split the strings and add them to a list.
         String[] strings = message.split("\\\\n");
@@ -78,10 +78,7 @@ public class Radio implements Comparable<Radio> {
         for (int i = 1; i < strings.length; i++)
             strings[i] = ChatColor.RED + strings[i];
 
-        List<String> messageArray = new ArrayList<String>();
-        messageArray = Arrays.asList(strings);
-
-        return messageArray;
+        return new ArrayList<String>(Arrays.asList(strings));
     }
 
     public static Sign getSign(final Location location, final BlockFace face) {

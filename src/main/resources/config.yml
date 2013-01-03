@@ -40,10 +40,10 @@ ironBarExtension: 30
 #  DIRT: 0
 signalClarityBlocks:
   DIAMOND_BLOCK: 0.99
+  GOLD_BLOCK: 0.5
   LAPIS_BLOCK: 0.3
   IRON_BLOCK: 0.15
-  GOLD_BLOCK: 0.5
-  DIRT: 0
+  DIRT: 0.0
 
 ## Whether or not to persist wall and user radios across reloads.
 # Default: true and true

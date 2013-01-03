@@ -159,15 +159,15 @@ public class RadioPlugin extends MbapiPlugin {
         return ironBarExtension;
     }
 
-    private boolean getWallRadioPersist() {
+    public boolean getWallRadioPersist() {
         return wallRadioPersist;
     }
 
-    private boolean getUserRadioPersist() {
+    public boolean getUserRadioPersist() {
         return userRadioPersist;
     }
 
-    private boolean getTransmitEmptyMessages() {
+    public boolean getTransmitEmptyMessages() {
         return transmitEmptyMessages;
     }
 }
