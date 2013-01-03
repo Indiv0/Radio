@@ -6,13 +6,11 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.github.indiv0.radio.commands.CommandRadio;
-import org.github.indiv0.radio.events.RadioBlockListener;
 import org.github.indiv0.radio.events.RadioPlayerListener;
 import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
@@ -52,7 +50,6 @@ public class RadioPlugin extends MbapiPlugin {
 
         // Registers the two event handlers and the command executor.
         registerEventHandler(new RadioPlayerListener(this));
-        registerEventHandler(new RadioBlockListener(this));
         registerCommandExecutor("radio", new CommandRadio(configurationContext));
 
         // Schedules a broadcast task to handle radio message broadcasting.
@@ -75,7 +72,8 @@ public class RadioPlugin extends MbapiPlugin {
 
         // Retrieves the worlds in which frequency scanning is enabled.
         for (final World world : getServer().getWorlds()) {
-            setOn(world, configYaml.getBoolean("worlds." + world.getName(), false));
+            worldsTable.put(world, configYaml.getBoolean("worlds."
+                    + world.getName(), false));
         }
 
         // Retrieves the "pipboy" item ID.
@@ -97,45 +95,13 @@ public class RadioPlugin extends MbapiPlugin {
         return true;
     }
 
-    public void addRadio(final Radio radio) {
-        if (getRadioByLocation(radio.getLocation()) != null) {
-            removeRadio(getRadioByLocation(radio.getLocation()));
-        }
-
-        getRadios().add(radio);
-    }
-
-    public void removeRadio(final Radio radio) {
-        // Cancels any tasks scheduled by this plugin.
-        // getServer().getScheduler().cancelTasks(this);
-
-        // Removes the radio.
-        getRadios().remove(radio);
-
-        // Schedules a broadcast task to handle radio message broadcasting.
-        // Bukkit.getScheduler().scheduleSyncRepeatingTask(this, broadcast, 20L,
-        // 100L);
-    }
-
     // Getter and Setter methods
-    public Map<World, Boolean> getOn() {
+    public Map<World, Boolean> getBroadcastingWorlds() {
         return worldsTable;
-    }
-
-    public void setOn(final World world, final boolean isOn) {
-        worldsTable.put(world, isOn);
     }
 
     public TypeSafeStorageSet<Radio> getRadios() {
         return infoManager.getRadios();
-    }
-
-    public Radio getRadioByLocation(final Location location) {
-        for (final Radio radio : getRadios())
-            if (radio.getLocation().equals(location))
-                return radio;
-
-        return null;
     }
 
     public Frequency getFrequency(final String name) {

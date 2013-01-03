@@ -22,7 +22,7 @@ public class RadioPlayerListener implements Listener {
     public void onPlayerInteract(final PlayerInteractEvent event) {
         // Checks to see if the world from which the event was sent supports
         // radio broadcasting.
-        if (!plugin.getOn().get(event.getPlayer().getWorld()))
+        if (!plugin.getBroadcastingWorlds().get(event.getPlayer().getWorld()))
             return;
 
         // Confirms that the action performed by the player was a right click.

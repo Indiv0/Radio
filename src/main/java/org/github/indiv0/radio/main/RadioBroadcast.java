@@ -40,11 +40,6 @@ public class RadioBroadcast implements Runnable {
         // Retrieves the block which represents the radio.
         Block radioBlock = radio.getBlock();
 
-        if (radioBlock.getState().getType() != Material.JUKEBOX) {
-            plugin.removeRadio(radio);
-            return;
-        }
-
         // Moves on to the next radio if the current one is not powered.
         if (!radioBlock.isBlockIndirectlyPowered())
             return;
@@ -157,10 +152,9 @@ public class RadioBroadcast implements Runnable {
 
         // Cancels the broadcast if there is no message provided.
         if (message.size() == 0) {
-            if (!plugin.getTransmitEmptyMessages())
-                return;
-
-            player.sendMessage(freqPrefix);
+            if (plugin.getTransmitEmptyMessages())
+                player.sendMessage(freqPrefix);
+            return;
         }
 
         // Garbles the message if the player is past the garbleDistance;
