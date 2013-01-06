@@ -13,8 +13,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.server.PluginDisableEvent;
-import org.bukkit.event.server.PluginEnableEvent;
 import org.github.indiv0.radio.main.FrequencyConstructorFactory;
 import org.github.indiv0.radio.main.RadioConstructorFactory;
 import org.github.indiv0.radio.main.RadioPlugin;
@@ -71,6 +69,10 @@ public class InfoManager {
         frequencies.get(playerName).setFrequency(frequency);
     }
 
+    public void loadRadios() {
+        radios.load();
+    }
+
     public void saveAll() {
         for (final String playerName : frequencies.keySet()) {
             frequencies.save(playerName);
@@ -118,18 +120,6 @@ public class InfoManager {
                 final ConfigurationContext configurationContext) {
             this.map = map;
             this.configurationContext = configurationContext;
-        }
-
-        @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-        public void onPluginEnable(final PluginEnableEvent event) {
-            if (event.getPlugin() instanceof RadioPlugin)
-                map.load();
-        }
-
-        @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-        public void onPluginDisable(final PluginDisableEvent event) {
-            if (event.getPlugin() instanceof RadioPlugin)
-                map.unload();
         }
 
         @EventHandler(priority = EventPriority.HIGHEST)

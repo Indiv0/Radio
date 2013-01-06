@@ -15,10 +15,12 @@ import org.github.indiv0.radio.events.RadioPlayerListener;
 import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
 import org.github.indiv0.radio.storage.InfoManager;
+import org.github.indiv0.radio.util.SupplimentaryTypes;
 
 import ashulman.mbapi.plugin.MbapiPlugin;
 import ashulman.mbapi.storage.TypeSafeStorageSet;
 import ashulman.mbapi.util.ConfigurationContext;
+import ashulman.typesafety.gson.TypeSafeSetTypeAdapter;
 
 public class RadioPlugin extends MbapiPlugin {
     private final RadioBroadcast broadcast = new RadioBroadcast(this);
@@ -38,7 +40,7 @@ public class RadioPlugin extends MbapiPlugin {
     @Override
     public void onEnable() {
         // Initializes the configurationContext.
-        configurationContext = new ConfigurationContext(this);
+        configurationContext = new ConfigurationContext(this, new TypeSafeSetTypeAdapter<Radio>(SupplimentaryTypes.HASHSET, SupplimentaryTypes.RADIO));
         // Initializes the infoManager.
         infoManager = new InfoManager(configurationContext);
 
@@ -55,6 +57,8 @@ public class RadioPlugin extends MbapiPlugin {
         // Schedules a broadcast task to handle radio message broadcasting.
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, broadcast, 20L, 100L);
 
+        // infoManager.loadRadios();
+
         super.onEnable();
     }
 
@@ -62,6 +66,8 @@ public class RadioPlugin extends MbapiPlugin {
     public void onDisable() {
         // Cancels any tasks scheduled by this plugin.
         getServer().getScheduler().cancelTasks(this);
+
+        infoManager.unloadAll();
     }
 
     private boolean loadConfig() {
