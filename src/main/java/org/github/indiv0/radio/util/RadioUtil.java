@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.entity.Player;
-import org.github.indiv0.radio.main.RadioBroadcast;
 import org.github.indiv0.radio.serialization.Frequency;
 import org.github.indiv0.radio.serialization.Radio;
 
@@ -21,15 +19,12 @@ public final class RadioUtil {
         final BigDecimal signFreq = getFrequencyFromStringWithoutTags(sign.getLine(0));
         final Frequency radioFreq = radio.getFrequency();
 
-        // If the sign frequency does not contain a valid value, sets it
-        // to the radio frequency.
+        // If the sign frequency does not contain a valid value, sets it to the radio frequency.
         sign.setLine(0, addTags(radioFreq));
 
         // If there is a defined frequency for this radio, uses it.
         if (signFreq != null)
-            // If the sign frequency contains a valid value, and if the
-            // radio frequency is based on the location, sets the radio
-            // frequency to it.
+            // If the sign frequency contains a valid value, and if the radio frequency is based on the location, sets the radio frequency to it.
             if (radioFreq == null) {
                 radio.getFrequency().setFrequency(signFreq);
                 sign.setLine(0, addTags(signFreq));
@@ -58,8 +53,9 @@ public final class RadioUtil {
     // Tag related methods
 
     public static boolean hasTags(String frequency) {
-        if (frequency.length() < 3)
+        if (frequency.length() < 3) {
             return false;
+        }
 
         // Checks to make sure the frequency has the proper tags.
         return frequency.substring(0, 1).equals("[")
@@ -75,17 +71,6 @@ public final class RadioUtil {
         return "[" + frequency + "]";
     }
 
-    public static boolean playerIsHoldingPipboy(final Player player) {
-        // Makes sure that the currently held item is the "Pipboy" (by default
-        // the compass).
-        if (player.getItemInHand().getTypeId() != RadioBroadcast.plugin.getPipboyID()) {
-            player.sendMessage("You must be holding a compass to work the radio.");
-            return false;
-        }
-
-        return true;
-    }
-
     // Getter and Setter Methods
 
     public static BigDecimal getFrequencyFromString(final String stringFrequency) {
@@ -93,7 +78,8 @@ public final class RadioUtil {
 
         try {
             frequency = BigDecimal.valueOf(Double.parseDouble(stringFrequency));
-        } catch (final NumberFormatException e) {
+        }
+        catch (final NumberFormatException e) {
             return null;
         }
 

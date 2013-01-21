@@ -4,27 +4,32 @@ import java.math.BigDecimal;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.github.indiv0.radio.main.Commands;
-import org.github.indiv0.radio.main.RadioPlugin;
+import org.github.indiv0.radio.management.RadioInfoManager;
+import org.github.indiv0.radio.util.Commands;
+import org.github.indiv0.radio.util.RadioConfigurationContext;
 import org.github.indiv0.radio.util.RadioUtil;
 
 import ashulman.mbapi.commands.PlayerOnlyCommand;
-import ashulman.mbapi.util.ConfigurationContext;
+import ashulman.typesafety.TypeSafeCollections;
 import ashulman.typesafety.TypeSafeList;
 
 public class CommandTune extends PlayerOnlyCommand {
-    private final RadioPlugin plugin;
+    private final RadioInfoManager infoManager;
+    private final int pipboyId;
 
-    public CommandTune(final ConfigurationContext configurationContext) {
+    public CommandTune(final RadioConfigurationContext configurationContext) {
         super(configurationContext, Commands.TUNE, 1, 1);
-        plugin = (RadioPlugin) configurationContext.plugin;
+        infoManager = configurationContext.infoManager;
+        pipboyId = configurationContext.pipboyId;
     }
 
     @Override
     protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
-        if (!RadioUtil.playerIsHoldingPipboy(player))
+        if (player.getItemInHand().getTypeId() != pipboyId) {
+            player.sendMessage("You must be holding a compass to work the radio.");
             return true;
+        }
 
         final String frequencyArg = args.get(0).toString().toLowerCase();
 
@@ -37,22 +42,20 @@ public class CommandTune extends PlayerOnlyCommand {
 
         try {
             frequency = BigDecimal.valueOf(Double.valueOf(frequencyArg));
-        } catch (Exception e) {
-            player.sendMessage("Failed to set frequency. \"" + frequencyArg
-                    + "\" is an invalid frequency.");
+        }
+        catch (Exception e) {
+            player.sendMessage("Failed to set frequency. \"" + frequencyArg + "\" is an invalid frequency.");
             return false;
         }
 
-        plugin.setFrequency(sender.getName(), frequency);
-        player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW
-                + frequency);
+        infoManager.setFrequency(sender.getName(), frequency);
+        player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW + frequency);
 
         return true;
     }
 
     @Override
     public TypeSafeList<String> onTabComplete(final CommandSender sender, final TypeSafeList<String> args) {
-        // TODO Auto-generated method stub
-        return null;
+        return TypeSafeCollections.emptyList();
     }
 }

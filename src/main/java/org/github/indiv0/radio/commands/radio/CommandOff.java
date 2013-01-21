@@ -1,32 +1,34 @@
 package org.github.indiv0.radio.commands.radio;
 
 import org.bukkit.command.CommandSender;
-import org.github.indiv0.radio.main.Commands;
-import org.github.indiv0.radio.main.RadioPlugin;
+import org.github.indiv0.radio.management.RadioInfoManager;
 import org.github.indiv0.radio.serialization.Frequency;
-import org.github.indiv0.radio.util.RadioUtil;
+import org.github.indiv0.radio.util.Commands;
+import org.github.indiv0.radio.util.RadioConfigurationContext;
 
 import ashulman.mbapi.commands.PlayerOnlyCommand;
-import ashulman.mbapi.util.ConfigurationContext;
+import ashulman.typesafety.TypeSafeCollections;
 import ashulman.typesafety.TypeSafeList;
 
 public class CommandOff extends PlayerOnlyCommand {
-    private final RadioPlugin plugin;
+    private final RadioInfoManager infoManager;
+    private final int pipboyId;
 
-    public CommandOff(final ConfigurationContext configurationContext) {
+    public CommandOff(final RadioConfigurationContext configurationContext) {
         super(configurationContext, Commands.OFF, 0, 0);
-        plugin = (RadioPlugin) configurationContext.plugin;
+        infoManager = configurationContext.infoManager;
+        pipboyId = configurationContext.pipboyId;
     }
 
     @Override
     protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
-        if (!RadioUtil.playerIsHoldingPipboy(player)) {
+        if (player.getItemInHand().getTypeId() != pipboyId) {
             player.sendMessage("You must be holding a compass to work the radio.");
             return true;
         }
 
-        plugin.setFrequency(sender.getName(), Frequency.OFF);
+        infoManager.setFrequency(sender.getName(), Frequency.OFF);
 
         player.sendMessage("Successfully turned off the radio.");
         return true;
@@ -34,7 +36,6 @@ public class CommandOff extends PlayerOnlyCommand {
 
     @Override
     public TypeSafeList<String> onTabComplete(final CommandSender sender, final TypeSafeList<String> args) {
-        // TODO Auto-generated method stub
-        return null;
+        return TypeSafeCollections.emptyList();
     }
 }

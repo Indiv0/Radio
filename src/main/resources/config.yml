@@ -6,13 +6,11 @@
 
 #======== World List ==========#
 
-## Store all of the worlds in which Radio is enabled.
-# (Note: removing a world may have unintended consequences.)
-# If set to true, will broadcast radio messages in that world, and vice versa.
-worlds:
-  world: true
-  world_nether: true
-  world_the_end: true
+## All of the worlds in which Radio is enabled.
+worlds: 
+  - world
+  - world_nether
+  - world_the_end
   
   
 #======== Settings ==========#

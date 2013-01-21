@@ -76,7 +76,7 @@ public class Radio implements Comparable<Radio> {
         String[] strings = message.split("\\\\n");
 
         for (int i = 1; i < strings.length; i++)
-            strings[i] = ChatColor.RED + strings[i];
+            strings[i] = strings[i];
 
         return new ArrayList<String>(Arrays.asList(strings));
     }
