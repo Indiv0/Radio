@@ -60,8 +60,9 @@ public class RadioConfigurationContext extends ConfigurationContext {
         ironBarExtension = configYaml.getInt("ironBarExtension", 30);
 
         ConfigurationSection configSection = configYaml.getConfigurationSection("signalClarityBlocks");
-        for (String key : configSection.getKeys(false))
+        for (String key : configSection.getKeys(false)) {
             signalClarityBlocks.put(Material.getMaterial(key), configSection.getDouble(key));
+        }
 
         wallRadioPersist = configYaml.getBoolean("wallRadioPersist", true);
         userRadioPersist = configYaml.getBoolean("userRadioPersist", true);

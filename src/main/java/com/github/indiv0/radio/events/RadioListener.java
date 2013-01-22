@@ -58,7 +58,7 @@ public class RadioListener implements Listener {
         } else {
             return;
         }
-        
+
         // Defines the location of the radio.
         final Location location = radioBlock.getLocation();
 

@@ -38,8 +38,7 @@ public class RadioBroadcast implements Runnable {
     public void run() {
         TypeSafeSet<Radio> radios = infoManager.getRadios();
 
-        // Retrieves all of the available radios, making sure that the list is
-        // not empty.
+        // Retrieves all of the available radios, making sure that the list is not empty.
         if (radios == null || radios.isEmpty()) {
             return;
         }
@@ -65,8 +64,7 @@ public class RadioBroadcast implements Runnable {
             }
         }
 
-        // Checks to see if the radio has a clarity enchancing block (e.g. Iron,
-        // Gold, Lapus, or Diamond).
+        // Checks to see if the radio has a clarity enchancing block (e.g. Iron, Gold, Lapus, or Diamond).
         Material baseMaterial = radioBlock.getRelative(0, 1, 0).getType();
         if (Material.IRON_BLOCK.equals(baseMaterial)
                 || Material.GOLD_BLOCK.equals(baseMaterial)
@@ -77,8 +75,7 @@ public class RadioBroadcast implements Runnable {
             baseMaterial = Material.DIRT;
         }
 
-        // Gets the broadcastGarble, which represents the clarity of the signal,
-        // as affected by the clarity enchanting block.
+        // Gets the broadcastGarble, which represents the clarity of the signal, as affected by the clarity enchanting block.
         double broadcastClarity;
         switch (baseMaterial) {
             case IRON_BLOCK:
@@ -141,29 +138,22 @@ public class RadioBroadcast implements Runnable {
             radioBlock = relativeBlock;
         }
 
-        // Checks how many IRON_FENCE blocks there are above the structure,
-        // capping the number at 16. IRON_FENCE blocks determine the range of
-        // the
-        // signal.
+        // Checks how many IRON_FENCE blocks there are above the structure, capping the number at 16. IRON_FENCE blocks determine the range of the signal.
         int ironBarCount;
-        for (ironBarCount = 0; Material.IRON_FENCE.equals(radioBlock.getRelative(0, 1, 0).getType())
-                && ironBarCount <= 16; ironBarCount++) {
+        for (ironBarCount = 0; Material.IRON_FENCE.equals(radioBlock.getRelative(0, 1, 0).getType()) && ironBarCount <= 16; ironBarCount++) {
             radioBlock = radioBlock.getRelative(0, 1, 0);
         }
 
-        // Determines the broadcastDistance, which is a factor of the garble and
-        // the IRON_FENCE count.
+        // Determines the broadcastDistance, which is a factor of the garble and the IRON_FENCE count.
         final double broadcastDistance = ironBarCount * ironBarExtension
                 + broadcastClarity * 550;
 
-        // Retrieves the list of players who will act as recipients of the
-        // message, and stores them in an array.
+        // Retrieves the list of players who will act as recipients of the message, and stores them in an array.
         final List<Player> recipients = radioBlock.getWorld().getPlayers();
         final Player[] recipientsArray = recipients.toArray(new Player[recipients.size()]);
 
         for (final Player player : recipientsArray) {
-            // Checks to make sure that the player and radio are in the same
-            // world.
+            // Checks to make sure that the player and radio are in the same world.
             if (player.getLocation().getWorld() != radio.getLocation().getWorld()) {
                 break;
             }
@@ -171,8 +161,7 @@ public class RadioBroadcast implements Runnable {
             // Gets the distance of the player from the radio.
             double distance = player.getLocation().distance(radio.getLocation());
 
-            // Alters the distance based on the current weather conditions in
-            // the world.
+            // Alters the distance based on the current weather conditions in the world.
             if (player.getWorld().hasStorm()) {
                 distance = 2 * distance;
             }
@@ -180,8 +169,7 @@ public class RadioBroadcast implements Runnable {
                 distance = 0;
             }
 
-            // Gets the number of IRON_FENCE blocks surrounding the player, and
-            // increases the strength of the signal accordingly.
+            // Gets the number of IRON_FENCE blocks surrounding the player, and increases the strength of the signal accordingly.
             ironBarCount = 0;
             ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, 0);
             ironBarCount += calculateIronBarsSurroundingPlayer(player, 0, 0, 1);
@@ -195,25 +183,22 @@ public class RadioBroadcast implements Runnable {
             }
 
             final double garbleDistance = broadcastClarity * broadcastDistance;
-            final double percent = (distance - garbleDistance)
-                    / (broadcastDistance - garbleDistance);
+            final double percent = (distance - garbleDistance) / (broadcastDistance - garbleDistance);
 
             final boolean isGarbled = distance > garbleDistance;
 
-            // Attempts to broadcast the messages contained on the signs on each
-            // side of the block.
+            // Attempts to broadcast the messages contained on the signs on each side of the block.
             broadcast(radio, percent, isGarbled, player, color);
         }
     }
 
     public void broadcast(final Radio radio, final double percent, final boolean isGarbled, final Player player, ChatColor color) {
-        // Fails to broadcast if the frequency of the player's radio and the
-        // radio that is broadcasting don't match up.
-        if (!checkIfPlayerFrequencyMatches(player, radio))
+        // Fails to broadcast if the frequency of the player's radio and the radio that is broadcasting don't match up.
+        if (!checkIfPlayerFrequencyMatches(player, radio)) {
             return;
+        }
 
-        String freqPrefix = ChatColor.RED + "[Radio "
-                + radio.getFrequency().getFrequency() + "] " + color;
+        String freqPrefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
 
         ArrayList<String> message = Radio.getMessage(radio.getLocation());
 
@@ -222,13 +207,15 @@ public class RadioBroadcast implements Runnable {
             if (transmitEmptyMessages) {
                 player.sendMessage(freqPrefix);
                 return;
-            } else
+            } else {
                 return;
+            }
         }
 
         // Garbles the message if the player is past the garbleDistance;
-        if (isGarbled)
+        if (isGarbled) {
             garbleMessage(message, percent);
+        }
 
         message.add(0, freqPrefix + message.remove(0));
 
@@ -254,8 +241,9 @@ public class RadioBroadcast implements Runnable {
         Block currentBlock = player.getLocation().getBlock().getRelative(modX, modY, modZ);
 
         // Checks to make sure that the block has IRON_FENCE blocks.
-        if (player.getLocation().getBlock().getRelative(modX, modY, modZ).getType() != Material.IRON_FENCE)
+        if (player.getLocation().getBlock().getRelative(modX, modY, modZ).getType() != Material.IRON_FENCE) {
             return 0;
+        }
 
         int ironBarCount;
         for (ironBarCount = 1; currentBlock.getRelative(0, 1, 0).getType() == Material.IRON_FENCE; ironBarCount++) {
@@ -267,27 +255,25 @@ public class RadioBroadcast implements Runnable {
 
     private boolean checkIfPlayerFrequencyMatches(final Player player, final Radio radio) {
         // Checks to make sure the player is holding a compass.
-        if (!player.getInventory().contains(pipboyId))
+        if (!player.getInventory().contains(pipboyId)) {
             return false;
+        }
 
         // Retrieves the frequency the player is currently listening on.
         final Frequency playerFreq = infoManager.getFrequency(player.getName());
 
-        // If the player does not have a frequency, the frequencies do not match
-        // up.
-        if (playerFreq.isOff())
+        // If the player does not have a frequency, the frequencies do not match up.
+        if (playerFreq.isOff()) {
             return false;
+        }
 
-        // If the player's frequency is currently set to "scan", returns a
-        // randomized chance that the frequencies match, based on the scanChance
-        // value.
+        // If the player's frequency is currently set to "scan", returns a randomized chance that the frequencies match, based on the scanChance value.
         if (playerFreq.isScanning()) {
             final double random = Math.random();
             return random <= scanChance;
         }
 
-        // Returns whether or not the player's and the radio's frequencies match
-        // up.
+        // Returns whether or not the player's and the radio's frequencies match up.
         return playerFreq.equals(radio.getFrequency());
     }
 }

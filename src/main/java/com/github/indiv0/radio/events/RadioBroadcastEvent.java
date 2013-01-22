@@ -7,8 +7,7 @@ import org.bukkit.event.HandlerList;
 
 public class RadioBroadcastEvent extends Event {
 
-    public RadioBroadcastEvent(Location source, String message, double clarity,
-            ChatColor color) {
+    public RadioBroadcastEvent(Location source, String message, ChatColor color, int distance, double clarity) {
 
     }
 
