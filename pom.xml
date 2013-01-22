@@ -33,11 +33,13 @@
       <artifactId>bukkit</artifactId>
     </dependency>
     <!-- BukkitUtils -->
+    <!--
     <dependency>
       <groupId>com.github.indiv0</groupId>
       <artifactId>BukkitUtils</artifactId>
       <version>${bukkitutils.version}</version>
     </dependency>
+    -->
     <!-- Mbapi -->
     <dependency>
       <groupId>ashulman</groupId>
