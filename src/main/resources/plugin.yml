@@ -1,6 +1,6 @@
 name: Radio
-main: org.github.indiv0.radio.RadioPlugin
-version: ${project.version}
+main: com.github.indiv0.radio.RadioPlugin
+version: 1.0.0
 load: POSTWORLD
 author: Indiv0
 description: A plugin for simulating radio functionality as initially implemented in CMA.

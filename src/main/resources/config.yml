@@ -11,8 +11,8 @@ worlds:
   - world
   - world_nether
   - world_the_end
-  
-  
+
+
 #======== Settings ==========#
 
 ## The ID of the item to be used as a "pipboy", i.e. the radio reciever.
