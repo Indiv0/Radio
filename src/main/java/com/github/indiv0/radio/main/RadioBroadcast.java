@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.material.Wool;
 
 import ashulman.typesafety.TypeSafeSet;
 
@@ -96,6 +98,49 @@ public class RadioBroadcast implements Runnable {
                 break;
         }
 
+        ChatColor color = ChatColor.GOLD;
+        Block relativeBlock = radioBlock.getRelative(0, 1, 0);
+        if (relativeBlock.getType().equals(Material.WOOL)) {
+            DyeColor dyeColor = ((Wool) relativeBlock.getState().getData()).getColor();
+            switch (dyeColor) {
+                case BLACK:
+                    color = ChatColor.BLACK;
+                    break;
+                case BLUE:
+                    color = ChatColor.BLUE;
+                    break;
+                case LIGHT_BLUE:
+                    color = ChatColor.AQUA;
+                    break;
+                case GRAY:
+                    color = ChatColor.GRAY;
+                    break;
+                case GREEN:
+                    color = ChatColor.GREEN;
+                    break;
+                case MAGENTA:
+                    color = ChatColor.LIGHT_PURPLE;
+                    break;
+                case PURPLE:
+                    color = ChatColor.DARK_PURPLE;
+                    break;
+                case RED:
+                    color = ChatColor.RED;
+                    break;
+                case WHITE:
+                    color = ChatColor.WHITE;
+                    break;
+                case YELLOW:
+                    color = ChatColor.YELLOW;
+                    break;
+                default:
+                    color = ChatColor.MAGIC;
+                    break;
+            }
+
+            radioBlock = relativeBlock;
+        }
+
         // Checks how many IRON_FENCE blocks there are above the structure,
         // capping the number at 16. IRON_FENCE blocks determine the range of
         // the
@@ -157,18 +202,18 @@ public class RadioBroadcast implements Runnable {
 
             // Attempts to broadcast the messages contained on the signs on each
             // side of the block.
-            broadcast(radio, percent, isGarbled, player);
+            broadcast(radio, percent, isGarbled, player, color);
         }
     }
 
-    public void broadcast(final Radio radio, final double percent, final boolean isGarbled, final Player player) {
+    public void broadcast(final Radio radio, final double percent, final boolean isGarbled, final Player player, ChatColor color) {
         // Fails to broadcast if the frequency of the player's radio and the
         // radio that is broadcasting don't match up.
         if (!checkIfPlayerFrequencyMatches(player, radio))
             return;
 
         String freqPrefix = ChatColor.RED + "[Radio "
-                + radio.getFrequency().getFrequency() + "] " + ChatColor.WHITE;
+                + radio.getFrequency().getFrequency() + "] " + color;
 
         ArrayList<String> message = Radio.getMessage(radio.getLocation());
 
