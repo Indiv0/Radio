@@ -8,7 +8,7 @@ import com.github.indiv0.radio.main.RadioBroadcast;
 import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.util.RadioConfigurationContext;
 
-import ashulman.mbapi.plugin.MbapiPlugin;
+import ashulman.mbapi.MbapiPlugin;
 
 public class RadioPlugin extends MbapiPlugin {
 
@@ -23,7 +23,7 @@ public class RadioPlugin extends MbapiPlugin {
 
         // Registers the event handler and the command executor.
         registerEventHandler(new RadioListener(configurationContext));
-        registerCommandExecutor("radio", new CommandRadio(configurationContext));
+        registerCommandExecutor(new CommandRadio(configurationContext));
 
         // Schedules a broadcast task to handle radio message broadcasting.
         RadioBroadcast broadcast = new RadioBroadcast(configurationContext);

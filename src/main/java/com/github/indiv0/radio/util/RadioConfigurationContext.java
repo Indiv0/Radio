@@ -13,7 +13,7 @@ import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.serialization.FrequencyTypeAdapter;
 import com.github.indiv0.radio.serialization.Radio;
 
-import ashulman.mbapi.plugin.MbapiPlugin;
+import ashulman.mbapi.MbapiPlugin;
 import ashulman.mbapi.util.ConfigurationContext;
 import ashulman.typesafety.TypeSafeSet;
 import ashulman.typesafety.gson.TypeSafeSetTypeAdapter;
