@@ -1,6 +1,7 @@
 package com.github.indiv0.radio.commands.radio;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.serialization.Frequency;
@@ -22,15 +23,14 @@ public class CommandScan extends PlayerOnlyCommand {
     }
 
     @Override
-    protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
+    protected boolean executeForPlayer(Player player, TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
         if (player.getItemInHand().getTypeId() != pipboyId) {
             player.sendMessage("You must be holding a compass to work the radio.");
             return true;
         }
 
-        infoManager.setFrequency(sender.getName(), Frequency.SCANNING);
-
+        infoManager.setFrequency(player.getName(), Frequency.SCANNING);
         player.sendMessage("Successfully set radio to scan mode.");
         return true;
     }

@@ -4,15 +4,16 @@ import java.math.BigDecimal;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import ashulman.mbapi.commands.PlayerOnlyCommand;
+import ashulman.typesafety.TypeSafeCollections;
+import ashulman.typesafety.TypeSafeList;
 
 import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.util.Commands;
 import com.github.indiv0.radio.util.RadioConfigurationContext;
 import com.github.indiv0.radio.util.RadioUtil;
-
-import ashulman.mbapi.commands.PlayerOnlyCommand;
-import ashulman.typesafety.TypeSafeCollections;
-import ashulman.typesafety.TypeSafeList;
 
 public class CommandTune extends PlayerOnlyCommand {
     private final RadioInfoManager infoManager;
@@ -25,7 +26,7 @@ public class CommandTune extends PlayerOnlyCommand {
     }
 
     @Override
-    protected boolean execute(final CommandSender sender, final TypeSafeList<String> args) {
+    protected boolean executeForPlayer(Player player, TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
         if (player.getItemInHand().getTypeId() != pipboyId) {
             player.sendMessage("You must be holding a compass to work the radio.");
@@ -49,9 +50,8 @@ public class CommandTune extends PlayerOnlyCommand {
             return false;
         }
 
-        infoManager.setFrequency(sender.getName(), frequency);
+        infoManager.setFrequency(player.getName(), frequency);
         player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW + frequency);
-
         return true;
     }
 
