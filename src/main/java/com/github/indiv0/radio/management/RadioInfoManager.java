@@ -43,10 +43,6 @@ public class RadioInfoManager extends InfoManager {
     }
 
     public Frequency getFrequency(final String playerName) {
-        if (frequencies.get(playerName) == null) {
-            frequencies.load(playerName, FREQUENCY_FACTORY);
-        }
-
         return frequencies.get(playerName);
     }
 
