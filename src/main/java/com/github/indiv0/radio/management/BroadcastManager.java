@@ -37,12 +37,15 @@ public class BroadcastManager implements Runnable {
     private final BukkitScheduler scheduler;
     private final RadioInfoManager infoManager;
 
+    private final int radioRecieverId;
+
     private double scanChance = 0.05d;
 
     public BroadcastManager(RadioConfigurationContext configurationContext) {
         plugin = configurationContext.plugin;
         scheduler = Bukkit.getScheduler();
         infoManager = configurationContext.infoManager;
+        radioRecieverId = configurationContext.pipboyId;
     }
 
     @Override
@@ -164,13 +167,17 @@ public class BroadcastManager implements Runnable {
 
             TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (Player player : listeningPlayers) {
-                ironBarCount = 0;
-                ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
-                ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, -1);
-                ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, 1);
-                ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, -1);
+                if (player.getItemInHand().getTypeId() == radioRecieverId) {
+                    ironBarCount = 0;
+                    ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
+                    ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, -1);
+                    ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, 1);
+                    ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, -1);
 
-                expanded.put(player, Math.pow(1.02299172025d, ironBarCount));
+                    expanded.put(player, Math.pow(1.02299172025d, ironBarCount));
+                } else {
+                    expanded.put(player, 0d);
+                }
             }
 
             String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
