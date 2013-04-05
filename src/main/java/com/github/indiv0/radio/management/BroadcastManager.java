@@ -157,8 +157,6 @@ public class BroadcastManager implements Runnable {
                 block = block.getRelative(0, -1, 0);
             }
 
-            System.out.println(color.name());
-
             int ironBarCount = 0;
             while (Material.IRON_FENCE.equals(block.getRelative(0, 1, 0).getType())) {
                 block = block.getRelative(0, 1, 0);
