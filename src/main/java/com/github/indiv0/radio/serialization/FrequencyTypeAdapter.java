@@ -28,7 +28,6 @@ public class FrequencyTypeAdapter implements GsonTypeAdapter<Location> {
         arr.add(new JsonPrimitive(src.getY()));
         arr.add(new JsonPrimitive(src.getZ()));
 
-        System.out.println("serializing a radio!" + arr.toString());
         return arr;
     }
 
