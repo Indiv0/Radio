@@ -6,6 +6,7 @@
 	<groupId>com.github.indiv0</groupId>
 	<artifactId>radio</artifactId>
 	<name>Radio</name>
+	<version>${mbapi.version}.0</version>
 	<description>Radio plugin for the MinerApocalypse server.</description>
 
 	<parent>
@@ -44,5 +45,4 @@
 			</resource>
 		</resources>
 	</build>
-	<version>${mbapi.version}.0</version>
 </project>
