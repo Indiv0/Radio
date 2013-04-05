@@ -60,7 +60,7 @@ public class BroadcastManager implements Runnable {
                 listeningPlayers = new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER);
             }
 
-            for (Iterator<Player> iterPlayers = scanningPlayers.iterator(); iter.hasNext();) {
+            for (Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
                 Player p = iterPlayers.next();
                 if (Math.random() < scanChance) {
                     listeningPlayers.add(p);
