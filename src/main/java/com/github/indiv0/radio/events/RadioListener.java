@@ -11,17 +11,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
+import ashulman.typesafety.TypeSafeSet;
+
 import com.github.indiv0.radio.serialization.Frequency;
 import com.github.indiv0.radio.serialization.Radio;
 import com.github.indiv0.radio.util.RadioConfigurationContext;
 import com.github.indiv0.radio.util.RadioConstructorFactory;
 import com.github.indiv0.radio.util.RadioUtil;
 
-import ashulman.mbapi.storage.TypeSafeStorageSet;
-import ashulman.typesafety.TypeSafeSet;
-
 public class RadioListener implements Listener {
-    private final TypeSafeStorageSet<Radio> radios;
+    private final TypeSafeSet<Radio> radios;
     private final TypeSafeSet<World> broadcastingWorlds;
 
     public static final RadioConstructorFactory FACTORY = new RadioConstructorFactory();

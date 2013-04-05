@@ -30,7 +30,7 @@ public class CommandOff extends PlayerOnlyCommand {
             return true;
         }
 
-        infoManager.setFrequency(player.getName(), Frequency.OFF);
+        infoManager.setFrequency(player, Frequency.OFF);
         player.sendMessage("Successfully turned off the radio.");
         return true;
     }

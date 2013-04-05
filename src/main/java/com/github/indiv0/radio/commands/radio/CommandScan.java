@@ -30,7 +30,7 @@ public class CommandScan extends PlayerOnlyCommand {
             return true;
         }
 
-        infoManager.setFrequency(player.getName(), Frequency.SCANNING);
+        infoManager.setFrequency(player, Frequency.SCANNING);
         player.sendMessage("Successfully set radio to scan mode.");
         return true;
     }

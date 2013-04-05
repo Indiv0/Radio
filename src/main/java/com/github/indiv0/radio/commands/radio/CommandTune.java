@@ -50,7 +50,7 @@ public class CommandTune extends PlayerOnlyCommand {
             return false;
         }
 
-        infoManager.setFrequency(player.getName(), frequency);
+        infoManager.setFrequency(player, frequency);
         player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW + frequency);
         return true;
     }

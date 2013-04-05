@@ -1,97 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.indiv0</groupId>
-  <artifactId>radio</artifactId>
-  <version>1.0.2</version>
-  <name>Radio</name>
-  <description>Radio plugin for the MinerApocalypse server.</description>
+	<groupId>com.github.indiv0</groupId>
+	<artifactId>radio</artifactId>
+	<name>Radio</name>
+	<description>Radio plugin for the MinerApocalypse server.</description>
 
-  <properties>
-    <altDeploymentRepository>-DaltDeploymentRepository=repo::default::file:../indiv0-mvn-repo/releases</altDeploymentRepository>
-    <bukkitutils.version>1.0.4</bukkitutils.version>
-  </properties>
+	<parent>
+		<groupId>ashulman</groupId>
+		<artifactId>bukkit-parent</artifactId>
+		<version>0.2</version>
+	</parent>
 
-  <parent>
-    <groupId>ashulman</groupId>
-    <artifactId>maven-parent</artifactId>
-    <version>0.4.5</version>
-  </parent>
+	<dependencies>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ashulman</groupId>
+			<artifactId>mbapi</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
-  <distributionManagement>
-    <repository>
-      <id>repo</id>
-      <url>https://github.com/Indiv0/indiv0-mvn-repo/raw/master/releases/</url>
-    </repository>
-  </distributionManagement>
-
-  <dependencies>
-    <!-- Bukkit -->
-    <dependency>
-      <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-    </dependency>
-    <!-- BukkitUtils -->
-    <!--
-    <dependency>
-      <groupId>com.github.indiv0</groupId>
-      <artifactId>bukkit-utils</artifactId>
-      <version>${bukkitutils.version}</version>
-    </dependency>
-    -->
-    <!-- Mbapi -->
-    <dependency>
-      <groupId>ashulman</groupId>
-      <artifactId>mbapi</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Typesafecollections -->
-    <dependency>
-      <groupId>ashulman</groupId>
-      <artifactId>typesafecollections</artifactId>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-to-local-server</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                  <type>${project.packaging}</type>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>/storage/server/plugins</outputDirectory>
-              <stripVersion>true</stripVersion>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>plugin.yml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>plugin.yml</exclude>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
+	<version>${mbapi.version}.0</version>
 </project>

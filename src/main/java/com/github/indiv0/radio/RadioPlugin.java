@@ -2,13 +2,13 @@ package com.github.indiv0.radio;
 
 import org.bukkit.Bukkit;
 
+import ashulman.mbapi.MbapiPlugin;
+
 import com.github.indiv0.radio.commands.CommandRadio;
 import com.github.indiv0.radio.events.RadioListener;
-import com.github.indiv0.radio.main.RadioBroadcast;
+import com.github.indiv0.radio.management.BroadcastManager;
 import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.util.RadioConfigurationContext;
-
-import ashulman.mbapi.MbapiPlugin;
 
 public class RadioPlugin extends MbapiPlugin {
 
@@ -26,7 +26,7 @@ public class RadioPlugin extends MbapiPlugin {
         registerCommandExecutor(new CommandRadio(configurationContext));
 
         // Schedules a broadcast task to handle radio message broadcasting.
-        RadioBroadcast broadcast = new RadioBroadcast(configurationContext);
+        Runnable broadcast = new BroadcastManager(configurationContext);// new RadioBroadcast(configurationContext);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, broadcast, 20L, 100L);
 
         super.onEnable();

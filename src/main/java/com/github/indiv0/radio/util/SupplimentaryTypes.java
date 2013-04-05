@@ -1,6 +1,7 @@
 package com.github.indiv0.radio.util;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.TreeSet;
 
 import org.bukkit.Location;
@@ -16,6 +17,7 @@ public final class SupplimentaryTypes {
     @SuppressWarnings("rawtypes")
     public static final Type TREESET = new TypeToken<TreeSet>() {}.getType();
 
+    public static final Type BIGDECIMAL = new TypeToken<BigDecimal>() {}.getType();
     public static final Type FREQUENCY = new TypeToken<Frequency>() {}.getType();
     public static final Type LOCATION = new TypeToken<Location>() {}.getType();
     public static final Type RADIO = new TypeToken<Radio>() {}.getType();

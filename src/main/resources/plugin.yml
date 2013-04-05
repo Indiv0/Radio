@@ -1,6 +1,6 @@
 name: Radio
 main: com.github.indiv0.radio.RadioPlugin
-version: 1.0.0
+version: ${project.version}
 load: POSTWORLD
 author: Indiv0
 description: A plugin for simulating radio functionality as initially implemented in CMA.
@@ -14,11 +14,11 @@ commands:
       Example: /<command> tune [frequency] - Sets scan frequency.
       Example: /<command> scan - Scans all broadcasts.
       Example: /<command> off - Turns off the radio.
-    permission: radio.use
+    permission: radio.radio
     permission-message: Sorry, you don't have permission to use Radio.
 
 permissions:
   radio.*:
     description: Controls all Radio permissions
     children:
-      radio.use: true
+      radio.radio: true
