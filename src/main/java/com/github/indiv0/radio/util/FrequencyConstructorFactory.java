@@ -1,8 +1,7 @@
 package com.github.indiv0.radio.util;
 
+import com.amshulman.mbapi.util.ConstructorFactory;
 import com.github.indiv0.radio.serialization.Frequency;
-
-import ashulman.mbapi.util.ConstructorFactory;
 
 public class FrequencyConstructorFactory extends ConstructorFactory<Frequency> {
     @Override

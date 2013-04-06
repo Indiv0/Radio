@@ -11,8 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
-import ashulman.typesafety.TypeSafeSet;
-
+import com.amshulman.typesafety.TypeSafeSet;
 import com.github.indiv0.radio.serialization.Frequency;
 import com.github.indiv0.radio.serialization.Radio;
 import com.github.indiv0.radio.util.RadioConfigurationContext;

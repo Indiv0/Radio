@@ -6,8 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import ashulman.typesafety.gson.GsonTypeAdapter;
-
+import com.amshulman.typesafety.gson.GsonTypeAdapter;
 import com.github.indiv0.radio.util.SupplimentaryTypes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;

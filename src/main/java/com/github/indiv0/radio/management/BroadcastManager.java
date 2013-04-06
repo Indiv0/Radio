@@ -17,16 +17,15 @@ import org.bukkit.material.Wool;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.javatuples.Pair;
 
-import ashulman.mbapi.MbapiPlugin;
-import ashulman.mbapi.management.ChatManager;
-import ashulman.mbapi.util.CoreTypes;
-import ashulman.typesafety.TypeSafeList;
-import ashulman.typesafety.TypeSafeMap;
-import ashulman.typesafety.TypeSafeSet;
-import ashulman.typesafety.impl.TypeSafeListImpl;
-import ashulman.typesafety.impl.TypeSafeMapImpl;
-import ashulman.typesafety.impl.TypeSafeSetImpl;
-
+import com.amshulman.mbapi.MbapiPlugin;
+import com.amshulman.mbapi.management.ChatManager;
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.typesafety.TypeSafeList;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.TypeSafeSet;
+import com.amshulman.typesafety.impl.TypeSafeListImpl;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
+import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 import com.github.indiv0.radio.serialization.Frequency;
 import com.github.indiv0.radio.serialization.Radio;
 import com.github.indiv0.radio.util.RadioConfigurationContext;

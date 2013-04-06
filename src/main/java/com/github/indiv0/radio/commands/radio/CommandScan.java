@@ -3,14 +3,13 @@ package com.github.indiv0.radio.commands.radio;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.amshulman.mbapi.commands.PlayerOnlyCommand;
+import com.amshulman.typesafety.TypeSafeCollections;
+import com.amshulman.typesafety.TypeSafeList;
 import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.serialization.Frequency;
 import com.github.indiv0.radio.util.Commands;
 import com.github.indiv0.radio.util.RadioConfigurationContext;
-
-import ashulman.mbapi.commands.PlayerOnlyCommand;
-import ashulman.typesafety.TypeSafeCollections;
-import ashulman.typesafety.TypeSafeList;
 
 public class CommandScan extends PlayerOnlyCommand {
     private final RadioInfoManager infoManager;

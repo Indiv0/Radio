@@ -6,10 +6,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ashulman.mbapi.commands.PlayerOnlyCommand;
-import ashulman.typesafety.TypeSafeCollections;
-import ashulman.typesafety.TypeSafeList;
-
+import com.amshulman.mbapi.commands.PlayerOnlyCommand;
+import com.amshulman.typesafety.TypeSafeCollections;
+import com.amshulman.typesafety.TypeSafeList;
 import com.github.indiv0.radio.management.RadioInfoManager;
 import com.github.indiv0.radio.util.Commands;
 import com.github.indiv0.radio.util.RadioConfigurationContext;

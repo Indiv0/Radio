@@ -2,8 +2,7 @@ package com.github.indiv0.radio;
 
 import org.bukkit.Bukkit;
 
-import ashulman.mbapi.MbapiPlugin;
-
+import com.amshulman.mbapi.MbapiPlugin;
 import com.github.indiv0.radio.commands.CommandRadio;
 import com.github.indiv0.radio.events.RadioListener;
 import com.github.indiv0.radio.management.BroadcastManager;

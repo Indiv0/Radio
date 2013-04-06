@@ -1,6 +1,6 @@
 package com.github.indiv0.radio.util;
 
-import ashulman.mbapi.util.PermissionsEnum;
+import com.amshulman.mbapi.util.PermissionsEnum;
 
 public enum Commands implements PermissionsEnum {
     RADIO, TUNE, SCAN, OFF;

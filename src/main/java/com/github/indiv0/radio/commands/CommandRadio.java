@@ -1,7 +1,6 @@
 package com.github.indiv0.radio.commands;
 
-import ashulman.mbapi.commands.DelegatingCommand;
-
+import com.amshulman.mbapi.commands.DelegatingCommand;
 import com.github.indiv0.radio.commands.radio.CommandOff;
 import com.github.indiv0.radio.commands.radio.CommandScan;
 import com.github.indiv0.radio.commands.radio.CommandTune;

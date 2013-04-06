@@ -13,16 +13,15 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import ashulman.mbapi.management.InfoManager;
-import ashulman.mbapi.storage.TypeSafeStorageMap;
-import ashulman.mbapi.storage.TypeSafeStorageSet;
-import ashulman.mbapi.util.ConfigurationContext;
-import ashulman.mbapi.util.CoreTypes;
-import ashulman.typesafety.TypeSafeMap;
-import ashulman.typesafety.TypeSafeSet;
-import ashulman.typesafety.impl.TypeSafeMapImpl;
-import ashulman.typesafety.impl.TypeSafeSetImpl;
-
+import com.amshulman.mbapi.management.InfoManager;
+import com.amshulman.mbapi.storage.TypeSafeStorageMap;
+import com.amshulman.mbapi.storage.TypeSafeStorageSet;
+import com.amshulman.mbapi.util.ConfigurationContext;
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.TypeSafeSet;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
+import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 import com.github.indiv0.radio.serialization.Frequency;
 import com.github.indiv0.radio.serialization.Radio;
 import com.github.indiv0.radio.util.FrequencyConstructorFactory;

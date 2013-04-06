@@ -10,9 +10,9 @@
 	<description>Radio plugin for the MinerApocalypse server.</description>
 
 	<parent>
-		<groupId>ashulman</groupId>
+		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.2</version>
+		<version>0.6</version>
 	</parent>
 
 	<dependencies>
@@ -21,7 +21,7 @@
 			<artifactId>bukkit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>ashulman</groupId>
+			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
 			<scope>compile</scope>
 		</dependency>
