@@ -1,5 +1,5 @@
 name: Radio
-main: com.github.indiv0.radio.RadioPlugin
+main: in.nikitapek.radio.RadioPlugin
 version: ${project.version}
 load: POSTWORLD
 author: Indiv0
