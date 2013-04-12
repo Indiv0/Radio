@@ -1,11 +1,12 @@
-package com.github.indiv0.radio.commands;
+package in.nikitapek.radio.commands;
+
+import in.nikitapek.radio.commands.radio.CommandOff;
+import in.nikitapek.radio.commands.radio.CommandScan;
+import in.nikitapek.radio.commands.radio.CommandTune;
+import in.nikitapek.radio.util.Commands;
+import in.nikitapek.radio.util.RadioConfigurationContext;
 
 import com.amshulman.mbapi.commands.DelegatingCommand;
-import com.github.indiv0.radio.commands.radio.CommandOff;
-import com.github.indiv0.radio.commands.radio.CommandScan;
-import com.github.indiv0.radio.commands.radio.CommandTune;
-import com.github.indiv0.radio.util.Commands;
-import com.github.indiv0.radio.util.RadioConfigurationContext;
 
 public class CommandRadio extends DelegatingCommand {
 

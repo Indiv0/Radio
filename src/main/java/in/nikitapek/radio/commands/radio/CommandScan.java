@@ -1,4 +1,9 @@
-package com.github.indiv0.radio.commands.radio;
+package in.nikitapek.radio.commands.radio;
+
+import in.nikitapek.radio.management.RadioInfoManager;
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.util.Commands;
+import in.nikitapek.radio.util.RadioConfigurationContext;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -6,17 +11,13 @@ import org.bukkit.entity.Player;
 import com.amshulman.mbapi.commands.PlayerOnlyCommand;
 import com.amshulman.typesafety.TypeSafeCollections;
 import com.amshulman.typesafety.TypeSafeList;
-import com.github.indiv0.radio.management.RadioInfoManager;
-import com.github.indiv0.radio.serialization.Frequency;
-import com.github.indiv0.radio.util.Commands;
-import com.github.indiv0.radio.util.RadioConfigurationContext;
 
-public class CommandOff extends PlayerOnlyCommand {
+public class CommandScan extends PlayerOnlyCommand {
     private final RadioInfoManager infoManager;
     private final int pipboyId;
 
-    public CommandOff(final RadioConfigurationContext configurationContext) {
-        super(configurationContext, Commands.OFF, 0, 0);
+    public CommandScan(final RadioConfigurationContext configurationContext) {
+        super(configurationContext, Commands.SCAN, 0, 0);
         infoManager = configurationContext.infoManager;
         pipboyId = configurationContext.pipboyId;
     }
@@ -29,8 +30,8 @@ public class CommandOff extends PlayerOnlyCommand {
             return true;
         }
 
-        infoManager.setFrequency(player, Frequency.OFF);
-        player.sendMessage("Successfully turned off the radio.");
+        infoManager.setFrequency(player, Frequency.SCANNING);
+        player.sendMessage("Successfully set radio to scan mode.");
         return true;
     }
 

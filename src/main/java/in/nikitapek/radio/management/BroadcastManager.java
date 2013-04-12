@@ -1,4 +1,8 @@
-package com.github.indiv0.radio.management;
+package in.nikitapek.radio.management;
+
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.serialization.Radio;
+import in.nikitapek.radio.util.RadioConfigurationContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +30,6 @@ import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.impl.TypeSafeListImpl;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
-import com.github.indiv0.radio.serialization.Frequency;
-import com.github.indiv0.radio.serialization.Radio;
-import com.github.indiv0.radio.util.RadioConfigurationContext;
 
 public class BroadcastManager implements Runnable {
 

@@ -1,4 +1,4 @@
-package com.github.indiv0.radio.util;
+package in.nikitapek.radio.util;
 
 import com.amshulman.mbapi.util.PermissionsEnum;
 

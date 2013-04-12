@@ -1,4 +1,7 @@
-package com.github.indiv0.radio.util;
+package in.nikitapek.radio.util;
+
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.serialization.Radio;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -7,8 +10,6 @@ import java.util.TreeSet;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import com.github.indiv0.radio.serialization.Frequency;
-import com.github.indiv0.radio.serialization.Radio;
 import com.google.gson.reflect.TypeToken;
 
 public final class SupplimentaryTypes {

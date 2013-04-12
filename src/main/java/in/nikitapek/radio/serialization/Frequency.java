@@ -1,4 +1,4 @@
-package com.github.indiv0.radio.serialization;
+package in.nikitapek.radio.serialization;
 
 import java.math.BigDecimal;
 

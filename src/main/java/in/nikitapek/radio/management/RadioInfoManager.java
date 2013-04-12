@@ -1,4 +1,9 @@
-package com.github.indiv0.radio.management;
+package in.nikitapek.radio.management;
+
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.serialization.Radio;
+import in.nikitapek.radio.util.FrequencyConstructorFactory;
+import in.nikitapek.radio.util.SupplimentaryTypes;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -22,10 +27,6 @@ import com.amshulman.typesafety.TypeSafeMap;
 import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
-import com.github.indiv0.radio.serialization.Frequency;
-import com.github.indiv0.radio.serialization.Radio;
-import com.github.indiv0.radio.util.FrequencyConstructorFactory;
-import com.github.indiv0.radio.util.SupplimentaryTypes;
 
 public class RadioInfoManager extends InfoManager {
 

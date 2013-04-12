@@ -1,4 +1,7 @@
-package com.github.indiv0.radio.util;
+package in.nikitapek.radio.util;
+
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.serialization.Radio;
 
 import java.math.BigDecimal;
 
@@ -6,8 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
-import com.github.indiv0.radio.serialization.Frequency;
-import com.github.indiv0.radio.serialization.Radio;
 
 public final class RadioUtil {
     public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {

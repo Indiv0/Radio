@@ -1,4 +1,6 @@
-package com.github.indiv0.radio.serialization;
+package in.nikitapek.radio.serialization;
+
+import in.nikitapek.radio.util.RadioUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +11,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
-import com.github.indiv0.radio.util.RadioUtil;
 
 public class Radio implements Comparable<Radio> {
     Location location;

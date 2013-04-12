@@ -1,4 +1,9 @@
-package com.github.indiv0.radio.commands.radio;
+package in.nikitapek.radio.commands.radio;
+
+import in.nikitapek.radio.management.RadioInfoManager;
+import in.nikitapek.radio.util.Commands;
+import in.nikitapek.radio.util.RadioConfigurationContext;
+import in.nikitapek.radio.util.RadioUtil;
 
 import java.math.BigDecimal;
 
@@ -9,10 +14,6 @@ import org.bukkit.entity.Player;
 import com.amshulman.mbapi.commands.PlayerOnlyCommand;
 import com.amshulman.typesafety.TypeSafeCollections;
 import com.amshulman.typesafety.TypeSafeList;
-import com.github.indiv0.radio.management.RadioInfoManager;
-import com.github.indiv0.radio.util.Commands;
-import com.github.indiv0.radio.util.RadioConfigurationContext;
-import com.github.indiv0.radio.util.RadioUtil;
 
 public class CommandTune extends PlayerOnlyCommand {
     private final RadioInfoManager infoManager;

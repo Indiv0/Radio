@@ -1,4 +1,8 @@
-package com.github.indiv0.radio.util;
+package in.nikitapek.radio.util;
+
+import in.nikitapek.radio.management.RadioInfoManager;
+import in.nikitapek.radio.serialization.FrequencyTypeAdapter;
+import in.nikitapek.radio.serialization.Radio;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,9 +18,6 @@ import com.amshulman.mbapi.util.ConfigurationContext;
 import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.gson.TypeSafeSetTypeAdapter;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
-import com.github.indiv0.radio.management.RadioInfoManager;
-import com.github.indiv0.radio.serialization.FrequencyTypeAdapter;
-import com.github.indiv0.radio.serialization.Radio;
 
 public class RadioConfigurationContext extends ConfigurationContext {
 

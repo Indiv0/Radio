@@ -1,4 +1,6 @@
-package com.github.indiv0.radio.serialization;
+package in.nikitapek.radio.serialization;
+
+import in.nikitapek.radio.util.SupplimentaryTypes;
 
 import java.lang.reflect.Type;
 
@@ -7,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import com.amshulman.typesafety.gson.GsonTypeAdapter;
-import com.github.indiv0.radio.util.SupplimentaryTypes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
