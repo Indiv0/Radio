@@ -64,7 +64,7 @@ public class BroadcastManager implements Runnable {
                 Player p = iterPlayers.next();
                 if (Math.random() < scanChance) {
                     listeningPlayers.add(p);
-                    iter.remove();
+                    iterPlayers.remove();
                 }
             }
 
