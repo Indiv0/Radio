@@ -157,12 +157,7 @@ public class BroadcastManager implements Runnable {
                 block = block.getRelative(0, -1, 0);
             }
 
-            int ironBarCount = 0;
-            while (Material.IRON_FENCE.equals(block.getRelative(0, 1, 0).getType())) {
-                block = block.getRelative(0, 1, 0);
-                ironBarCount++;
-            }
-
+            int ironBarCount;
             TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (Player player : listeningPlayers) {
                 if (player.getItemInHand().getTypeId() == radioRecieverId) {
@@ -172,11 +167,20 @@ public class BroadcastManager implements Runnable {
                     ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, 1);
                     ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, -1);
 
-                    expanded.put(player, Math.pow(1.02299172025d, ironBarCount));
+                    expanded.put(player, Math.pow(1.01592540028, ironBarCount));
                 } else {
                     expanded.put(player, 0d);
                 }
             }
+
+            ironBarCount = 0;
+            while (Material.IRON_FENCE.equals(block.getRelative(0, 1, 0).getType())) {
+                block = block.getRelative(0, 1, 0);
+                ++ironBarCount;
+            }
+            double rangeExtension = Math.pow(1.02299172025d, ironBarCount);
+            innerRadius *= rangeExtension;
+            outerRadius *= rangeExtension;
 
             String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
             TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, broadcastClarity, source, listeningPlayers, expanded, message);
