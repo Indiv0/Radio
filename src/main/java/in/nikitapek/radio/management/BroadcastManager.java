@@ -161,12 +161,11 @@ public class BroadcastManager implements Runnable {
             TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (Player player : listeningPlayers) {
                 if (player.getItemInHand().getTypeId() == radioRecieverId) {
-                    ironBarCount = 0;
-                    ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
-                    ironBarCount += calculateIronBarsSurroundingPlayer(player, 1, 0, -1);
-                    ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, 1);
-                    ironBarCount += calculateIronBarsSurroundingPlayer(player, -1, 0, -1);
-
+                    ironBarCount = calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
+                    ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, 1, 0, -1));
+                    ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, 1));
+                    ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, -1));
+                    
                     expanded.put(player, Math.pow(1.01592540028, ironBarCount));
                 } else {
                     expanded.put(player, 0d);
