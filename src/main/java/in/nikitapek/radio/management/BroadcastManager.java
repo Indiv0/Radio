@@ -178,8 +178,6 @@ public class BroadcastManager implements Runnable {
                 ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, -1));
 
                 expanded.put(player, Math.pow(1.01592540028, ironBarCount));
-
-                continue;
             }
 
             ironBarCount = 0;
