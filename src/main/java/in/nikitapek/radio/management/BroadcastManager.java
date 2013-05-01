@@ -162,7 +162,7 @@ public class BroadcastManager implements Runnable {
             for (Player player : listeningPlayers) {
                 // Search the hotbar for the "pipboy" item to ensure the player can recieve signals.
                 for (int i = 0; i <= 8; i++) {
-                    if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i) .getTypeId() == radioRecieverId) {
+                    if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i).getTypeId() == radioRecieverId) {
                         // Calculate the height of the iron block pillars in a diagonal around the player, and use them to modify the recieving power.
                         ironBarCount = calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
                         ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, 1, 0, -1));
