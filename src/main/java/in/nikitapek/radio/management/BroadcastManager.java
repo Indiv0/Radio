@@ -164,9 +164,8 @@ public class BroadcastManager implements Runnable {
                 // Search the hotbar for the "pipboy" item to ensure the player can recieve signals.
                 int pipboyIndex = player.getInventory().first(radioRecieverId);
 
+                // If the player does not have a "pipboy" in their hotbar, then the player cannot recieve the signal.
                 if (pipboyIndex == -1 || pipboyIndex >= 9) {
-                    // If the player does not have a "pipboy" in their hotbar, then the player cannot recieve the signal.
-
                     expanded.put(player, 0d);
                     continue;
                 }
