@@ -17,6 +17,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Wool;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.javatuples.Pair;
@@ -160,16 +161,22 @@ public class BroadcastManager implements Runnable {
             int ironBarCount;
             TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (Player player : listeningPlayers) {
-                if (player.getItemInHand().getTypeId() == radioRecieverId) {
-                    ironBarCount = calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
-                    ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, 1, 0, -1));
-                    ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, 1));
-                    ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, -1));
-                    
-                    expanded.put(player, Math.pow(1.01592540028, ironBarCount));
-                } else {
+                // Search the hotbar for the "pipboy" item to ensure the player can recieve signals.
+                int pipboyIndex = player.getInventory().first(radioRecieverId);
+
+                // If the player does not have a "pipboy" in their hotbar, then the player cannot recieve the signal.
+                if (pipboyIndex == -1 || pipboyIndex >= 9) {
                     expanded.put(player, 0d);
+                    continue;
                 }
+
+                // Calculate the height of the iron block pillars in a diagonal around the player, and use them to modify the recieving power.
+                ironBarCount = calculateIronBarsSurroundingPlayer(player, 1, 0, 1);
+                ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, 1, 0, -1));
+                ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, 1));
+                ironBarCount = Math.min(ironBarCount, calculateIronBarsSurroundingPlayer(player, -1, 0, -1));
+
+                expanded.put(player, Math.pow(1.01592540028, ironBarCount));
             }
 
             ironBarCount = 0;
