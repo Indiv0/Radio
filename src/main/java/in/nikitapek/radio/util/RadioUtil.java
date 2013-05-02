@@ -46,7 +46,9 @@ public final class RadioUtil {
         if (Radio.getSign(location, face) == null)
             return false;
 
-        if (getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0)) == null)
+        String frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
+
+        if (frequency == null || frequency <= 0)
             return false;
 
         return true;
