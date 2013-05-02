@@ -50,6 +50,11 @@ public class CommandTune extends PlayerOnlyCommand {
             return false;
         }
 
+        if (frequency <= 0) {
+            player.sendMessage("Failed to set frequency to: \"" + frequencyArg + "\". Frequencies must be greater than zero.");
+            return false;
+        }
+
         infoManager.setFrequency(player, frequency);
         player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW + frequency);
         return true;
