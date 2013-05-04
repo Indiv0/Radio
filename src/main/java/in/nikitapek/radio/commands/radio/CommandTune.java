@@ -32,14 +32,14 @@ public class CommandTune extends PlayerOnlyCommand {
             player.sendMessage("You must be holding a compass to work the radio.");
             return true;
         }
- 
+
         BigDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
- 
+
         if (frequency == null || BigDecimal.ZERO.compareTo(frequency) >= 0) {
             player.sendMessage("Failed to set frequency. \"" + args.get(0) + "\" is an invalid frequency.");
             return false;
         }
- 
+
         infoManager.setFrequency(player, frequency);
         player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW + frequency);
         return true;
