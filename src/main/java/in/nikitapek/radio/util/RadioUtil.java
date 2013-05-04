@@ -78,7 +78,11 @@ public final class RadioUtil {
     // Getter and Setter Methods
 
     public static BigDecimal getFrequencyFromString(final String stringFrequency) {
-        return new BigDecimal(stringFrequency);
+        try {
+            return new BigDecimal(stringFrequency);
+        } catch (final NumberFormatException e) {
+            return null;
+        }
     }
 
     public static BigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
