@@ -46,9 +46,9 @@ public final class RadioUtil {
         if (Radio.getSign(location, face) == null)
             return false;
 
-        String frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
+        BigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
 
-        if (frequency == null || frequency <= 0)
+        if (frequency == null || BigDecimal.ZERO.compareTo(frequency) >= 0)
             return false;
 
         return true;
