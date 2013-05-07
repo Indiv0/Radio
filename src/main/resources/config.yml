@@ -7,7 +7,7 @@
 #======== World List ==========#
 
 ## All of the worlds in which Radio is enabled.
-worlds: 
+worlds:
   - world
   - world_nether
   - world_the_end
@@ -50,10 +50,3 @@ userRadioPersist: true
 
 ## Transmit or not transmit empty messages from radios.
 transmitEmptyMessages: false
-
-
-###############################################
-##   Internal Settings (Read: DO NOT EDIT)   ##
-###############################################
-
-permissionsPrefix: radio.
