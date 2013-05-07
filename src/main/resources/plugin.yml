@@ -1,7 +1,7 @@
 name: Radio
 main: in.nikitapek.radio.RadioPlugin
-version: ${project.version}
 load: POSTWORLD
+version: ${project.version}
 author: Indiv0
 description: A plugin for simulating radio functionality as initially implemented in CMA.
 dev-url: http://github.com/Indiv0/Radio/
