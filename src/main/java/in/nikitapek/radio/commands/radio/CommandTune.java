@@ -33,25 +33,10 @@ public class CommandTune extends PlayerOnlyCommand {
             return true;
         }
 
-        final String frequencyArg = args.get(0).toString().toLowerCase();
+        BigDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
 
-        if (RadioUtil.getFrequencyFromString(frequencyArg) == null) {
-            player.sendMessage("Failed to set frequency. Frequency cannot be null.");
-            return false;
-        }
-
-        BigDecimal frequency;
-
-        try {
-            frequency = BigDecimal.valueOf(Double.valueOf(frequencyArg));
-        }
-        catch (Exception e) {
-            player.sendMessage("Failed to set frequency. \"" + frequencyArg + "\" is an invalid frequency.");
-            return false;
-        }
-
-        if (frequency <= 0) {
-            player.sendMessage("Failed to set frequency to: \"" + frequencyArg + "\". Frequencies must be greater than zero.");
+        if (frequency == null || BigDecimal.ZERO.compareTo(frequency) >= 0) {
+            player.sendMessage("Failed to set frequency. \"" + args.get(0) + "\" is an invalid frequency.");
             return false;
         }
 
