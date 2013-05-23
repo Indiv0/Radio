@@ -6,13 +6,13 @@
 	<groupId>in.nikitapek</groupId>
 	<artifactId>radio</artifactId>
 	<name>Radio</name>
-	<version>${mbapi.version}.5</version>
+	<version>${mbapi.version}.0</version>
 	<description>Radio plugin for the MinerApocalypse server.</description>
 
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.8</version>
+		<version>0.9</version>
 	</parent>
 
 	<dependencies>
@@ -29,22 +29,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>plugin.yml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>plugin.yml</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
