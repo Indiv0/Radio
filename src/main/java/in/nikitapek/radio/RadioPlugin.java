@@ -10,19 +10,19 @@ import org.bukkit.Bukkit;
 
 import com.amshulman.mbapi.MbapiPlugin;
 
-public class RadioPlugin extends MbapiPlugin {
+public final class RadioPlugin extends MbapiPlugin {
     private RadioInfoManager infoManager;
 
     @Override
     public void onEnable() {
-        RadioConfigurationContext configurationContext = new RadioConfigurationContext(this);
+        final RadioConfigurationContext configurationContext = new RadioConfigurationContext(this);
         infoManager = configurationContext.infoManager;
 
         registerEventHandler(new RadioListener(configurationContext));
         registerCommandExecutor(new CommandRadio(configurationContext));
 
         // Schedules a broadcast task to handle radio message broadcasting.
-        Runnable broadcast = new BroadcastManager(configurationContext);// new RadioBroadcast(configurationContext);
+        final Runnable broadcast = new BroadcastManager(configurationContext);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, broadcast, 20L, 100L);
 
         super.onEnable();

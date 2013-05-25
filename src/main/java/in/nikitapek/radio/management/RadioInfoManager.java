@@ -28,16 +28,15 @@ import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 
-public class RadioInfoManager extends InfoManager {
+public final class RadioInfoManager extends InfoManager {
+    private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
 
     private final TypeSafeMap<BigDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<BigDecimal, TypeSafeSet<Player>>(new HashMap<BigDecimal, TypeSafeSet<Player>>(), SupplimentaryTypes.BIGDECIMAL, SupplimentaryTypes.TREESET);
 
     private final TypeSafeStorageMap<Frequency> frequencies;
     private final TypeSafeStorageSet<Radio> radios;
 
-    private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
-
-    public RadioInfoManager(ConfigurationContext configurationContext) {
+    public RadioInfoManager(final ConfigurationContext configurationContext) {
         super(configurationContext);
 
         // Retrieves the storage map for "frequencies" and "radios".
@@ -49,7 +48,7 @@ public class RadioInfoManager extends InfoManager {
         radios.load();
 
         // load any players already on the server -- in case of reload
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (final Player player : Bukkit.getOnlinePlayers()) {
             frequencies.load(player.getName(), FREQUENCY_FACTORY);
         }
 
@@ -69,7 +68,7 @@ public class RadioInfoManager extends InfoManager {
         radios.unloadAll();
     }
 
-    private Frequency getFrequency(String playerName) {
+    private Frequency getFrequency(final String playerName) {
         if (frequencies.get(playerName) == null) {
             frequencies.load(playerName, FREQUENCY_FACTORY);
         }
@@ -80,8 +79,8 @@ public class RadioInfoManager extends InfoManager {
         return radios;
     }
 
-    public void setFrequency(Player player, BigDecimal frequency) {
-        Frequency f = getFrequency(player.getName());
+    public void setFrequency(final Player player, final BigDecimal frequency) {
+        final Frequency f = getFrequency(player.getName());
 
         TypeSafeSet<Player> listeners = listenerMap.get(f.getFrequency());
         if (listeners != null) {
@@ -98,7 +97,7 @@ public class RadioInfoManager extends InfoManager {
         f.setFrequency(frequency);
     }
 
-    public TypeSafeSet<Player> getListeners(BigDecimal frequency) {
+    public TypeSafeSet<Player> getListeners(final BigDecimal frequency) {
         return listenerMap.get(frequency);
     }
 
@@ -106,9 +105,9 @@ public class RadioInfoManager extends InfoManager {
         public ListenerLoader() {}
 
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-        public void onPlayerFinishLogin(PlayerLoginEvent event) {
+        public void onPlayerFinishLogin(final PlayerLoginEvent event) {
             if (Result.ALLOWED.equals(event.getResult())) {
-                BigDecimal frequency = getFrequency(event.getPlayer().getName()).getFrequency();
+                final BigDecimal frequency = getFrequency(event.getPlayer().getName()).getFrequency();
                 TypeSafeSet<Player> listeners = listenerMap.get(frequency);
 
                 if (listeners == null) {
@@ -121,7 +120,7 @@ public class RadioInfoManager extends InfoManager {
         }
 
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-        public void onPlayerQuit(PlayerQuitEvent event) {
+        public void onPlayerQuit(final PlayerQuitEvent event) {
             listenerMap.get(getFrequency(event.getPlayer().getName()).getFrequency()).remove(event.getPlayer());
         }
     }

@@ -9,14 +9,16 @@ import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
-
 public final class RadioUtil {
-    public static boolean registerFrequencyToSign(Radio radio, final BlockFace face) {
+    private RadioUtil() {}
+
+    public static boolean registerFrequencyToSign(final Radio radio, final BlockFace face) {
         // Gets the sign itself.
         final Sign sign = Radio.getSign(radio.getLocation(), face);
 
-        if (!signHasValidFrequency(radio.getLocation(), face))
+        if (!signHasValidFrequency(radio.getLocation(), face)) {
             return false;
+        }
 
         final BigDecimal signFreq = getFrequencyFromStringWithoutTags(sign.getLine(0));
         final Frequency radioFreq = radio.getFrequency();
@@ -25,12 +27,13 @@ public final class RadioUtil {
         sign.setLine(0, addTags(radioFreq));
 
         // If there is a defined frequency for this radio, uses it.
-        if (signFreq != null)
+        if (signFreq != null) {
             // If the sign frequency contains a valid value, and if the radio frequency is based on the location, sets the radio frequency to it.
             if (radioFreq == null) {
                 radio.getFrequency().setFrequency(signFreq);
                 sign.setLine(0, addTags(signFreq));
             }
+        }
 
         sign.update(true);
 
@@ -39,39 +42,42 @@ public final class RadioUtil {
 
     public static boolean signHasValidFrequency(final Location location, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
-        if (!Radio.signExists(location, face))
+        if (!Radio.signExists(location, face)) {
             return false;
+        }
 
         // Checks to make sure there is a sign on that face of the radio.
-        if (Radio.getSign(location, face) == null)
+        if (Radio.getSign(location, face) == null) {
             return false;
+        }
 
-        BigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
+        final BigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
 
-        if (frequency == null || BigDecimal.ZERO.compareTo(frequency) >= 0)
+        if (frequency == null || BigDecimal.ZERO.compareTo(frequency) >= 0) {
             return false;
+        }
 
         return true;
     }
 
     // Tag related methods
 
-    public static boolean hasTags(String frequency) {
+    public static boolean hasTags(final String frequency) {
         if (frequency.length() < 3) {
             return false;
         }
 
         // Checks to make sure the frequency has the proper tags.
-        return frequency.substring(0, 1).equals("[")
-                && frequency.substring(frequency.length() - 1).equals("]");
+        return "[".equals(frequency.substring(0, 1))
+                && "]".equals(frequency.substring(frequency.length() - 1));
     }
 
-    private static String stripTags(String frequency) {
+    private static String stripTags(final String frequency) {
         // Returns the frequency without the marker tags.
         return frequency.substring(1, frequency.length() - 1);
     }
 
-    private static String addTags(Object frequency) {
+    private static String addTags(final Object frequency) {
         return "[" + frequency + "]";
     }
 
@@ -87,7 +93,6 @@ public final class RadioUtil {
 
     public static BigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
         // Returns the frequency without the tags attached.
-        return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency))
-                : null;
+        return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency)) : null;
     }
 }

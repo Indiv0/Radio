@@ -2,11 +2,11 @@ package in.nikitapek.radio.serialization;
 
 import java.math.BigDecimal;
 
-public class Frequency implements Comparable<Frequency> {
+public final class Frequency implements Comparable<Frequency> {
     public static final BigDecimal SCANNING = BigDecimal.ONE.negate();
     public static final BigDecimal OFF = BigDecimal.ZERO;
 
-    BigDecimal freq;
+    private BigDecimal freq;
 
     public Frequency() {
         this(Frequency.OFF);
@@ -28,7 +28,7 @@ public class Frequency implements Comparable<Frequency> {
         return freq;
     }
 
-    public void setFrequency(BigDecimal frequency) {
+    public void setFrequency(final BigDecimal frequency) {
         freq = frequency;
     }
 
@@ -51,18 +51,23 @@ public class Frequency implements Comparable<Frequency> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Frequency))
+        }
+        if (!(obj instanceof Frequency)) {
             return false;
+        }
         final Frequency other = (Frequency) obj;
         if (freq == null) {
-            if (other.freq != null)
+            if (other.freq != null) {
                 return false;
-        } else if (!freq.equals(other.freq))
+            }
+        } else if (!freq.equals(other.freq)) {
             return false;
+        }
         return true;
     }
 }

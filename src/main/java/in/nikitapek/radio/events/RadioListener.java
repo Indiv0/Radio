@@ -19,11 +19,11 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 
 import com.amshulman.typesafety.TypeSafeSet;
 
-public class RadioListener implements Listener {
+public final class RadioListener implements Listener {
+    public static final RadioConstructorFactory FACTORY = new RadioConstructorFactory();
+
     private final TypeSafeSet<Radio> radios;
     private final TypeSafeSet<World> broadcastingWorlds;
-
-    public static final RadioConstructorFactory FACTORY = new RadioConstructorFactory();
 
     public RadioListener(final RadioConfigurationContext configurationContext) {
         radios = configurationContext.infoManager.getRadios();
@@ -62,12 +62,12 @@ public class RadioListener implements Listener {
         final Location location = radioBlock.getLocation();
 
         // Creates the radio.
-        for (BlockFace face : BlockFace.values()) {
+        for (final BlockFace face : BlockFace.values()) {
             if (!RadioUtil.signHasValidFrequency(location, face)) {
                 continue;
             }
             // Adds the radio to the radios list.
-            Radio radio = new Radio(location, new Frequency(RadioUtil.getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0))));
+            final Radio radio = new Radio(location, new Frequency(RadioUtil.getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0))));
 
             if (getRadioByLocation(radio.getLocation()) != null) {
                 radios.remove(getRadioByLocation(radio.getLocation()));

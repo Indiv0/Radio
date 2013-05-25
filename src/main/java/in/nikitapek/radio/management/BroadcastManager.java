@@ -31,17 +31,16 @@ import com.amshulman.typesafety.impl.TypeSafeListImpl;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 
-public class BroadcastManager implements Runnable {
-
+public final class BroadcastManager implements Runnable {
     private final MbapiPlugin plugin;
     private final BukkitScheduler scheduler;
     private final RadioInfoManager infoManager;
 
     private final int radioRecieverId;
 
-    private double scanChance = 0.05d;
+    private final double scanChance = 0.05d;
 
-    public BroadcastManager(RadioConfigurationContext configurationContext) {
+    public BroadcastManager(final RadioConfigurationContext configurationContext) {
         plugin = configurationContext.plugin;
         scheduler = Bukkit.getScheduler();
         infoManager = configurationContext.infoManager;
@@ -50,18 +49,18 @@ public class BroadcastManager implements Runnable {
 
     @Override
     public void run() {
-        TypeSafeSet<Player> scanningPlayers = infoManager.getListeners(Frequency.SCANNING);
+        final TypeSafeSet<Player> scanningPlayers = infoManager.getListeners(Frequency.SCANNING);
 
-        for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
-            Radio radio = iter.next();
+        for (final Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
+            final Radio radio = iter.next();
             TypeSafeSet<Player> listeningPlayers = infoManager.getListeners(radio.getFrequency().getFrequency());
 
             if (listeningPlayers == null) {
                 listeningPlayers = new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER);
             }
 
-            for (Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
-                Player p = iterPlayers.next();
+            for (final Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
+                final Player p = iterPlayers.next();
                 if (Math.random() < scanChance) {
                     listeningPlayers.add(p);
                     iterPlayers.remove();
@@ -78,8 +77,8 @@ public class BroadcastManager implements Runnable {
                 return;
             }
 
-            Location source = block.getLocation();
-            String[] message = Radio.getMessage(source).toArray(new String[0]);
+            final Location source = block.getLocation();
+            final String[] message = Radio.getMessage(source).toArray(new String[0]);
 
             double innerRadius = 150;
             double outerRadius = 300;
@@ -117,7 +116,7 @@ public class BroadcastManager implements Runnable {
             ChatColor color = ChatColor.GOLD;
             block = block.getRelative(0, 1, 0);
             if (Material.WOOL.equals(block.getType())) {
-                DyeColor dyeColor = ((Wool) block.getState().getData()).getColor();
+                final DyeColor dyeColor = ((Wool) block.getState().getData()).getColor();
                 switch (dyeColor) {
                     case BLACK:
                         color = ChatColor.BLACK;
@@ -158,10 +157,10 @@ public class BroadcastManager implements Runnable {
             }
 
             int ironBarCount;
-            TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
-            for (Player player : listeningPlayers) {
+            final TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
+            for (final Player player : listeningPlayers) {
                 // Search the hotbar for the "pipboy" item to ensure the player can recieve signals.
-                int pipboyIndex = player.getInventory().first(radioRecieverId);
+                final int pipboyIndex = player.getInventory().first(radioRecieverId);
 
                 // If the player does not have a "pipboy" in their hotbar, then the player cannot recieve the signal.
                 if (pipboyIndex == -1 || pipboyIndex >= 9) {
@@ -183,16 +182,16 @@ public class BroadcastManager implements Runnable {
                 block = block.getRelative(0, 1, 0);
                 ++ironBarCount;
             }
-            double rangeExtension = Math.pow(1.02299172025d, ironBarCount);
+            final double rangeExtension = Math.pow(1.02299172025d, ironBarCount);
             innerRadius *= rangeExtension;
             outerRadius *= rangeExtension;
 
-            String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
-            TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, broadcastClarity, source, listeningPlayers, expanded, message);
+            final String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
+            final TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, broadcastClarity, source, listeningPlayers, expanded, message);
 
             final TypeSafeList<Pair<String, String[]>> toSend = new TypeSafeListImpl<Pair<String, String[]>>(new ArrayList<Pair<String, String[]>>(), CoreTypes.MESSAGE_PAIR);
-            for (Entry<String, String[]> e : messages.entrySet()) {
-                String[] arr = e.getValue();
+            for (final Entry<String, String[]> e : messages.entrySet()) {
+                final String[] arr = e.getValue();
 
                 for (int i = 0; i < arr.length; ++i) {
                     arr[i] = prefix + arr[i];

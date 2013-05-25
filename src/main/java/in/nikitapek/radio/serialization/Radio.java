@@ -11,12 +11,11 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
+public final class Radio implements Comparable<Radio> {
+    private static final BlockFace[] FACES = { BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST };
 
-public class Radio implements Comparable<Radio> {
-    Location location;
-    Frequency freq;
-
-    private static final BlockFace[] faces = { BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST };
+    private final Frequency freq;
+    private final Location location;
 
     public Radio(final Location location, final Frequency frequency) {
         this.location = location;
@@ -44,12 +43,12 @@ public class Radio implements Comparable<Radio> {
         String message = "";
         int val = 0;
 
-        faces: for (val = 0; val < faces.length; val++) {
-            if (!signExists(location, faces[val])) {
+        faces: for (val = 0; val < FACES.length; val++) {
+            if (!signExists(location, FACES[val])) {
                 continue;
             }
 
-            Sign sign = getSign(location, faces[val]);
+            final Sign sign = getSign(location, FACES[val]);
 
             for (int j = 0; j <= 3; j++) {
                 if (RadioUtil.hasTags(sign.getLine(j))) {
@@ -58,16 +57,16 @@ public class Radio implements Comparable<Radio> {
             }
         }
 
-        for (int i = 0; i < faces.length; i++) {
+        for (int i = 0; i < FACES.length; i++) {
             for (int j = 0; j <= 3; j++) {
-                if (!signExists(location, faces[(val + i) % 4])) {
+                if (!signExists(location, FACES[(val + i) % 4])) {
                     continue;
                 }
 
-                Sign sign = getSign(location, faces[(val + i) % 4]);
+                final Sign sign = getSign(location, FACES[(val + i) % 4]);
 
                 if (!RadioUtil.hasTags(sign.getLine(j))) {
-                    String line = sign.getLine(j);
+                    final String line = sign.getLine(j);
                     message = message.concat(line);
                 }
             }
@@ -78,7 +77,7 @@ public class Radio implements Comparable<Radio> {
         }
 
         // Split the strings and add them to a list.
-        String[] strings = message.split("\\\\n");
+        final String[] strings = message.split("\\\\n");
 
         for (int i = 1; i < strings.length; i++) {
             strings[i] = strings[i];
@@ -103,7 +102,7 @@ public class Radio implements Comparable<Radio> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -113,7 +112,7 @@ public class Radio implements Comparable<Radio> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Radio other = (Radio) obj;
+        final Radio other = (Radio) obj;
         if (freq == null) {
             if (other.freq != null) {
                 return false;
@@ -132,7 +131,7 @@ public class Radio implements Comparable<Radio> {
     }
 
     @Override
-    public int compareTo(Radio o) {
+    public int compareTo(final Radio o) {
         int c = Integer.compare(location.getBlockX(), o.location.getBlockX());
         if (c != 0) {
             return c;

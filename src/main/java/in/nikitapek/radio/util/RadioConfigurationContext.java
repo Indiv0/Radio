@@ -19,7 +19,7 @@ import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.gson.TypeSafeSetTypeAdapter;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 
-public class RadioConfigurationContext extends ConfigurationContext {
+public final class RadioConfigurationContext extends ConfigurationContext {
 
     public final RadioInfoManager infoManager;
 
@@ -32,7 +32,7 @@ public class RadioConfigurationContext extends ConfigurationContext {
     public final boolean userRadioPersist;
     public final boolean transmitEmptyMessages;
 
-    public RadioConfigurationContext(MbapiPlugin plugin) {
+    public RadioConfigurationContext(final MbapiPlugin plugin) {
         super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplimentaryTypes.TREESET, SupplimentaryTypes.RADIO), new FrequencyTypeAdapter());
 
         infoManager = new RadioInfoManager(this);
@@ -40,7 +40,7 @@ public class RadioConfigurationContext extends ConfigurationContext {
         plugin.saveDefaultConfig();
 
         // Tries to load the configuration from the file into configYaml.
-        YamlConfiguration configYaml = (YamlConfiguration) plugin.getConfig();
+        final YamlConfiguration configYaml = (YamlConfiguration) plugin.getConfig();
 
         // Retrieves the worlds in which frequency scanning is enabled.
         broadcastingWorlds = new TypeSafeSetImpl<World>(new HashSet<World>(), SupplimentaryTypes.WORLD);
@@ -59,8 +59,8 @@ public class RadioConfigurationContext extends ConfigurationContext {
         // Retrieves the chance for a player on the "scan" frequency to receive a broadcast.
         ironBarExtension = configYaml.getInt("ironBarExtension", 30);
 
-        ConfigurationSection configSection = configYaml.getConfigurationSection("signalClarityBlocks");
-        for (String key : configSection.getKeys(false)) {
+        final ConfigurationSection configSection = configYaml.getConfigurationSection("signalClarityBlocks");
+        for (final String key : configSection.getKeys(false)) {
             signalClarityBlocks.put(Material.getMaterial(key), configSection.getDouble(key));
         }
 
