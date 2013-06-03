@@ -2,12 +2,11 @@ package in.nikitapek.radio.util;
 
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
-
-import java.math.BigDecimal;
-
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+
+import java.math.BigDecimal;
 
 public final class RadioUtil {
     private RadioUtil() {}
@@ -53,11 +52,11 @@ public final class RadioUtil {
 
         final BigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
 
-        if (frequency == null || BigDecimal.ZERO.compareTo(frequency) >= 0) {
+        if (frequency == null) {
             return false;
         }
 
-        return true;
+        return BigDecimal.ZERO.compareTo(frequency) < 0;
     }
 
     // Tag related methods
