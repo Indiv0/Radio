@@ -54,7 +54,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         pipboyId = configYaml.getInt("pipboyID", 345);
 
         // Retrieves the chance for a player on the "scan" frequency to receive a broadcast.
-        scanChance = configYaml.getDouble("scanChance", 0.01);
+        scanChance = configYaml.getDouble("scanChance", 0.05d);
 
         // Retrieves the chance for a player on the "scan" frequency to receive a broadcast.
         ironBarExtension = configYaml.getInt("ironBarExtension", 30);

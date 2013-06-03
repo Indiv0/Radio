@@ -37,14 +37,14 @@ public final class BroadcastManager implements Runnable {
     private final RadioInfoManager infoManager;
 
     private final int radioRecieverId;
-
-    private final double scanChance = 0.05d;
+    private final double scanChance;
 
     public BroadcastManager(final RadioConfigurationContext configurationContext) {
         plugin = configurationContext.plugin;
         scheduler = Bukkit.getScheduler();
         infoManager = configurationContext.infoManager;
         radioRecieverId = configurationContext.pipboyId;
+        scanChance = configurationContext.scanChance;
     }
 
     @Override
