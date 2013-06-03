@@ -29,7 +29,7 @@ public final class RadioUtil {
         if (signFreq != null) {
             // If the sign frequency contains a valid value, and if the radio frequency is based on the location, sets the radio frequency to it.
             if (radioFreq == null) {
-                radio.getFrequency().setFrequency(signFreq);
+                radioFreq.setFrequency(signFreq);
                 sign.setLine(0, addTags(signFreq));
             }
         }
