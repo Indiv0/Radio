@@ -36,14 +36,14 @@ public final class BroadcastManager implements Runnable {
     private final BukkitScheduler scheduler;
     private final RadioInfoManager infoManager;
 
-    private final int radioRecieverId;
+    private final int radioReceiverId;
     private final double scanChance;
 
     public BroadcastManager(final RadioConfigurationContext configurationContext) {
         plugin = configurationContext.plugin;
         scheduler = Bukkit.getScheduler();
         infoManager = configurationContext.infoManager;
-        radioRecieverId = configurationContext.pipboyId;
+        radioReceiverId = configurationContext.pipboyId;
         scanChance = configurationContext.scanChance;
     }
 
@@ -160,7 +160,7 @@ public final class BroadcastManager implements Runnable {
             final TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (final Player player : listeningPlayers) {
                 // Search the hotbar for the "pipboy" item to ensure the player can recieve signals.
-                final int pipboyIndex = player.getInventory().first(radioRecieverId);
+                final int pipboyIndex = player.getInventory().first(radioReceiverId);
 
                 // If the player does not have a "pipboy" in their hotbar, then the player cannot recieve the signal.
                 if (pipboyIndex == -1 || pipboyIndex >= 9) {
