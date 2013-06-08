@@ -1,43 +1,14 @@
 package in.nikitapek.radio.util;
 
-import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
-import org.bukkit.Location;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.Sign;
 
 import java.math.BigDecimal;
 
+import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
+
 public final class RadioUtil {
     private RadioUtil() {}
-
-    public static boolean registerFrequencyToSign(final Radio radio, final BlockFace face) {
-        // Gets the sign itself.
-        final Sign sign = Radio.getSign(radio.getLocation(), face);
-
-        if (!signHasValidFrequency(radio.getLocation(), face)) {
-            return false;
-        }
-
-        final BigDecimal signFreq = getFrequencyFromStringWithoutTags(sign.getLine(0));
-        final Frequency radioFreq = radio.getFrequency();
-
-        // If the sign frequency does not contain a valid value, sets it to the radio frequency.
-        sign.setLine(0, addTags(radioFreq));
-
-        // If there is a defined frequency for this radio, uses it.
-        if (signFreq != null) {
-            // If the sign frequency contains a valid value, and if the radio frequency is based on the location, sets the radio frequency to it.
-            if (radioFreq == null) {
-                radioFreq.setFrequency(signFreq);
-                sign.setLine(0, addTags(signFreq));
-            }
-        }
-
-        sign.update(true);
-
-        return true;
-    }
 
     public static boolean signHasValidFrequency(final Location location, final BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
@@ -76,16 +47,13 @@ public final class RadioUtil {
         return frequency.substring(1, frequency.length() - 1);
     }
 
-    private static String addTags(final Object frequency) {
-        return "[" + frequency + "]";
-    }
-
     // Getter and Setter Methods
 
     public static BigDecimal getFrequencyFromString(final String stringFrequency) {
         try {
             return new BigDecimal(stringFrequency);
-        } catch (final NumberFormatException e) {
+        }
+        catch (final NumberFormatException e) {
             return null;
         }
     }
