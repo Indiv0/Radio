@@ -6,22 +6,28 @@
 	<groupId>in.nikitapek</groupId>
 	<artifactId>radio</artifactId>
 	<name>Radio</name>
-	<version>${mbapi.version}.1</version>
+	<version>${mbapi.version}.0</version>
 	<description>Radio plugin for the MinerApocalypse server.</description>
 
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.9</version>
+		<version>0.10</version>
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>minerap-repo</id>
+			<name>MinerAp</name>
+			<url>https://www.minerap.com/repository/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
-		<!-- Bukkit -->
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
 		</dependency>
-		<!-- Mbapi -->
 		<dependency>
 			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
