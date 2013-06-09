@@ -40,7 +40,7 @@ public final class Radio implements Comparable<Radio> {
 
     public static ArrayList<String> getMessage(final Location location) {
         String message = "";
-        int val = 0;
+        int val;
 
         faces: for (val = 0; val < FACES.length; val++) {
             if (!signExists(location, FACES[val])) {
