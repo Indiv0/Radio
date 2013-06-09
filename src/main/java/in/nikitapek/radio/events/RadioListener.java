@@ -44,16 +44,16 @@ public final class RadioListener implements Listener {
 
         // Gets the block representing the radio, if it exists. It will also return if the block being powered is one of the signs on the JUKEBOX.
         Block radioBlock = event.getBlock();
-        if (event.getBlock().getRelative(1, 0, 0).getType() == Material.JUKEBOX) {
-            radioBlock = event.getBlock().getRelative(1, 0, 0);
-        } else if (event.getBlock().getRelative(-1, 0, 0).getType() == Material.JUKEBOX) {
-            radioBlock = event.getBlock().getRelative(-1, 0, 0);
-        } else if (event.getBlock().getRelative(0, 0, 1).getType() == Material.JUKEBOX) {
-            radioBlock = event.getBlock().getRelative(0, 0, 1);
-        } else if (event.getBlock().getRelative(0, 0, -1).getType() == Material.JUKEBOX) {
-            radioBlock = event.getBlock().getRelative(0, 0, -1);
+        if (radioBlock.getRelative(1, 0, 0).getType() == Material.JUKEBOX) {
+            radioBlock = radioBlock.getRelative(1, 0, 0);
+        } else if (radioBlock.getRelative(-1, 0, 0).getType() == Material.JUKEBOX) {
+            radioBlock = radioBlock.getRelative(-1, 0, 0);
+        } else if (radioBlock.getRelative(0, 0, 1).getType() == Material.JUKEBOX) {
+            radioBlock = radioBlock.getRelative(0, 0, 1);
+        } else if (radioBlock.getRelative(0, 0, -1).getType() == Material.JUKEBOX) {
+            radioBlock = radioBlock.getRelative(0, 0, -1);
         } else if (event.getBlock().getRelative(0, 1, 0).getType() == Material.JUKEBOX) {
-            radioBlock = event.getBlock().getRelative(0, 1, 0);
+            radioBlock = radioBlock.getRelative(0, 1, 0);
         } else {
             return;
         }
