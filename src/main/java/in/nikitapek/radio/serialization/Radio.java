@@ -1,15 +1,14 @@
 package in.nikitapek.radio.serialization;
 
 import in.nikitapek.radio.util.RadioUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class Radio implements Comparable<Radio> {
     private static final BlockFace[] FACES = { BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST };
@@ -72,7 +71,7 @@ public final class Radio implements Comparable<Radio> {
             }
         }
 
-        if (message == "") {
+        if ("".equals(message)) {
             return new ArrayList<String>();
         }
 
