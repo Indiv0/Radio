@@ -24,10 +24,12 @@
 	</repositories>
 
 	<dependencies>
+		<!-- Spigot -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 		</dependency>
+		<!-- Mbapi -->
 		<dependency>
 			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
