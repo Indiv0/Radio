@@ -8,20 +8,13 @@
 	<name>Radio</name>
 	<version>${mbapi.version}.0</version>
 	<description>Radio plugin for the MinerApocalypse server.</description>
+	<url>http://dev.bukkit.org/server-mods/radio/</url>
 
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
 		<version>0.11</version>
 	</parent>
-
-	<repositories>
-		<repository>
-			<id>minerap-repo</id>
-			<name>MinerAp</name>
-			<url>https://www.minerap.com/repository/</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<!-- Spigot -->
@@ -35,4 +28,26 @@
 			<artifactId>mbapi</artifactId>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>production</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-shade-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>shade</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
