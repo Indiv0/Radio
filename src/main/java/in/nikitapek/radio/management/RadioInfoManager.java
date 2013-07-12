@@ -1,23 +1,5 @@
 package in.nikitapek.radio.management;
 
-import in.nikitapek.radio.serialization.Frequency;
-import in.nikitapek.radio.serialization.Radio;
-import in.nikitapek.radio.util.FrequencyConstructorFactory;
-import in.nikitapek.radio.util.SupplimentaryTypes;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerLoginEvent.Result;
-import org.bukkit.event.player.PlayerQuitEvent;
-
 import com.amshulman.mbapi.management.InfoManager;
 import com.amshulman.mbapi.storage.TypeSafeStorageMap;
 import com.amshulman.mbapi.storage.TypeSafeStorageSet;
@@ -27,11 +9,27 @@ import com.amshulman.typesafety.TypeSafeMap;
 import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.serialization.Radio;
+import in.nikitapek.radio.util.LargeDecimal;
+import in.nikitapek.radio.util.FrequencyConstructorFactory;
+import in.nikitapek.radio.util.SupplimentaryTypes;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.event.player.PlayerQuitEvent;
+
+import java.util.HashMap;
+import java.util.HashSet;
 
 public final class RadioInfoManager extends InfoManager {
     private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
 
-    private final TypeSafeMap<BigDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<BigDecimal, TypeSafeSet<Player>>(new HashMap<BigDecimal, TypeSafeSet<Player>>(), SupplimentaryTypes.BIGDECIMAL, SupplimentaryTypes.TREESET);
+    private final TypeSafeMap<LargeDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<LargeDecimal, TypeSafeSet<Player>>(new HashMap<LargeDecimal, TypeSafeSet<Player>>(), SupplimentaryTypes.LARGEDECIMAL, SupplimentaryTypes.TREESET);
 
     private final TypeSafeStorageMap<Frequency> frequencies;
     private final TypeSafeStorageSet<Radio> radios;
@@ -79,7 +77,7 @@ public final class RadioInfoManager extends InfoManager {
         return radios;
     }
 
-    public void setFrequency(final Player player, final BigDecimal frequency) {
+    public void setFrequency(final Player player, final LargeDecimal frequency) {
         final Frequency f = getFrequency(player.getName());
 
         TypeSafeSet<Player> listeners = listenerMap.get(f.getFrequency());
@@ -97,7 +95,7 @@ public final class RadioInfoManager extends InfoManager {
         f.setFrequency(frequency);
     }
 
-    public TypeSafeSet<Player> getListeners(final BigDecimal frequency) {
+    public TypeSafeSet<Player> getListeners(final LargeDecimal frequency) {
         return listenerMap.get(frequency);
     }
 
@@ -107,7 +105,7 @@ public final class RadioInfoManager extends InfoManager {
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onPlayerFinishLogin(final PlayerLoginEvent event) {
             if (Result.ALLOWED.equals(event.getResult())) {
-                final BigDecimal frequency = getFrequency(event.getPlayer().getName()).getFrequency();
+                final LargeDecimal frequency = getFrequency(event.getPlayer().getName()).getFrequency();
                 TypeSafeSet<Player> listeners = listenerMap.get(frequency);
 
                 if (listeners == null) {

@@ -1,18 +1,18 @@
 package in.nikitapek.radio.serialization;
 
-import java.math.BigDecimal;
+import in.nikitapek.radio.util.LargeDecimal;
 
 public final class Frequency implements Comparable<Frequency> {
-    public static final BigDecimal SCANNING = BigDecimal.ONE.negate();
-    public static final BigDecimal OFF = BigDecimal.ZERO;
+    public static final LargeDecimal SCANNING = new LargeDecimal(-1);
+    public static final LargeDecimal OFF = new LargeDecimal(0);
 
-    private BigDecimal freq;
+    private LargeDecimal freq;
 
     public Frequency() {
         this(Frequency.OFF);
     }
 
-    public Frequency(final BigDecimal frequency) {
+    public Frequency(final LargeDecimal frequency) {
         freq = frequency;
     }
 
@@ -24,11 +24,11 @@ public final class Frequency implements Comparable<Frequency> {
         return Frequency.SCANNING.equals(freq);
     }
 
-    public BigDecimal getFrequency() {
+    public LargeDecimal getFrequency() {
         return freq;
     }
 
-    public void setFrequency(final BigDecimal frequency) {
+    public void setFrequency(final LargeDecimal frequency) {
         freq = frequency;
     }
 

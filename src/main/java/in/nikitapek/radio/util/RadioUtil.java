@@ -1,11 +1,11 @@
 package in.nikitapek.radio.util;
 
+import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
-
-import java.math.BigDecimal;
-
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
+
+import java.math.BigDecimal;
 
 public final class RadioUtil {
     private RadioUtil() {}
@@ -21,13 +21,13 @@ public final class RadioUtil {
             return false;
         }
 
-        final BigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
+        final LargeDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
 
         if (frequency == null) {
             return false;
         }
 
-        return BigDecimal.ZERO.compareTo(frequency) < 0;
+        return Frequency.OFF.compareTo(frequency) < 0;
     }
 
     // Tag related methods
@@ -49,16 +49,16 @@ public final class RadioUtil {
 
     // Getter and Setter Methods
 
-    public static BigDecimal getFrequencyFromString(final String stringFrequency) {
+    public static LargeDecimal getFrequencyFromString(final String stringFrequency) {
         try {
-            return new BigDecimal(stringFrequency);
+            return new LargeDecimal(stringFrequency);
         }
         catch (final NumberFormatException e) {
             return null;
         }
     }
 
-    public static BigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
+    public static LargeDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
         // Returns the frequency without the tags attached.
         return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency)) : null;
     }
