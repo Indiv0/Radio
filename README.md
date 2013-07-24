@@ -1,4 +1,4 @@
-Radio [![Travis CI](https://secure.travis-ci.org/Indiv0/Radio.png)](http://travis-ci.org/#!/Indiv0/Radio)
+Radio [![Travis CI](https://secure.travis-ci.org/Indiv0/radio.png)](http://travis-ci.org/#!/Indiv0/radio)
 ===
 
 A plugin for CraftBukkit which allows for user-created radios for the purpose of long-distance message transmissions.
