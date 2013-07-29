@@ -29,7 +29,7 @@ import java.util.HashSet;
 public final class RadioInfoManager extends InfoManager {
     private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
 
-    private final TypeSafeMap<LargeDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<LargeDecimal, TypeSafeSet<Player>>(new HashMap<LargeDecimal, TypeSafeSet<Player>>(), SupplimentaryTypes.LARGEDECIMAL, SupplimentaryTypes.TREESET);
+    private final TypeSafeMap<LargeDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<>(new HashMap<LargeDecimal, TypeSafeSet<Player>>(), SupplimentaryTypes.LARGEDECIMAL, SupplimentaryTypes.TREESET);
 
     private final TypeSafeStorageMap<Frequency> frequencies;
     private final TypeSafeStorageSet<Radio> radios;
@@ -50,8 +50,8 @@ public final class RadioInfoManager extends InfoManager {
             frequencies.load(player.getName(), FREQUENCY_FACTORY);
         }
 
-        listenerMap.put(Frequency.OFF, new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER));
-        listenerMap.put(Frequency.SCANNING, new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER));
+        listenerMap.put(Frequency.OFF, new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER));
+        listenerMap.put(Frequency.SCANNING, new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER));
     }
 
     @Override
@@ -87,7 +87,7 @@ public final class RadioInfoManager extends InfoManager {
 
         listeners = listenerMap.get(frequency);
         if (listeners == null) {
-            listeners = new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER);
+            listeners = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
             listenerMap.put(frequency, listeners);
         }
         listeners.add(player);
@@ -109,7 +109,7 @@ public final class RadioInfoManager extends InfoManager {
                 TypeSafeSet<Player> listeners = listenerMap.get(frequency);
 
                 if (listeners == null) {
-                    listeners = new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER);
+                    listeners = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
                     listenerMap.put(frequency, listeners);
                 }
 

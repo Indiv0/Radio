@@ -56,7 +56,7 @@ public final class BroadcastManager implements Runnable {
             TypeSafeSet<Player> listeningPlayers = infoManager.getListeners(radio.getFrequency().getFrequency());
 
             if (listeningPlayers == null) {
-                listeningPlayers = new TypeSafeSetImpl<Player>(new HashSet<Player>(), CoreTypes.PLAYER);
+                listeningPlayers = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
             }
 
             for (final Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
@@ -157,7 +157,7 @@ public final class BroadcastManager implements Runnable {
             }
 
             int ironBarCount;
-            final TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<Player, Double>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
+            final TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (final Player player : listeningPlayers) {
                 // Search the hotbar for the "pipboy" item to ensure the player can recieve signals.
                 final int pipboyIndex = player.getInventory().first(radioReceiverId);
@@ -189,7 +189,7 @@ public final class BroadcastManager implements Runnable {
             final String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
             final TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, broadcastClarity, source, listeningPlayers, expanded, message);
 
-            final TypeSafeList<Pair<String, String[]>> toSend = new TypeSafeListImpl<Pair<String, String[]>>(new ArrayList<Pair<String, String[]>>(), CoreTypes.MESSAGE_PAIR);
+            final TypeSafeList<Pair<String, String[]>> toSend = new TypeSafeListImpl<>(new ArrayList<Pair<String, String[]>>(), CoreTypes.MESSAGE_PAIR);
             for (final Entry<String, String[]> e : messages.entrySet()) {
                 final String[] arr = e.getValue();
 
@@ -197,7 +197,7 @@ public final class BroadcastManager implements Runnable {
                     arr[i] = prefix + arr[i];
                 }
 
-                toSend.add(new Pair<String, String[]>(e.getKey(), arr));
+                toSend.add(new Pair<>(e.getKey(), arr));
             }
 
             scheduler.runTask(plugin, new Runnable() {

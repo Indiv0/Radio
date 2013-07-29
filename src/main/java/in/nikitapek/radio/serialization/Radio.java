@@ -73,11 +73,11 @@ public final class Radio implements Comparable<Radio> {
         }
 
         if ("".equals(message)) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
 
         // Split the strings based on newline characters and return them.
-        return new ArrayList<String>(Arrays.asList(message.split("\\\\n")));
+        return new ArrayList<>(Arrays.asList(message.split("\\\\n")));
     }
 
     public static Sign getSign(final Location location, final BlockFace face) {

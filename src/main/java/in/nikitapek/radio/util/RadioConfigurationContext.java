@@ -6,6 +6,7 @@ import in.nikitapek.radio.serialization.Radio;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -27,7 +28,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final int pipboyId;
     public final double scanChance;
     public final int ironBarExtension;
-    public final HashMap<Material, Double> signalClarityBlocks = new HashMap<Material, Double>();
+    public final Map<Material, Double> signalClarityBlocks = new HashMap<>();
     public final boolean wallRadioPersist;
     public final boolean userRadioPersist;
     public final boolean transmitEmptyMessages;
@@ -43,7 +44,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         final YamlConfiguration configYaml = (YamlConfiguration) plugin.getConfig();
 
         // Retrieves the worlds in which frequency scanning is enabled.
-        broadcastingWorlds = new TypeSafeSetImpl<World>(new HashSet<World>(), SupplimentaryTypes.WORLD);
+        broadcastingWorlds = new TypeSafeSetImpl<>(new HashSet<World>(), SupplimentaryTypes.WORLD);
         for (final World world : Bukkit.getWorlds()) {
             if (configYaml.getBoolean("worlds." + world.getName(), false)) {
                 broadcastingWorlds.add(world);
