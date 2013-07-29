@@ -16,24 +16,12 @@ public final class Frequency implements Comparable<Frequency> {
         freq = frequency;
     }
 
-    public boolean isOff() {
-        return Frequency.OFF.equals(freq);
-    }
-
-    public boolean isScanning() {
-        return Frequency.SCANNING.equals(freq);
-    }
-
     public LargeDecimal getFrequency() {
         return freq;
     }
 
     public void setFrequency(final LargeDecimal frequency) {
         freq = frequency;
-    }
-
-    public String getFrequencyAsString() {
-        return String.valueOf(freq);
     }
 
     @Override
