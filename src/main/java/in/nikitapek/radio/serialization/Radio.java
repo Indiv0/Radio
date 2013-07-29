@@ -1,11 +1,14 @@
 package in.nikitapek.radio.serialization;
 
 import in.nikitapek.radio.util.RadioUtil;
+import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.material.Wool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,6 +102,39 @@ public final class Radio implements Comparable<Radio> {
             default:
                 return  0.1;
         }
+    }
+
+    public ChatColor getChatColor() {
+        final Block block = getBlock().getRelative(0, 1, 0);
+
+        if (Material.WOOL.equals(block.getType())) {
+            switch (((Wool) block.getState().getData()).getColor()) {
+                case BLACK:
+                    return ChatColor.BLACK;
+                case BLUE:
+                    return ChatColor.BLUE;
+                case LIGHT_BLUE:
+                    return ChatColor.AQUA;
+                case GRAY:
+                    return ChatColor.GRAY;
+                case GREEN:
+                    return ChatColor.GREEN;
+                case MAGENTA:
+                    return ChatColor.LIGHT_PURPLE;
+                case PURPLE:
+                    return ChatColor.DARK_PURPLE;
+                case RED:
+                    return ChatColor.RED;
+                case WHITE:
+                    return ChatColor.WHITE;
+                case YELLOW:
+                    return ChatColor.YELLOW;
+                default:
+                    return ChatColor.MAGIC;
+            }
+        }
+
+        return ChatColor.GOLD;
     }
 
     @Override
