@@ -11,10 +11,12 @@ public class LargeDecimal extends BigDecimal {
         super(value);
     }
 
-    public boolean equals(LargeDecimal other) {
-        return compareTo(other) == 0;
+    @Override
+    public boolean equals(Object other) {
+        return compareTo((LargeDecimal) other) == 0;
     }
 
+    @Override
     public int hashCode() {
         return Double.valueOf(this.toString()).hashCode();
     }
