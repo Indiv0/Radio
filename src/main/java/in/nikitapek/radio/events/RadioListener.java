@@ -20,8 +20,6 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 import com.amshulman.typesafety.TypeSafeSet;
 
 public final class RadioListener implements Listener {
-    public static final RadioConstructorFactory FACTORY = new RadioConstructorFactory();
-
     private final TypeSafeSet<Radio> radios;
     private final TypeSafeSet<World> broadcastingWorlds;
 
