@@ -104,9 +104,7 @@ public final class Radio implements Comparable<Radio> {
         }
     }
 
-    public ChatColor getChatColor() {
-        final Block block = getBlock().getRelative(0, 1, 0);
-
+    public static ChatColor getChatColor(final Block block) {
         if (Material.WOOL.equals(block.getType())) {
             switch (((Wool) block.getState().getData()).getColor()) {
                 case BLACK:

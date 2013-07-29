@@ -92,6 +92,16 @@ public final class BroadcastManager implements Runnable {
                 outerRadius /= 2;
             }
 
+
+            final ChatColor color;
+            block = block.getRelative(0, 1, 0);
+            if (Material.WOOL.equals(block.getType())) {
+                color = Radio.getChatColor(block);
+            } else {
+                color = ChatColor.GOLD;
+                block = block.getRelative(0, -1, 0);
+            }
+
             int ironBarCount;
             final TypeSafeMap<Player, Double> expanded = new TypeSafeMapImpl<>(new HashMap<Player, Double>(listeningPlayers.size()), CoreTypes.PLAYER, CoreTypes.DOUBLE);
             for (final Player player : listeningPlayers) {
@@ -122,7 +132,7 @@ public final class BroadcastManager implements Runnable {
             innerRadius *= rangeExtension;
             outerRadius *= rangeExtension;
 
-            final String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + radio.getChatColor();
+            final String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
             final TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, radio.getBroadcastClarity(), source, listeningPlayers, expanded, message);
 
             final TypeSafeList<Pair<String, String[]>> toSend = new TypeSafeListImpl<>(new ArrayList<Pair<String, String[]>>(), CoreTypes.MESSAGE_PAIR);
