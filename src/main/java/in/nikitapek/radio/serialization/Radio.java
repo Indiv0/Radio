@@ -9,6 +9,7 @@ import org.bukkit.block.Sign;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public final class Radio implements Comparable<Radio> {
     private static final BlockFace[] FACES = { BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST };
@@ -38,7 +39,7 @@ public final class Radio implements Comparable<Radio> {
         return location.getBlock().getRelative(face).getType() == Material.WALL_SIGN;
     }
 
-    public static ArrayList<String> getMessage(final Location location) {
+    public static List<String> getMessage(final Location location) {
         String message = "";
         int val;
 
@@ -75,14 +76,8 @@ public final class Radio implements Comparable<Radio> {
             return new ArrayList<String>();
         }
 
-        // Split the strings and add them to a list.
-        final String[] strings = message.split("\\\\n");
-
-        for (int i = 1; i < strings.length; i++) {
-            strings[i] = strings[i];
-        }
-
-        return new ArrayList<String>(Arrays.asList(strings));
+        // Split the strings based on newline characters and return them.
+        return new ArrayList<String>(Arrays.asList(message.split("\\\\n")));
     }
 
     public static Sign getSign(final Location location, final BlockFace face) {
