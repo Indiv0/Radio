@@ -99,7 +99,7 @@ public final class RadioInfoManager extends InfoManager {
         return listenerMap.get(frequency);
     }
 
-    private class ListenerLoader implements Listener {
+    private final class ListenerLoader implements Listener {
         public ListenerLoader() {}
 
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
