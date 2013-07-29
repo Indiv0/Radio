@@ -86,6 +86,21 @@ public final class Radio implements Comparable<Radio> {
         return signExists(location, face) ? (Sign) location.getBlock().getRelative(face).getState() : null;
     }
 
+    public double getBroadcastClarity() {
+        switch (getBlock().getRelative(0, 1, 0).getType()) {
+            case LAPIS_BLOCK:
+                return 0.2;
+            case IRON_BLOCK:
+                return 0.4;
+            case GOLD_BLOCK:
+                return  0.65;
+            case DIAMOND_BLOCK:
+                return  1.0;
+            default:
+                return  0.1;
+        }
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

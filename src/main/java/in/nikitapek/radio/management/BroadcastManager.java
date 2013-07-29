@@ -92,26 +92,6 @@ public final class BroadcastManager implements Runnable {
                 outerRadius /= 2;
             }
 
-            block = block.getRelative(0, 1, 0);
-            double broadcastClarity;
-            switch (block.getType()) {
-                case LAPIS_BLOCK:
-                    broadcastClarity = 0.2;
-                    break;
-                case IRON_BLOCK:
-                    broadcastClarity = 0.4;
-                    break;
-                case GOLD_BLOCK:
-                    broadcastClarity = 0.65;
-                    break;
-                case DIAMOND_BLOCK:
-                    broadcastClarity = 1.0;
-                    break;
-                default:
-                    broadcastClarity = 0.1;
-                    block = block.getRelative(0, -1, 0);
-                    break;
-            }
 
             ChatColor color = ChatColor.GOLD;
             block = block.getRelative(0, 1, 0);
@@ -187,7 +167,7 @@ public final class BroadcastManager implements Runnable {
             outerRadius *= rangeExtension;
 
             final String prefix = ChatColor.RED + "[Radio " + radio.getFrequency().getFrequency() + "] " + color;
-            final TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, broadcastClarity, source, listeningPlayers, expanded, message);
+            final TypeSafeMap<String, String[]> messages = ChatManager.reduce((int) innerRadius, (int) outerRadius, radio.getBroadcastClarity(), source, listeningPlayers, expanded, message);
 
             final TypeSafeList<Pair<String, String[]>> toSend = new TypeSafeListImpl<>(new ArrayList<Pair<String, String[]>>(), CoreTypes.MESSAGE_PAIR);
             for (final Entry<String, String[]> e : messages.entrySet()) {
