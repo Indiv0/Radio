@@ -96,11 +96,11 @@ public final class Radio implements Comparable<Radio> {
             case IRON_BLOCK:
                 return 0.4;
             case GOLD_BLOCK:
-                return  0.65;
+                return 0.65;
             case DIAMOND_BLOCK:
-                return  1.0;
+                return 1.0;
             default:
-                return  0.1;
+                return 0.1;
         }
     }
 

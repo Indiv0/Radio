@@ -90,7 +90,6 @@ public final class BroadcastManager implements Runnable {
                 outerRadius /= 2;
             }
 
-
             final ChatColor color;
             block = block.getRelative(0, 1, 0);
             if (Material.WOOL.equals(block.getType())) {
