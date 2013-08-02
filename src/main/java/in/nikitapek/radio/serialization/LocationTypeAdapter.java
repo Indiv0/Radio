@@ -16,7 +16,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 
-public final class FrequencyTypeAdapter implements GsonTypeAdapter<Location> {
+public final class LocationTypeAdapter implements GsonTypeAdapter<Location> {
 
     private static final Type TYPE = SupplimentaryTypes.LOCATION;
 
