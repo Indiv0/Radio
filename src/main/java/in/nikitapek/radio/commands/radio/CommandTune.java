@@ -6,7 +6,7 @@ import com.amshulman.typesafety.TypeSafeList;
 import in.nikitapek.radio.commands.CommandRadio.RadioCommands;
 import in.nikitapek.radio.management.RadioInfoManager;
 import in.nikitapek.radio.serialization.Frequency;
-import in.nikitapek.radio.util.LargeDecimal;
+import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
 import in.nikitapek.radio.util.RadioConfigurationContext;
 import in.nikitapek.radio.util.RadioUtil;
 import org.bukkit.ChatColor;
@@ -31,7 +31,7 @@ public final class CommandTune extends PlayerOnlyCommand {
             return true;
         }
 
-        final LargeDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
+        final ScaleInvariantBigDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
 
         if (frequency == null || Frequency.OFF.compareTo(frequency) >= 0) {
             player.sendMessage("Failed to set frequency. \"" + args.get(0) + "\" is an invalid frequency.");

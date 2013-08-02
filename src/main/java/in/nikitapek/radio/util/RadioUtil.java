@@ -21,7 +21,7 @@ public final class RadioUtil {
             return false;
         }
 
-        final LargeDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
+        final ScaleInvariantBigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
 
         if (frequency == null) {
             return false;
@@ -49,16 +49,16 @@ public final class RadioUtil {
 
     // Getter and Setter Methods
 
-    public static LargeDecimal getFrequencyFromString(final String stringFrequency) {
+    public static ScaleInvariantBigDecimal getFrequencyFromString(final String stringFrequency) {
         try {
-            return new LargeDecimal(stringFrequency);
+            return new ScaleInvariantBigDecimal(stringFrequency);
         }
         catch (final NumberFormatException e) {
             return null;
         }
     }
 
-    public static LargeDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
+    public static ScaleInvariantBigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
         // Returns the frequency without the tags attached.
         return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency)) : null;
     }

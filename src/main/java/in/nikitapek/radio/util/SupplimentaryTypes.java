@@ -13,7 +13,7 @@ public final class SupplimentaryTypes {
     @SuppressWarnings("rawtypes")
     public static final Type TREESET = new TypeToken<TreeSet>() {}.getType();
 
-    public static final Type LARGEDECIMAL = new TypeToken<LargeDecimal>() {}.getType();
+    public static final Type LARGEDECIMAL = new TypeToken<ScaleInvariantBigDecimal>() {}.getType();
     public static final Type FREQUENCY = new TypeToken<Frequency>() {}.getType();
     public static final Type LOCATION = new TypeToken<Location>() {}.getType();
     public static final Type RADIO = new TypeToken<Radio>() {}.getType();

@@ -1,6 +1,6 @@
 package in.nikitapek.radio.serialization;
 
-import in.nikitapek.radio.util.LargeDecimal;
+import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
 import in.nikitapek.radio.util.SupplimentaryTypes;
 
 import java.lang.reflect.Type;
@@ -23,7 +23,7 @@ public class FrequencyTypeAdapter implements GsonTypeAdapter<Frequency> {
 
     @Override
     public Frequency deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) throws JsonParseException {
-        return new Frequency(new LargeDecimal(json.getAsString()));
+        return new Frequency(new ScaleInvariantBigDecimal(json.getAsString()));
     }
 
     @Override
