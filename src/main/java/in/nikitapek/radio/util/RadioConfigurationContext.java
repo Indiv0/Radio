@@ -35,7 +35,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final boolean transmitEmptyMessages;
 
     public RadioConfigurationContext(final MbapiPlugin plugin) {
-        super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplimentaryTypes.TREESET, SupplimentaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
+        super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplementaryTypes.TREESET, SupplementaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
 
         infoManager = new RadioInfoManager(this);
 
@@ -45,7 +45,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         final YamlConfiguration configYaml = (YamlConfiguration) plugin.getConfig();
 
         // Retrieves the worlds in which frequency scanning is enabled.
-        broadcastingWorlds = new TypeSafeSetImpl<>(new HashSet<World>(), SupplimentaryTypes.WORLD);
+        broadcastingWorlds = new TypeSafeSetImpl<>(new HashSet<World>(), SupplementaryTypes.WORLD);
         for (final World world : Bukkit.getWorlds()) {
             if (configYaml.getBoolean("worlds." + world.getName(), false)) {
                 broadcastingWorlds.add(world);

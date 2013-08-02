@@ -1,6 +1,6 @@
 package in.nikitapek.radio.serialization;
 
-import in.nikitapek.radio.util.SupplimentaryTypes;
+import in.nikitapek.radio.util.SupplementaryTypes;
 
 import java.lang.reflect.Type;
 
@@ -18,7 +18,7 @@ import com.google.gson.JsonSerializationContext;
 
 public final class LocationTypeAdapter implements GsonTypeAdapter<Location> {
 
-    private static final Type TYPE = SupplimentaryTypes.LOCATION;
+    private static final Type TYPE = SupplementaryTypes.LOCATION;
 
     @Override
     public JsonElement serialize(final Location src, final Type typeOfSrc, final JsonSerializationContext context) {

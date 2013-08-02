@@ -4,7 +4,7 @@ import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import in.nikitapek.radio.util.FrequencyConstructorFactory;
 import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
-import in.nikitapek.radio.util.SupplimentaryTypes;
+import in.nikitapek.radio.util.SupplementaryTypes;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,7 +31,7 @@ import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 public final class RadioInfoManager extends InfoManager {
     private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
 
-    private final TypeSafeMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<>(new HashMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>>(), SupplimentaryTypes.LARGEDECIMAL, SupplimentaryTypes.TREESET);
+    private final TypeSafeMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<>(new HashMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>>(), SupplementaryTypes.LARGEDECIMAL, SupplementaryTypes.TREESET);
 
     private final TypeSafeStorageMap<Frequency> frequencies;
     private final TypeSafeStorageSet<Radio> radios;
@@ -40,8 +40,8 @@ public final class RadioInfoManager extends InfoManager {
         super(configurationContext);
 
         // Retrieves the storage map for "frequencies" and "radios".
-        frequencies = storageManager.getStorageMap("frequencies", SupplimentaryTypes.FREQUENCY);
-        radios = storageManager.getStorageSet("radios", SupplimentaryTypes.RADIO);
+        frequencies = storageManager.getStorageMap("frequencies", SupplementaryTypes.FREQUENCY);
+        radios = storageManager.getStorageSet("radios", SupplementaryTypes.RADIO);
         registerPlayerInfoLoader(frequencies, FREQUENCY_FACTORY);
         configurationContext.plugin.registerEventHandler(new ListenerLoader());
 

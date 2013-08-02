@@ -1,7 +1,7 @@
 package in.nikitapek.radio.serialization;
 
 import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
-import in.nikitapek.radio.util.SupplimentaryTypes;
+import in.nikitapek.radio.util.SupplementaryTypes;
 
 import java.lang.reflect.Type;
 
@@ -14,7 +14,7 @@ import com.google.gson.JsonSerializationContext;
 
 public class FrequencyTypeAdapter implements GsonTypeAdapter<Frequency> {
 
-    private static final Type TYPE = SupplimentaryTypes.FREQUENCY;
+    private static final Type TYPE = SupplementaryTypes.FREQUENCY;
 
     @Override
     public JsonElement serialize(Frequency src, final Type typeOfSrc, final JsonSerializationContext context) {

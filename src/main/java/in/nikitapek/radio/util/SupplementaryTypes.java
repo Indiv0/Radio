@@ -11,7 +11,7 @@ import org.bukkit.World;
 
 import com.google.gson.reflect.TypeToken;
 
-public final class SupplimentaryTypes {
+public final class SupplementaryTypes {
     @SuppressWarnings("rawtypes")
     public static final Type TREESET = new TypeToken<TreeSet>() {}.getType();
 
@@ -21,5 +21,5 @@ public final class SupplimentaryTypes {
     public static final Type RADIO = new TypeToken<Radio>() {}.getType();
     public static final Type WORLD = new TypeToken<World>() {}.getType();
 
-    private SupplimentaryTypes() {}
+    private SupplementaryTypes() {}
 }
