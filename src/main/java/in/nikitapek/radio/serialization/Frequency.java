@@ -12,7 +12,7 @@ public final class Frequency implements Comparable<Frequency> {
         this(Frequency.OFF);
     }
 
-    public Frequency(final ScaleInvariantBigDecimal frequency) {
+    public Frequency(ScaleInvariantBigDecimal frequency) {
         freq = frequency;
     }
 
@@ -20,12 +20,12 @@ public final class Frequency implements Comparable<Frequency> {
         return freq;
     }
 
-    public void setFrequency(final ScaleInvariantBigDecimal frequency) {
+    public void setFrequency(ScaleInvariantBigDecimal frequency) {
         freq = frequency;
     }
 
     @Override
-    public int compareTo(final Frequency obj) {
+    public int compareTo(Frequency obj) {
         return freq.compareTo(obj.freq);
     }
 
@@ -38,7 +38,7 @@ public final class Frequency implements Comparable<Frequency> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -48,7 +48,7 @@ public final class Frequency implements Comparable<Frequency> {
         if (!(obj instanceof Frequency)) {
             return false;
         }
-        final Frequency other = (Frequency) obj;
+        Frequency other = (Frequency) obj;
         if (freq == null) {
             if (other.freq != null) {
                 return false;

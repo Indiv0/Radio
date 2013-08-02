@@ -6,10 +6,10 @@ import in.nikitapek.radio.serialization.Radio;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 
-public final class RadioUtil {
+public class RadioUtil {
     private RadioUtil() {}
 
-    public static boolean signHasValidFrequency(final Location location, final BlockFace face) {
+    public static boolean signHasValidFrequency(Location location, BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
         if (!Radio.signExists(location, face)) {
             return false;
@@ -20,7 +20,7 @@ public final class RadioUtil {
             return false;
         }
 
-        final ScaleInvariantBigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
+        ScaleInvariantBigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
 
         if (frequency == null) {
             return false;
@@ -31,7 +31,7 @@ public final class RadioUtil {
 
     // Tag related methods
 
-    public static boolean hasTags(final String frequency) {
+    public static boolean hasTags(String frequency) {
         if (frequency.length() < 3) {
             return false;
         }
@@ -41,23 +41,23 @@ public final class RadioUtil {
                 && "]".equals(frequency.substring(frequency.length() - 1));
     }
 
-    private static String stripTags(final String frequency) {
+    private static String stripTags(String frequency) {
         // Returns the frequency without the marker tags.
         return frequency.substring(1, frequency.length() - 1);
     }
 
     // Getter and Setter Methods
 
-    public static ScaleInvariantBigDecimal getFrequencyFromString(final String stringFrequency) {
+    public static ScaleInvariantBigDecimal getFrequencyFromString(String stringFrequency) {
         try {
             return new ScaleInvariantBigDecimal(stringFrequency);
         }
-        catch (final NumberFormatException e) {
+        catch (NumberFormatException e) {
             return null;
         }
     }
 
-    public static ScaleInvariantBigDecimal getFrequencyFromStringWithoutTags(final String stringFrequency) {
+    public static ScaleInvariantBigDecimal getFrequencyFromStringWithoutTags(String stringFrequency) {
         // Returns the frequency without the tags attached.
         return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency)) : null;
     }

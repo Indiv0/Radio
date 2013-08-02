@@ -17,12 +17,12 @@ public class FrequencyTypeAdapter implements GsonTypeAdapter<Frequency> {
     private static final Type TYPE = SupplementaryTypes.FREQUENCY;
 
     @Override
-    public JsonElement serialize(Frequency src, final Type typeOfSrc, final JsonSerializationContext context) {
+    public JsonElement serialize(Frequency src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(src.getFrequency().toPlainString());
     }
 
     @Override
-    public Frequency deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) throws JsonParseException {
+    public Frequency deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         return new Frequency(new ScaleInvariantBigDecimal(json.getAsString()));
     }
 

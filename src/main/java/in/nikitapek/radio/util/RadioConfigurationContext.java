@@ -34,7 +34,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final boolean userRadioPersist;
     public final boolean transmitEmptyMessages;
 
-    public RadioConfigurationContext(final MbapiPlugin plugin) {
+    public RadioConfigurationContext(MbapiPlugin plugin) {
         super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplementaryTypes.TREESET, SupplementaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
 
         infoManager = new RadioInfoManager(this);
@@ -42,11 +42,11 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         plugin.saveDefaultConfig();
 
         // Tries to load the configuration from the file into configYaml.
-        final YamlConfiguration configYaml = (YamlConfiguration) plugin.getConfig();
+        YamlConfiguration configYaml = (YamlConfiguration) plugin.getConfig();
 
         // Retrieves the worlds in which frequency scanning is enabled.
         broadcastingWorlds = new TypeSafeSetImpl<>(new HashSet<World>(), SupplementaryTypes.WORLD);
-        for (final World world : Bukkit.getWorlds()) {
+        for (World world : Bukkit.getWorlds()) {
             if (configYaml.getBoolean("worlds." + world.getName(), false)) {
                 broadcastingWorlds.add(world);
             }
@@ -61,8 +61,8 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         // Retrieves the chance for a player on the "scan" frequency to receive a broadcast.
         ironBarExtension = configYaml.getInt("ironBarExtension", 30);
 
-        final ConfigurationSection configSection = configYaml.getConfigurationSection("signalClarityBlocks");
-        for (final String key : configSection.getKeys(false)) {
+        ConfigurationSection configSection = configYaml.getConfigurationSection("signalClarityBlocks");
+        for (String key : configSection.getKeys(false)) {
             signalClarityBlocks.put(Material.getMaterial(key), configSection.getDouble(key));
         }
 

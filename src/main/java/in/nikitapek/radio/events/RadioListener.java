@@ -18,17 +18,17 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 
 import com.amshulman.typesafety.TypeSafeSet;
 
-public final class RadioListener implements Listener {
+public class RadioListener implements Listener {
     private final TypeSafeSet<Radio> radios;
     private final TypeSafeSet<World> broadcastingWorlds;
 
-    public RadioListener(final RadioConfigurationContext configurationContext) {
+    public RadioListener(RadioConfigurationContext configurationContext) {
         radios = configurationContext.infoManager.getRadios();
         broadcastingWorlds = configurationContext.broadcastingWorlds;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onBlockRedstoneChange(final BlockRedstoneEvent event) {
+    public void onBlockRedstoneChange(BlockRedstoneEvent event) {
         // Checks to make sure the current has increased since the last redstone state.
         if (event.getOldCurrent() >= event.getNewCurrent()) {
             return;
@@ -56,15 +56,15 @@ public final class RadioListener implements Listener {
         }
 
         // Defines the location of the radio.
-        final Location location = radioBlock.getLocation();
+        Location location = radioBlock.getLocation();
 
         // Creates the radio.
-        for (final BlockFace face : BlockFace.values()) {
+        for (BlockFace face : BlockFace.values()) {
             if (!RadioUtil.signHasValidFrequency(location, face)) {
                 continue;
             }
             // Adds the radio to the radios list.
-            final Radio radio = new Radio(location, new Frequency(RadioUtil.getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0))));
+            Radio radio = new Radio(location, new Frequency(RadioUtil.getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0))));
 
             if (getRadioByLocation(radio.getLocation()) != null) {
                 radios.remove(getRadioByLocation(radio.getLocation()));
@@ -76,15 +76,15 @@ public final class RadioListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockBreak(final BlockBreakEvent event) {
-        final Block block = event.getBlock();
+    public void onBlockBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
 
         // Checks to see if the block being broken is a JUKEBOX.
         if (block.getType() != Material.JUKEBOX) {
             return;
         }
 
-        final Location location = block.getLocation();
+        Location location = block.getLocation();
 
         // Checks if the JUKEBOX is a radio.
         if (getRadioByLocation(location) == null) {
@@ -95,8 +95,8 @@ public final class RadioListener implements Listener {
         radios.remove((getRadioByLocation(location)));
     }
 
-    public Radio getRadioByLocation(final Location location) {
-        for (final Radio radio : radios) {
+    public Radio getRadioByLocation(Location location) {
+        for (Radio radio : radios) {
             if (radio.getLocation().equals(location)) {
                 return radio;
             }

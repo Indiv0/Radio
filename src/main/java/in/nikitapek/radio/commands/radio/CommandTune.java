@@ -15,11 +15,11 @@ import com.amshulman.mbapi.commands.PlayerOnlyCommand;
 import com.amshulman.typesafety.TypeSafeCollections;
 import com.amshulman.typesafety.TypeSafeList;
 
-public final class CommandTune extends PlayerOnlyCommand {
+public class CommandTune extends PlayerOnlyCommand {
     private final RadioInfoManager infoManager;
     private final int pipboyId;
 
-    public CommandTune(final RadioConfigurationContext configurationContext) {
+    public CommandTune(RadioConfigurationContext configurationContext) {
         super(configurationContext, RadioCommands.TUNE, 1, 1);
         assert (configurationContext.infoManager != null);
         assert (configurationContext.pipboyId > 0);
@@ -29,14 +29,14 @@ public final class CommandTune extends PlayerOnlyCommand {
     }
 
     @Override
-    protected boolean executeForPlayer(final Player player, final TypeSafeList<String> args) {
+    protected boolean executeForPlayer(Player player, TypeSafeList<String> args) {
         // Makes sure that the currently held item is the "Pipboy".
         if (player.getItemInHand().getTypeId() != pipboyId) {
             player.sendMessage("You must be holding a compass to work the radio.");
             return true;
         }
 
-        final ScaleInvariantBigDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
+        ScaleInvariantBigDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
 
         if (frequency == null || Frequency.OFF.compareTo(frequency) >= 0) {
             player.sendMessage("Failed to set frequency. \"" + args.get(0) + "\" is an invalid frequency.");
@@ -49,7 +49,7 @@ public final class CommandTune extends PlayerOnlyCommand {
     }
 
     @Override
-    public TypeSafeList<String> onTabComplete(final CommandSender sender, final TypeSafeList<String> args) {
+    public TypeSafeList<String> onTabComplete(CommandSender sender, TypeSafeList<String> args) {
         return TypeSafeCollections.emptyList();
     }
 }

@@ -2,7 +2,7 @@ package in.nikitapek.radio.util;
 
 import java.math.BigDecimal;
 
-public final class ScaleInvariantBigDecimal extends BigDecimal {
+public class ScaleInvariantBigDecimal extends BigDecimal {
 
     private static final long serialVersionUID = -6961257361561348906L;
 

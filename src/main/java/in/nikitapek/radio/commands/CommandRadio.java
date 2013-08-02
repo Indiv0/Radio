@@ -9,8 +9,8 @@ import in.nikitapek.radio.util.RadioConfigurationContext;
 import com.amshulman.mbapi.commands.DelegatingCommand;
 import com.amshulman.mbapi.util.PermissionsEnum;
 
-public final class CommandRadio extends DelegatingCommand {
-    public CommandRadio(final RadioConfigurationContext configurationContext) {
+public class CommandRadio extends DelegatingCommand {
+    public CommandRadio(RadioConfigurationContext configurationContext) {
         super(configurationContext, Commands.RADIO, 1, 2);
         registerSubcommand(new CommandOff(configurationContext));
         registerSubcommand(new CommandScan(configurationContext));
