@@ -1,6 +1,7 @@
 package in.nikitapek.radio.util;
 
 import in.nikitapek.radio.management.RadioInfoManager;
+import in.nikitapek.radio.serialization.FrequencyTypeAdapter;
 import in.nikitapek.radio.serialization.LocationTypeAdapter;
 import in.nikitapek.radio.serialization.Radio;
 
@@ -34,7 +35,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final boolean transmitEmptyMessages;
 
     public RadioConfigurationContext(final MbapiPlugin plugin) {
-        super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplimentaryTypes.TREESET, SupplimentaryTypes.RADIO), new LocationTypeAdapter());
+        super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplimentaryTypes.TREESET, SupplimentaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
 
         infoManager = new RadioInfoManager(this);
 
