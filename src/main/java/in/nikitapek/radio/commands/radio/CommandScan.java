@@ -18,6 +18,9 @@ public final class CommandScan extends PlayerOnlyCommand {
 
     public CommandScan(final RadioConfigurationContext configurationContext) {
         super(configurationContext, RadioCommands.SCAN, 0, 0);
+        assert (configurationContext.infoManager != null);
+        assert (configurationContext.pipboyId > 0);
+
         infoManager = configurationContext.infoManager;
         pipboyId = configurationContext.pipboyId;
     }

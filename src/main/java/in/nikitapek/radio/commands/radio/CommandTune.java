@@ -21,6 +21,9 @@ public final class CommandTune extends PlayerOnlyCommand {
 
     public CommandTune(final RadioConfigurationContext configurationContext) {
         super(configurationContext, RadioCommands.TUNE, 1, 1);
+        assert (configurationContext.infoManager != null);
+        assert (configurationContext.pipboyId > 0);
+
         infoManager = configurationContext.infoManager;
         pipboyId = configurationContext.pipboyId;
     }

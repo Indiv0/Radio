@@ -18,6 +18,9 @@ public final class CommandOff extends PlayerOnlyCommand {
 
     public CommandOff(final RadioConfigurationContext configurationContext) {
         super(configurationContext, RadioCommands.OFF, 0, 0);
+        assert (configurationContext.infoManager != null);
+        assert (configurationContext.pipboyId > 0);
+        
         infoManager = configurationContext.infoManager;
         pipboyId = configurationContext.pipboyId;
     }
