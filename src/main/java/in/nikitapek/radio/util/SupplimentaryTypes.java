@@ -1,13 +1,15 @@
 package in.nikitapek.radio.util;
 
-import com.google.gson.reflect.TypeToken;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
-import org.bukkit.Location;
-import org.bukkit.World;
 
 import java.lang.reflect.Type;
 import java.util.TreeSet;
+
+import org.bukkit.Location;
+import org.bukkit.World;
+
+import com.google.gson.reflect.TypeToken;
 
 public final class SupplimentaryTypes {
     @SuppressWarnings("rawtypes")

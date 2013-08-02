@@ -12,12 +12,10 @@ import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.material.Wool;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.javatuples.Pair;
 

@@ -3,7 +3,6 @@ package in.nikitapek.radio.events;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import in.nikitapek.radio.util.RadioConfigurationContext;
-import in.nikitapek.radio.util.RadioConstructorFactory;
 import in.nikitapek.radio.util.RadioUtil;
 
 import org.bukkit.Location;

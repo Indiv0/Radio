@@ -1,18 +1,18 @@
 package in.nikitapek.radio.serialization;
 
 import in.nikitapek.radio.util.RadioUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.material.Wool;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public final class Radio implements Comparable<Radio> {
     private static final BlockFace[] FACES = { BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST };

@@ -1,19 +1,14 @@
 package in.nikitapek.radio.management;
 
-import com.amshulman.mbapi.management.InfoManager;
-import com.amshulman.mbapi.storage.TypeSafeStorageMap;
-import com.amshulman.mbapi.storage.TypeSafeStorageSet;
-import com.amshulman.mbapi.util.ConfigurationContext;
-import com.amshulman.mbapi.util.CoreTypes;
-import com.amshulman.typesafety.TypeSafeMap;
-import com.amshulman.typesafety.TypeSafeSet;
-import com.amshulman.typesafety.impl.TypeSafeMapImpl;
-import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
-import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
 import in.nikitapek.radio.util.FrequencyConstructorFactory;
+import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
 import in.nikitapek.radio.util.SupplimentaryTypes;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,8 +18,15 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import com.amshulman.mbapi.management.InfoManager;
+import com.amshulman.mbapi.storage.TypeSafeStorageMap;
+import com.amshulman.mbapi.storage.TypeSafeStorageSet;
+import com.amshulman.mbapi.util.ConfigurationContext;
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.TypeSafeSet;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
+import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 
 public final class RadioInfoManager extends InfoManager {
     private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
