@@ -6,7 +6,7 @@
 	<groupId>in.nikitapek</groupId>
 	<artifactId>radio</artifactId>
 	<name>Radio</name>
-	<version>${mbapi.version}.0-SNAPSHOT</version>
+	<version>${mbapi.version}.0</version>
 	<description>Radio plugin for the MinerApocalypse server.</description>
 	<url>http://dev.bukkit.org/server-mods/radio/</url>
 
