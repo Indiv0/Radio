@@ -51,10 +51,12 @@ public class BroadcastManager implements Runnable {
 
         for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
             Radio radio = iter.next();
-            TypeSafeSet<Player> listeningPlayers = infoManager.getListeners(radio.getFrequency().getFrequency());
 
-            if (listeningPlayers == null) {
-                listeningPlayers = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
+            TypeSafeSet<Player> tunedPlayers = infoManager.getListeners(radio.getFrequency().getFrequency());
+            TypeSafeSet<Player> listeningPlayers = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
+
+            if (tunedPlayers != null) {
+                listeningPlayers.addAll(tunedPlayers);
             }
 
             for (Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
