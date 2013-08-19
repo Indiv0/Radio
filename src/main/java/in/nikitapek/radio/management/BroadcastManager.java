@@ -45,7 +45,8 @@ public class BroadcastManager implements Runnable {
     @Override
     public void run() {
         // Retrieve the list of players currently tuned to the SCANNING Frequency.
-        Set<Player> scanningPlayers = infoManager.getListeners(Frequency.SCANNING).getCollection();
+        Set<Player> scanningPlayers = new HashSet<>();
+        scanningPlayers.addAll(infoManager.getListeners(Frequency.SCANNING).getCollection());
 
         for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
             Radio radio = iter.next();
