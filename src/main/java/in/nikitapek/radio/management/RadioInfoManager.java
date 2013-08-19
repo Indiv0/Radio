@@ -80,20 +80,26 @@ public class RadioInfoManager extends InfoManager {
     }
 
     public void setFrequency(Player player, ScaleInvariantBigDecimal frequency) {
+        // Retrieves the frequency the player is currently tuned to.
         Frequency f = getFrequency(player.getName());
 
+        // Gets the list of players currently listening on the frequency the player is tuned to.
         TypeSafeSet<Player> listeners = listenerMap.get(f.getFrequency());
         if (listeners != null) {
             listeners.remove(player);
         }
 
+        // Retrieves the list of players currently tuned to the frequency provided.
         listeners = listenerMap.get(frequency);
+        // If no players are tuned into the frequency provided, then the set containing these players is created and added to the listenerMap.
         if (listeners == null) {
             listeners = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
             listenerMap.put(frequency, listeners);
         }
-        listeners.add(player);
 
+        // The player is added to the list of players currently tuned to the provided frequency.
+        listeners.add(player);
+        // The player's frequency is set the the provided frequency.
         f.setFrequency(frequency);
     }
 

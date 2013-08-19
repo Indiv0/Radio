@@ -47,24 +47,34 @@ public class BroadcastManager implements Runnable {
 
     @Override
     public void run() {
+        // Retrieve the list of players currently tuned to the SCANNING Frequency.
         TypeSafeSet<Player> scanningPlayers = infoManager.getListeners(Frequency.SCANNING);
 
         for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
             Radio radio = iter.next();
+
+            // Retrieve a list of players currently tuned to the frequency of the broadcasting radio.
             TypeSafeSet<Player> listeningPlayers = infoManager.getListeners(radio.getFrequency().getFrequency());
 
+            // If no players are currently tuned to the frequency of the broadcasting radio, initialize the set as empty.
             if (listeningPlayers == null) {
                 listeningPlayers = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
             }
 
+            // Iterate over the list of currently scanning players.
             for (Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
                 Player p = iterPlayers.next();
+                // If the scanning player picks up the radio's signal:
+                //   The player is removed from the list of currently scanning players.
+                //   The player is added to the list of players currently tuned to the frequency of the broadcasting radio.
                 if (Math.random() < scanChance) {
                     listeningPlayers.add(p);
                     iterPlayers.remove();
+                    //infoManager.setFrequency(p, radio.getFrequency().getFrequency());
                 }
             }
 
+            // If no players will receive the signal broadcast by the radio, the next radio attempts to transmit.
             if (listeningPlayers.isEmpty()) {
                 continue;
             }
