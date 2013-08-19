@@ -4,10 +4,7 @@ import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import in.nikitapek.radio.util.RadioConfigurationContext;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
@@ -48,7 +45,7 @@ public class BroadcastManager implements Runnable {
     @Override
     public void run() {
         // Retrieve the list of players currently tuned to the SCANNING Frequency.
-        TypeSafeSet<Player> scanningPlayers = infoManager.getListeners(Frequency.SCANNING);
+        Set<Player> scanningPlayers = infoManager.getListeners(Frequency.SCANNING).getCollection();
 
         for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
             Radio radio = iter.next();
@@ -68,9 +65,7 @@ public class BroadcastManager implements Runnable {
                 //   The player is removed from the list of currently scanning players.
                 //   The player is added to the list of players currently tuned to the frequency of the broadcasting radio.
                 if (Math.random() < scanChance) {
-                    listeningPlayers.add(p);
-                    iterPlayers.remove();
-                    //infoManager.setFrequency(p, radio.getFrequency().getFrequency());
+                    infoManager.setFrequency(p, radio.getFrequency().getFrequency());
                 }
             }
 
