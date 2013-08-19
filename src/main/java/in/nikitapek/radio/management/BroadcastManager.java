@@ -60,13 +60,12 @@ public class BroadcastManager implements Runnable {
             }
 
             // Iterate over the list of currently scanning players.
-            for (Iterator<Player> iterPlayers = scanningPlayers.iterator(); iterPlayers.hasNext();) {
-                Player p = iterPlayers.next();
+            for (Player player : scanningPlayers) {
                 // If the scanning player picks up the radio's signal:
                 //   The player is removed from the list of currently scanning players.
                 //   The player is added to the list of players currently tuned to the frequency of the broadcasting radio.
                 if (Math.random() < scanChance) {
-                    infoManager.setFrequency(p, radio.getFrequency().getFrequency());
+                    infoManager.setFrequency(player, radio.getFrequency().getFrequency());
                 }
             }
 
