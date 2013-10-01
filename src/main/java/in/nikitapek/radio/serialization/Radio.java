@@ -1,5 +1,6 @@
 package in.nikitapek.radio.serialization;
 
+import in.nikitapek.radio.util.RadioConfigurationContext;
 import in.nikitapek.radio.util.RadioUtil;
 
 import java.util.ArrayList;
@@ -90,18 +91,13 @@ public class Radio implements Comparable<Radio> {
     }
 
     public double getBroadcastClarity() {
-        switch (getBlock().getRelative(0, 1, 0).getType()) {
-            case LAPIS_BLOCK:
-                return 0.2;
-            case IRON_BLOCK:
-                return 0.4;
-            case GOLD_BLOCK:
-                return 0.65;
-            case DIAMOND_BLOCK:
-                return 1.0;
-            default:
-                return 0.1;
+        Double clarityValue = RadioConfigurationContext.signalClarityBlocks.get(getBlock().getRelative(0, 1, 0).getType());
+
+        if (clarityValue == null) {
+            return 0.1;
         }
+
+        return clarityValue;
     }
 
     public static ChatColor getChatColor(Block block) {
