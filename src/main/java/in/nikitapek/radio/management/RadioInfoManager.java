@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.amshulman.mbapi.management.InfoManager;
-import com.amshulman.mbapi.storage.TypeSafeStorageMap;
+import com.amshulman.mbapi.storage.TypeSafeDistributedStorageMap;
 import com.amshulman.mbapi.storage.TypeSafeStorageSet;
 import com.amshulman.mbapi.util.ConfigurationContext;
 import com.amshulman.mbapi.util.CoreTypes;
@@ -33,19 +33,19 @@ public class RadioInfoManager extends InfoManager {
 
     private final TypeSafeMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<>(new HashMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>>(), SupplementaryTypes.LARGEDECIMAL, SupplementaryTypes.TREESET);
 
-    private final TypeSafeStorageMap<Frequency> frequencies;
+    private final TypeSafeDistributedStorageMap<Frequency> frequencies;
     private final TypeSafeStorageSet<Radio> radios;
 
     public RadioInfoManager(ConfigurationContext configurationContext) {
         super(configurationContext);
 
         // Retrieves the storage map for "frequencies" and "radios".
-        frequencies = storageManager.getStorageMap("frequencies", SupplementaryTypes.FREQUENCY);
+        frequencies = storageManager.getDistributedStorageMap("frequencies", SupplementaryTypes.FREQUENCY);
         radios = storageManager.getStorageSet("radios", SupplementaryTypes.RADIO);
         registerPlayerInfoLoader(frequencies, FREQUENCY_FACTORY);
         configurationContext.plugin.registerEventHandler(new ListenerLoader());
 
-        radios.load();
+        radios.loadAll();
 
         // load any players already on the server -- in case of reload
         for (Player player : Bukkit.getOnlinePlayers()) {
