@@ -90,14 +90,18 @@ public class Radio implements Comparable<Radio> {
         return signExists(location, face) ? (Sign) location.getBlock().getRelative(face).getState() : null;
     }
 
-    public double getBroadcastClarity() {
-        Double clarityValue = RadioConfigurationContext.signalClarityBlocks.get(getBlock().getRelative(0, 1, 0).getType());
+    public double getBroadcastClarity(Block block) {
+        Double clarityValue = RadioConfigurationContext.signalClarityBlocks.get(block);
 
         if (clarityValue == null) {
             return 0.1;
         }
 
         return clarityValue;
+    }
+
+    public boolean isClarityBlock(Block block) {
+        return RadioConfigurationContext.signalClarityBlocks.containsKey(block);
     }
 
     public static ChatColor getChatColor(Block block) {
