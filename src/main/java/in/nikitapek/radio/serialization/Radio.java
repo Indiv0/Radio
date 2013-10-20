@@ -2,11 +2,6 @@ package in.nikitapek.radio.serialization;
 
 import in.nikitapek.radio.util.RadioConfigurationContext;
 import in.nikitapek.radio.util.RadioUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,8 +10,12 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.material.Wool;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Radio implements Comparable<Radio> {
-    private static final BlockFace[] FACES = { BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST };
+    private static final BlockFace[] FACES = {BlockFace.NORTH, BlockFace.WEST, BlockFace.SOUTH, BlockFace.EAST};
 
     private final Frequency freq;
     private final Location location;
@@ -47,7 +46,8 @@ public class Radio implements Comparable<Radio> {
         String message = "";
         int val;
 
-        faces: for (val = 0; val < FACES.length; val++) {
+        faces:
+        for (val = 0; val < FACES.length; val++) {
             if (!signExists(location, FACES[val])) {
                 continue;
             }

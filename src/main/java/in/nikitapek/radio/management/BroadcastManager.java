@@ -1,21 +1,5 @@
 package in.nikitapek.radio.management;
 
-import in.nikitapek.radio.serialization.Frequency;
-import in.nikitapek.radio.serialization.Radio;
-import in.nikitapek.radio.util.RadioConfigurationContext;
-
-import java.util.*;
-import java.util.Map.Entry;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
-import org.javatuples.Pair;
-
 import com.amshulman.mbapi.MbapiPlugin;
 import com.amshulman.mbapi.management.ChatManager;
 import com.amshulman.mbapi.util.CoreTypes;
@@ -25,6 +9,23 @@ import com.amshulman.typesafety.TypeSafeSet;
 import com.amshulman.typesafety.impl.TypeSafeListImpl;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.amshulman.typesafety.impl.TypeSafeSetImpl;
+import in.nikitapek.radio.serialization.Frequency;
+import in.nikitapek.radio.serialization.Radio;
+import in.nikitapek.radio.util.RadioConfigurationContext;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.javatuples.Pair;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class BroadcastManager implements Runnable {
     private final MbapiPlugin plugin;
@@ -48,7 +49,7 @@ public class BroadcastManager implements Runnable {
         TypeSafeSet<Player> scanningPlayers = new TypeSafeSetImpl<>(new HashSet<Player>(), CoreTypes.PLAYER);
         scanningPlayers.addAll(infoManager.getListeners(Frequency.SCANNING));
 
-        for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext();) {
+        for (Iterator<Radio> iter = infoManager.getRadios().iterator(); iter.hasNext(); ) {
             Radio radio = iter.next();
 
             // Retrieve a list of players currently tuned to the frequency of the broadcasting radio.

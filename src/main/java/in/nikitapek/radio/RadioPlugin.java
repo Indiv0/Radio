@@ -1,13 +1,11 @@
 package in.nikitapek.radio;
 
+import com.amshulman.mbapi.MbapiPlugin;
 import in.nikitapek.radio.commands.CommandRadio;
 import in.nikitapek.radio.events.RadioListener;
 import in.nikitapek.radio.management.BroadcastManager;
 import in.nikitapek.radio.util.RadioConfigurationContext;
-
 import org.bukkit.Bukkit;
-
-import com.amshulman.mbapi.MbapiPlugin;
 
 public class RadioPlugin extends MbapiPlugin {
 

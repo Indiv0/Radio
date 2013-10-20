@@ -1,16 +1,11 @@
 package in.nikitapek.radio.serialization;
 
+import com.amshulman.typesafety.gson.GsonTypeAdapter;
+import com.google.gson.*;
 import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
 import in.nikitapek.radio.util.SupplementaryTypes;
 
 import java.lang.reflect.Type;
-
-import com.amshulman.typesafety.gson.GsonTypeAdapter;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
 
 public class FrequencyTypeAdapter implements GsonTypeAdapter<Frequency> {
 

@@ -1,13 +1,12 @@
 package in.nikitapek.radio.commands;
 
+import com.amshulman.mbapi.commands.DelegatingCommand;
+import com.amshulman.mbapi.util.PermissionsEnum;
 import in.nikitapek.radio.commands.radio.CommandOff;
 import in.nikitapek.radio.commands.radio.CommandScan;
 import in.nikitapek.radio.commands.radio.CommandTune;
 import in.nikitapek.radio.util.Commands;
 import in.nikitapek.radio.util.RadioConfigurationContext;
-
-import com.amshulman.mbapi.commands.DelegatingCommand;
-import com.amshulman.mbapi.util.PermissionsEnum;
 
 public class CommandRadio extends DelegatingCommand {
     public CommandRadio(RadioConfigurationContext configurationContext) {

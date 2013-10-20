@@ -1,10 +1,10 @@
 package in.nikitapek.radio.events;
 
+import com.amshulman.typesafety.TypeSafeSet;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import in.nikitapek.radio.util.RadioConfigurationContext;
 import in.nikitapek.radio.util.RadioUtil;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -15,8 +15,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-
-import com.amshulman.typesafety.TypeSafeSet;
 
 public class RadioListener implements Listener {
     private final TypeSafeSet<Radio> radios;

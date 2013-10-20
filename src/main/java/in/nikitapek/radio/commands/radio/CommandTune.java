@@ -1,19 +1,17 @@
 package in.nikitapek.radio.commands.radio;
 
+import com.amshulman.mbapi.commands.PlayerOnlyCommand;
+import com.amshulman.typesafety.TypeSafeCollections;
+import com.amshulman.typesafety.TypeSafeList;
 import in.nikitapek.radio.commands.CommandRadio.RadioCommands;
 import in.nikitapek.radio.management.RadioInfoManager;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.util.RadioConfigurationContext;
 import in.nikitapek.radio.util.RadioUtil;
 import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.amshulman.mbapi.commands.PlayerOnlyCommand;
-import com.amshulman.typesafety.TypeSafeCollections;
-import com.amshulman.typesafety.TypeSafeList;
 
 public class CommandTune extends PlayerOnlyCommand {
     private final RadioInfoManager infoManager;

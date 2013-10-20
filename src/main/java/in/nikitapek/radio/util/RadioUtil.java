@@ -2,12 +2,12 @@ package in.nikitapek.radio.util;
 
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
-
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 
 public class RadioUtil {
-    private RadioUtil() {}
+    private RadioUtil() {
+    }
 
     public static boolean signHasValidFrequency(Location location, BlockFace face) {
         // Confirms that the requested side of the radio has a sign.
@@ -51,8 +51,7 @@ public class RadioUtil {
     public static ScaleInvariantBigDecimal getFrequencyFromString(String stringFrequency) {
         try {
             return new ScaleInvariantBigDecimal(stringFrequency);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return null;
         }
     }
