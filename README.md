@@ -7,8 +7,8 @@ It is meant to be run on a server with a global chat limit (i.e. players can onl
 
 ### Download
 
-You can find various releases of the plugin at my [maven repository](http://maven.nikitapek.in/repository/internal/in/nikitapek/radio/).
-Alternatively, you can find downloads with detailed changelog information in the [files](http://dev.bukkit.org/bukkit-plugins/radio/files/) section of the plugin's BukkitDev page.
+You can find the latest builds of the plugin at my [ci](http://ci.nikitapek.in/job/radio/).
+You can find stable downloads with detailed changelog information in the [files](http://dev.bukkit.org/bukkit-plugins/radio/files/) section of the plugin's BukkitDev page.
 
 ### Installation
 
@@ -26,9 +26,8 @@ Radio does not have a formal API at the moment, but you can download the latest 
 
     <repositories>
       <repository>
-        <id>internal</id>
-        <name>Indiv0's Repo</name>
-        <url>http://maven.nikitapek.in/repository/internal/</url>
+        <id>indiv0's Repo</id>
+        <url>http://repo.nikitapek.in/maven/releases</url>
       </repository>
     </repositories>
 
@@ -37,5 +36,5 @@ Radio does not have a formal API at the moment, but you can download the latest 
     <dependency>
       <groupId>in.nikitapek</groupId>
       <artifactId>radio</artifactId>
-      <version>1.12.0</version>
+      <version>1.16.0</version>
     </dependency>
