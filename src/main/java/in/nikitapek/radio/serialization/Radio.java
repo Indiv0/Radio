@@ -91,7 +91,7 @@ public class Radio implements Comparable<Radio> {
     }
 
     public double getBroadcastClarity(Block block) {
-        Double clarityValue = RadioConfigurationContext.signalClarityBlocks.get(block);
+        Double clarityValue = RadioConfigurationContext.signalClarityBlocks.get(block.getType());
 
         if (clarityValue == null) {
             return 0.1;
@@ -101,7 +101,7 @@ public class Radio implements Comparable<Radio> {
     }
 
     public boolean isClarityBlock(Block block) {
-        return RadioConfigurationContext.signalClarityBlocks.containsKey(block);
+        return RadioConfigurationContext.signalClarityBlocks.containsKey(block.getType());
     }
 
     public static ChatColor getChatColor(Block block) {
