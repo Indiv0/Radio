@@ -24,7 +24,7 @@
         <repository>
             <id>minerap-repo</id>
             <name>MinerAp</name>
-            <url>https://www.minerap.com/repository/</url>
+            <url>http://repo.minerap.com</url>
         </repository>
     </repositories>
 
