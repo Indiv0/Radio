@@ -66,11 +66,12 @@ public class RadioInfoManager extends InfoManager {
         radios.unloadAll();
     }
 
-    private Frequency getFrequency(String playerName) {
-        if (frequencies.get(playerName) == null) {
-            frequencies.load(playerName, FREQUENCY_FACTORY);
+    private Frequency getFrequency(Player player) {
+        String playerUUID = player.getUniqueId().toString();
+        if (frequencies.get(playerUUID) == null) {
+            frequencies.load(playerUUID, FREQUENCY_FACTORY);
         }
-        return frequencies.get(playerName);
+        return frequencies.get(playerUUID);
     }
 
     public TypeSafeSet<Radio> getRadios() {
@@ -79,7 +80,7 @@ public class RadioInfoManager extends InfoManager {
 
     public void setFrequency(Player player, ScaleInvariantBigDecimal frequency) {
         // Retrieves the frequency the player is currently tuned to.
-        Frequency f = getFrequency(player.getName());
+        Frequency f = getFrequency(player);
 
         // Gets the list of players currently listening on the frequency the player is tuned to.
         TypeSafeSet<Player> listeners = listenerMap.get(f.getFrequency());
@@ -112,7 +113,7 @@ public class RadioInfoManager extends InfoManager {
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onPlayerFinishLogin(PlayerLoginEvent event) {
             if (Result.ALLOWED.equals(event.getResult())) {
-                ScaleInvariantBigDecimal frequency = getFrequency(event.getPlayer().getName()).getFrequency();
+                ScaleInvariantBigDecimal frequency = getFrequency(event.getPlayer()).getFrequency();
                 TypeSafeSet<Player> listeners = listenerMap.get(frequency);
 
                 if (listeners == null) {
@@ -126,7 +127,7 @@ public class RadioInfoManager extends InfoManager {
 
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onPlayerQuit(PlayerQuitEvent event) {
-            listenerMap.get(getFrequency(event.getPlayer().getName()).getFrequency()).remove(event.getPlayer());
+            listenerMap.get(getFrequency(event.getPlayer()).getFrequency()).remove(event.getPlayer());
         }
     }
 }
