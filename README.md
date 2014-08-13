@@ -1,4 +1,4 @@
-# Radio [![Travis CI](https://secure.travis-ci.org/Indiv0/radio.png)](http://travis-ci.org/#!/Indiv0/radio)
+# Radio [![Travis CI](https://secure.travis-ci.org/MinerAp/radio.png)](http://travis-ci.org/#!/MinerAp/radio)
 
 Radio is a plugin for Bukkit which allows for player-created radios for the purpose of long-distance message transmissions.
 It is meant to be run on a server with a global chat limit (i.e. players can only talk to those nearby them), but this is not required for the plugin.
