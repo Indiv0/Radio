@@ -18,7 +18,7 @@ public class RadioPlugin extends MbapiPlugin {
 
         // Schedules a broadcast task to handle radio message broadcasting.
         Runnable broadcast = new BroadcastManager(configurationContext);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, broadcast, 20L, 100L);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, broadcast, 20L, configurationContext.transmitDelay);
 
         super.onEnable();
     }

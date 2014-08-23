@@ -31,6 +31,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final boolean wallRadioPersist;
     public final boolean userRadioPersist;
     public final boolean transmitEmptyMessages;
+    public final long transmitDelay;
 
     public RadioConfigurationContext(MbapiPlugin plugin) {
         super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplementaryTypes.TREESET, SupplementaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
@@ -67,5 +68,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         wallRadioPersist = configYaml.getBoolean("wallRadioPersist", true);
         userRadioPersist = configYaml.getBoolean("userRadioPersist", true);
         transmitEmptyMessages = configYaml.getBoolean("transmitEmptyMessages", false);
+
+        transmitDelay = configYaml.getLong("transmitDelay", 100L);
     }
 }

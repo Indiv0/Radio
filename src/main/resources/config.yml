@@ -50,3 +50,7 @@ userRadioPersist: true
 
 ## Transmit or not transmit empty messages from radios.
 transmitEmptyMessages: false
+
+## The delay between radio broadcasts, measured in ticks.
+# Default: 100
+transmitDelay: 100
