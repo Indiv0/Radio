@@ -28,6 +28,11 @@
             <artifactId>mbapi</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!-- jbcrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.3m</version>
         <!-- Tests -->
         <dependency>
             <groupId>junit</groupId>
