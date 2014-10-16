@@ -5,16 +5,13 @@ import in.nikitapek.radio.serialization.Radio;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class RadioUtil {
     private RadioUtil() {
     }
 
     public static boolean signHasValidFrequency(Location location, BlockFace face) {
-        // Confirms that the requested side of the radio has a sign.
-        if (!Radio.signExists(location, face)) {
-            return false;
-        }
-
         // Checks to make sure there is a sign on that face of the radio.
         if (Radio.getSign(location, face) == null) {
             return false;
