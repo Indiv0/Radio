@@ -32,6 +32,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final boolean userRadioPersist;
     public final boolean transmitEmptyMessages;
     public final long transmitDelay;
+    public final String privateKey;
 
     public RadioConfigurationContext(MbapiPlugin plugin) {
         super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplementaryTypes.TREESET, SupplementaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
@@ -70,5 +71,7 @@ public final class RadioConfigurationContext extends ConfigurationContext {
         transmitEmptyMessages = configYaml.getBoolean("transmitEmptyMessages", false);
 
         transmitDelay = configYaml.getLong("transmitDelay", 100L);
+
+        privateKey = configYaml.getString("privateKey", "CHANGE_ME");
     }
 }
