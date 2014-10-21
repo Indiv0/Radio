@@ -4,26 +4,21 @@ import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
-
-import org.mindrot.jbcrypt.BCrypt;
+import org.bukkit.block.Sign;
 
 public class RadioUtil {
     private RadioUtil() {
     }
 
     public static boolean signHasValidFrequency(Location location, BlockFace face) {
+        Sign sign = Radio.getSign(location, face);
+
         // Checks to make sure there is a sign on that face of the radio.
-        if (Radio.getSign(location, face) == null) {
+        if (sign == null) {
             return false;
         }
 
-        ScaleInvariantBigDecimal frequency = getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0));
-
-        if (frequency == null) {
-            return false;
-        }
-
-        return Frequency.OFF.compareTo(frequency) < 0;
+        return hasTags(sign.getLine(0));
     }
 
     // Tag related methods
@@ -38,23 +33,8 @@ public class RadioUtil {
                 && "]".equals(frequency.substring(frequency.length() - 1));
     }
 
-    private static String stripTags(String frequency) {
+    public static String stripTags(String frequency) {
         // Returns the frequency without the marker tags.
         return frequency.substring(1, frequency.length() - 1);
-    }
-
-    // Getter and Setter Methods
-
-    public static ScaleInvariantBigDecimal getFrequencyFromString(String stringFrequency) {
-        try {
-            return new ScaleInvariantBigDecimal(stringFrequency);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    public static ScaleInvariantBigDecimal getFrequencyFromStringWithoutTags(String stringFrequency) {
-        // Returns the frequency without the tags attached.
-        return hasTags(stringFrequency) ? getFrequencyFromString(stripTags(stringFrequency)) : null;
     }
 }

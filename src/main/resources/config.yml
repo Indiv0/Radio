@@ -54,7 +54,3 @@ transmitEmptyMessages: false
 ## The delay between radio broadcasts, measured in ticks.
 # Default: 100
 transmitDelay: 100
-
-## The private key for the server, used when calculating the unique frequency
-## of a radio.
-privateKey: "CHANGE_ME"

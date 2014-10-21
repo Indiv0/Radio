@@ -15,9 +15,18 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.logging.Level;
 import java.util.Map;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 public final class RadioConfigurationContext extends ConfigurationContext {
 
@@ -32,12 +41,10 @@ public final class RadioConfigurationContext extends ConfigurationContext {
     public final boolean userRadioPersist;
     public final boolean transmitEmptyMessages;
     public final long transmitDelay;
-    public final String privateKey;
+    public final String privateSalt;
 
     public RadioConfigurationContext(MbapiPlugin plugin) {
         super(plugin, new TypeSafeSetTypeAdapter<Radio>(SupplementaryTypes.TREESET, SupplementaryTypes.RADIO), new LocationTypeAdapter(), new FrequencyTypeAdapter());
-
-        infoManager = new RadioInfoManager(this);
 
         plugin.saveDefaultConfig();
 
@@ -72,6 +79,40 @@ public final class RadioConfigurationContext extends ConfigurationContext {
 
         transmitDelay = configYaml.getLong("transmitDelay", 100L);
 
-        privateKey = configYaml.getString("privateKey", "CHANGE_ME");
+        // Retrieve the bcrypt salt, generating it if necessary.
+        File saltFile = new File("./plugins/Radio/salt");
+
+        if (!saltFile.exists()) {
+            try {
+                saltFile.createNewFile();
+            } catch (IOException e) {
+                Bukkit.getLogger().log(Level.WARNING, "Failed to create salt file");
+            }
+        }
+
+        String tmpSalt = "";
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(saltFile.getAbsoluteFile()));
+            tmpSalt = in.readLine();
+            in.close();
+        } catch (IOException e) {
+            Bukkit.getLogger().log(Level.WARNING, "Failed to read salt file");
+        }
+
+        if ("".equals(tmpSalt) || tmpSalt == null) {
+            // Generate a secure BCrypt salt, using 12 rounds.
+            tmpSalt = BCrypt.gensalt(12);
+
+            try {
+                BufferedWriter out = new BufferedWriter(new FileWriter(saltFile.getAbsoluteFile()));
+                out.write(tmpSalt);
+                out.close();
+            } catch (IOException e) {
+                Bukkit.getLogger().log(Level.WARNING, "Failed to write salt file");
+            }
+        }
+        privateSalt = tmpSalt;
+
+        infoManager = new RadioInfoManager(this);
     }
 }

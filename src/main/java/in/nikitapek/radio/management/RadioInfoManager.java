@@ -3,7 +3,6 @@ package in.nikitapek.radio.management;
 import com.amshulman.mbapi.management.InfoManager;
 import com.amshulman.mbapi.storage.TypeSafeDistributedStorageMap;
 import com.amshulman.mbapi.storage.TypeSafeStorageSet;
-import com.amshulman.mbapi.util.ConfigurationContext;
 import com.amshulman.mbapi.util.CoreTypes;
 import com.amshulman.typesafety.TypeSafeMap;
 import com.amshulman.typesafety.TypeSafeSet;
@@ -12,6 +11,7 @@ import com.amshulman.typesafety.impl.TypeSafeSetImpl;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import in.nikitapek.radio.util.FrequencyConstructorFactory;
+import in.nikitapek.radio.util.RadioConfigurationContext;
 import in.nikitapek.radio.util.ScaleInvariantBigDecimal;
 import in.nikitapek.radio.util.SupplementaryTypes;
 import org.bukkit.Bukkit;
@@ -27,15 +27,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class RadioInfoManager extends InfoManager {
-    private static final FrequencyConstructorFactory FREQUENCY_FACTORY = new FrequencyConstructorFactory();
+    public static FrequencyConstructorFactory FREQUENCY_FACTORY;
 
     private final TypeSafeMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>> listenerMap = new TypeSafeMapImpl<>(new HashMap<ScaleInvariantBigDecimal, TypeSafeSet<Player>>(), SupplementaryTypes.LARGEDECIMAL, SupplementaryTypes.TREESET);
 
     private final TypeSafeDistributedStorageMap<Frequency> frequencies;
     private final TypeSafeStorageSet<Radio> radios;
 
-    public RadioInfoManager(ConfigurationContext configurationContext) {
+    public RadioInfoManager(RadioConfigurationContext configurationContext) {
         super(configurationContext);
+
+        FREQUENCY_FACTORY = new FrequencyConstructorFactory(configurationContext);
 
         // Retrieves the storage map for "frequencies" and "radios".
         frequencies = storageManager.getDistributedStorageMap("frequencies", SupplementaryTypes.FREQUENCY);

@@ -34,14 +34,14 @@ public class CommandTune extends PlayerOnlyCommand {
             return true;
         }
 
-        ScaleInvariantBigDecimal frequency = RadioUtil.getFrequencyFromString(args.get(0));
+        Frequency frequency = infoManager.FREQUENCY_FACTORY.getFrequencyFromString(args.get(0));
 
-        if (frequency == null || Frequency.OFF.compareTo(frequency) >= 0) {
+        if (frequency == null) {
             player.sendMessage("Failed to set frequency. \"" + args.get(0) + "\" is an invalid frequency.");
             return false;
         }
 
-        infoManager.setFrequency(player, frequency);
+        infoManager.setFrequency(player, frequency.getFrequency());
         player.sendMessage("Successfully set frequency to: " + ChatColor.YELLOW + frequency);
         return true;
     }

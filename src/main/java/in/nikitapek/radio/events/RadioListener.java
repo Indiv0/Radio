@@ -1,6 +1,7 @@
 package in.nikitapek.radio.events;
 
 import com.amshulman.typesafety.TypeSafeSet;
+import in.nikitapek.radio.management.RadioInfoManager;
 import in.nikitapek.radio.serialization.Frequency;
 import in.nikitapek.radio.serialization.Radio;
 import in.nikitapek.radio.util.RadioConfigurationContext;
@@ -61,8 +62,16 @@ public class RadioListener implements Listener {
             if (!RadioUtil.signHasValidFrequency(location, face)) {
                 continue;
             }
+
+            // Gets the frequency of the radio.
+            String frequencyLine = Radio.getSign(location, face).getLine(0);
+
+            if (RadioUtil.hasTags(frequencyLine)) {
+                frequencyLine = RadioUtil.stripTags(frequencyLine);
+            }
+
             // Adds the radio to the radios list.
-            Radio radio = new Radio(location, new Frequency(RadioUtil.getFrequencyFromStringWithoutTags(Radio.getSign(location, face).getLine(0))));
+            Radio radio = new Radio(location, RadioInfoManager.FREQUENCY_FACTORY.getFrequencyFromString(frequencyLine));
 
             if (getRadioByLocation(radio.getLocation()) != null) {
                 radios.remove(getRadioByLocation(radio.getLocation()));
