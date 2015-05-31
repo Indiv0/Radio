@@ -140,7 +140,7 @@ public class BroadcastManager implements Runnable {
                 block = block.getRelative(0, 1, 0);
                 ++ironBarCount;
             }
-            double rangeExtension = Math.pow(1.02299172025d, ironBarCount);
+            double rangeExtension = Math.pow(1.053611228986714, ironBarCount);
             innerRadius *= rangeExtension;
             outerRadius *= rangeExtension;
 
